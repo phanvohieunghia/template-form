@@ -1,12 +1,8 @@
+import { BaseRoutes } from './routes'
 import './styles'
 
 function App() {
-
-  return (
-    <div className='bg-red-500'>
-    App
-    </div>
-  )
+  return <BaseRoutes />
 }
 
 export default App
