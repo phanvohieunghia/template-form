@@ -6,7 +6,7 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
   return (
     <>
       <Header />
-      {children}
+      <main className='mt-[73px]'>{children}</main>
     </>
   )
 }

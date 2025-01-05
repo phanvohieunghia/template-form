@@ -1,0 +1,68 @@
+.button {
+  @apply inline-flex min-h-8 items-center justify-center gap-2 rounded border px-[15px] py-1 text-[14px] text-sm leading-[22px] transition-colors duration-300;
+}
+.button.size-small,
+a.size-small {
+  @apply min-h-6 px-[7px] py-0 text-sm;
+}
+.button.size-large {
+  @apply min-h-10 px-[15px] py-[7px] text-base;
+}
+
+.button.icon-position-end {
+  @apply flex-row-reverse;
+}
+.button.icon-position-top {
+  @apply flex-col gap-0;
+}
+
+.button.type-default {
+  @apply hover:border-blue-500 hover:text-blue-500 active:border-blue-700 active:text-blue-700;
+}
+.button.type-primary {
+  @apply border-blue-500 bg-blue-500 text-white hover:border-blue-400 hover:bg-blue-400 hover:text-white active:border-blue-600 active:bg-blue-600;
+}
+.button.type-text {
+  @apply border-transparent bg-transparent hover:border-transparent hover:bg-gray-100 active:bg-gray-200;
+}
+.button.type-link {
+  @apply border-transparent bg-transparent text-blue-600 hover:border-transparent hover:text-blue-500 active:text-blue-700;
+}
+
+.button.disabled {
+  @apply cursor-not-allowed border-gray-400 bg-gray-200 text-gray-400 hover:border-gray-400 hover:bg-gray-200 hover:text-gray-400;
+}
+.button.loading {
+  @apply cursor-auto opacity-65;
+}
+
+.button.shape-circle {
+  @apply min-w-8 rounded-full px-0;
+}
+.button.shape-circle.size-small {
+  @apply min-w-6;
+}
+.button.shape-circle.size-large {
+  @apply min-w-10;
+}
+
+.button.shape-round {
+  @apply min-w-8 px-0;
+}
+.button.shape-round.size-small {
+  @apply min-w-8 rounded-3xl px-0;
+}
+.button.shape-round.size-large {
+  @apply min-w-8 rounded-[40px] px-0;
+}
+
+.button .svg-default {
+  @apply fill-black;
+}
+.button .svg-primary {
+  @apply fill-white;
+}
+
+.button.block {
+  @apply w-full;
+}
