@@ -16,8 +16,12 @@ export const Footer = () => {
             chính xác, giúp bạn xử lý công việc hiệu quả hơn.
           </p>
           <div className='mt-10 flex space-x-3'>
-            <img style={{ width: 100, objectFit: 'contain' }} src={BoCongThuongLogo} alt='Da thong bao bo cong thuong' />
-            <img style={{ width: 80, objectFit: 'contain' }} src={DMCAProtectedLogo} alt='DMCA Protected' />
+            <img
+              style={{ width: 100, objectFit: 'contain' as React.CSSProperties['objectFit'] }}
+              src={BoCongThuongLogo}
+              alt='Da thong bao bo cong thuong'
+            />
+            <img style={{ width: 80, objectFit: 'contain' as React.CSSProperties['objectFit'] }} src={DMCAProtectedLogo} alt='DMCA Protected' />
           </div>
         </div>
 
