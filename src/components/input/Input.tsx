@@ -1,5 +1,5 @@
-import EyeIcon from '@/assets/images/svgs/eye.svg'
-import EyeOffIcon from '@/assets/images/svgs/eye_off.svg'
+import EyeIcon from '@/assets/svgs/eye.svg'
+import EyeOffIcon from '@/assets/svgs/eye_off.svg'
 import clsx from 'clsx'
 import { ChangeEvent, CSSProperties, forwardRef, KeyboardEvent, useState } from 'react'
 import styles from './Input.module.css'

@@ -1,4 +1,4 @@
-import SearchIcon from '@/assets/images/svgs/search.svg'
+import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, TypeWriter } from '@/components'
 
 export const MainPage = () => {

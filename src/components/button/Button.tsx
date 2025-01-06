@@ -1,4 +1,4 @@
-import LoadingIcon from '@/assets/images/svgs/loading.svg'
+import LoadingIcon from '@/assets/svgs/loading.svg'
 import clsx from 'clsx'
 import { CSSProperties, FC, MouseEvent, PropsWithChildren, ReactNode } from 'react'
 import { Link } from 'react-router-dom'

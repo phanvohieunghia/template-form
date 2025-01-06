@@ -1,9 +1,9 @@
-import LogoIcon from '@/assets/images/svgs/logo.svg'
+import LogoIcon from '@/assets/svgs/logo.svg'
 import { Button } from '@/components'
 
 export const Header = () => {
   return (
-    <header className='mx-auto w-full max-w-[1280px]'>
+    <header className='mx-auto w-full max-w-screen-xl'>
       <div className='fixed left-0 right-0 top-0 flex justify-between border-b p-4'>
         <div className='flex items-center'>
           <LogoIcon fontSize={40} />

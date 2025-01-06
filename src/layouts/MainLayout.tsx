@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
-import { Header } from '../components'
+import { Footer, Header } from '../components'
 
 export const MainLayout: FC<PropsWithChildren> = (props) => {
   const { children } = props
@@ -7,6 +7,7 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
     <>
       <Header />
       <main className='mt-[73px]'>{children}</main>
+      <Footer />
     </>
   )
 }
