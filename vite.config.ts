@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     server: {
-      port: Number(env.VITE_PORT) || 3000,
+      port: Number(env.VITE_PORT) || 3146,
       open: true, // auto open default browser
     },
     resolve: {
