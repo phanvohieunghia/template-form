@@ -4,10 +4,9 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
-  },
+  presets: [
+    require('./tailwind.config.presets')
+  ],
   darkMode: ['selector'],
   plugins: [],
 }
-

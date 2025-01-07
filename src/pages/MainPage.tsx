@@ -3,7 +3,7 @@ import { Button, Input, TypeWriter } from '@/components'
 
 export const MainPage = () => {
   return (
-    <div>
+    <>
       <h1 className='space-y-4 p-4 text-center text-6xl'>
         <div className='font-bold text-gray-600'>
           Hệ thống <span className='text-green-600'>250.000+</span> biểu mẫu
@@ -25,6 +25,6 @@ export const MainPage = () => {
           }
         />
       </div>
-    </div>
+    </>
   )
 }
