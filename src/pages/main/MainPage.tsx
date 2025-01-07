@@ -1,5 +1,6 @@
 import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, TypeWriter } from '@/components'
+import styles from './main.module.css'
 
 export const MainPage = () => {
   return (
@@ -14,12 +15,13 @@ export const MainPage = () => {
       </h1>
       <p className='m-6 text-center'>Được phát hành bởi các Luật sư và chuyên gia pháp luật</p>
 
-      <div className='mx-auto mt-10 max-w-[500px] text-center'>
+      <div className='mx-auto mt-10 max-w-[625px] p-4 text-center'>
         <Input
-          style={{ padding: 20 }}
+          style={{ boxShadow: '0 14px 14px 0px #BFC5E040' }}
+          size='large'
           placeholder='Bạn đang tìm văn bản nào?'
           extra={
-            <Button icon={<SearchIcon />} style={{ minWidth: 120 }}>
+            <Button icon={<SearchIcon />} className={styles['button-search']} type='primary'>
               Tìm ngay
             </Button>
           }
