@@ -6,8 +6,8 @@
 }
 
 .input .wrapper {
-  @apply relative flex w-full items-center gap-2 gap-x-1 rounded-md border border-stone-400 bg-white px-4 text-sm text-slate-800 transition-all duration-200 ease-linear;
-  @apply focus-within:border-t-[1px] focus-within:border-solid focus-within:border-[#49d3ff] focus-within:shadow-[0px_0px_8px_0px_#03A8DC];
+  @apply relative flex w-full items-center gap-2 gap-x-1 rounded-md border border-stone-400 bg-white pl-4 text-sm text-slate-800 transition-all duration-200 ease-linear;
+  @apply focus-within:border-green-600;
 }
 .input.position-top .wrapper {
   @apply mt-1;

@@ -1,0 +1,11 @@
+.wrapper {
+  @apply border-b-[1px] border-black p-3;
+}
+
+.wrapper h4 {
+  @apply inline-block border-b-[1px] border-black;
+}
+
+.wrapper > div {
+  @apply mt-4 flex items-end justify-start gap-4;
+}
