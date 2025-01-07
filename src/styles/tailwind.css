@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer components {
   .scrollbar-thin::-webkit-scrollbar {
     @apply w-1;
   }
