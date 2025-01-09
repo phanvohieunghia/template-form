@@ -1,6 +1,7 @@
 import { Button } from '@/components'
 import { EVENT_NAME, EventManager } from '@/utils'
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { BaseModal } from '../base'
 
 type State = {
@@ -37,15 +38,17 @@ export const TestModal = () => {
 
   return (
     <>
-      {modalState.isOpen && (
-        <BaseModal active={modalState.isActive} maskClosable escKeyboard>
-          <BaseModal.Header title={modalState.data?.title || ''} onClose={closeModal} />
-          <BaseModal.Body>{modalState.data?.content}</BaseModal.Body>
-          <BaseModal.Footer>
-            <Footer closeModal={closeModal} />
-          </BaseModal.Footer>
-        </BaseModal>
-      )}
+      {modalState.isOpen &&
+        createPortal(
+          <BaseModal active={modalState.isActive} maskClosable escKeyboard>
+            <BaseModal.Header title={modalState.data?.title || ''} onClose={closeModal} />
+            <BaseModal.Body>{modalState.data?.content}</BaseModal.Body>
+            <BaseModal.Footer>
+              <Footer closeModal={closeModal} />
+            </BaseModal.Footer>
+          </BaseModal>,
+          document.body,
+        )}
     </>
   )
 }
