@@ -13,14 +13,14 @@ const on = <T>(eventName: string, handler: EventHandler<T>): void => {
 const off = <T>(eventName: string, handler: EventHandler<T>): void => {
   if (!events[eventName]) return
 
-  events[eventName] = events[eventName].filter((h) => h !== handler)
+  events[eventName] = events[eventName].filter((h) => h !== (handler as EventListener))
   window.removeEventListener(eventName, handler as EventListener)
 }
 
-const emit = <T>(eventName: string, payload: T): void => {
+const emit = <T>(eventName: string, payload?: T): void => {
   if (!events[eventName]) return
 
-  const eventObj = new CustomEvent<T>(eventName, { detail: payload })
+  const eventObj = new CustomEvent<T>(eventName, { detail: payload || ({} as T) })
   window.dispatchEvent(eventObj)
 }
 
