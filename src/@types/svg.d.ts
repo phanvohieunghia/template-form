@@ -6,5 +6,6 @@ declare namespace JSX {
     style?: CSSProperties
     fill?: string
     fontSize?: string | number
+    stroke?: string | number
   }
 }

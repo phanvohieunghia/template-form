@@ -1,0 +1,6 @@
+.title-1 {
+  @apply flex items-center;
+}
+.title-1 > span {
+  @apply ml-2 text-xl text-gray-500;
+}
