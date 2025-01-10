@@ -1,11 +1,24 @@
 import clsx from 'clsx'
 import debounce from 'lodash/debounce'
-import { ButtonHTMLAttributes, cloneElement, FC, PropsWithChildren, ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  ButtonHTMLAttributes,
+  cloneElement,
+  FC,
+  HTMLAttributes,
+  PropsWithChildren,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { createPortal } from 'react-dom'
+import { PopoverContentProps } from './interfaces'
 
 type Props = PropsWithChildren & {
   trigger?: 'hover' | 'focus' | 'click'
-  content?: React.ReactNode
+  content?: React.ReactNode | JSX.Element
 }
 
 type State = {
@@ -20,7 +33,7 @@ export const Popover: FC<Props> = (props) => {
   const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
   const [popoverState, setPopoverState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false })
 
-  const childRef = useRef<HTMLButtonElement>(null)
+  const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
   const popoverRef = useRef<HTMLDivElement>(null)
   const blurRef = useRef<boolean>(false)
 
@@ -46,6 +59,7 @@ export const Popover: FC<Props> = (props) => {
       handleActivePopover()
     }
   }
+
   const handleActivePopover = useCallback(() => {
     const timeout = setTimeout(() => {
       updatePosition()
@@ -81,10 +95,14 @@ export const Popover: FC<Props> = (props) => {
 
   const updatePosition = () => {
     if (childRef.current) {
-      const childRect = childRef.current.getBoundingClientRect()
-      console.log(closestScrollableElement.scrollLeft, childRect.left, childRect.width, popoverRef.current?.offsetWidth)
+      let childElement = childRef.current
+      if (childElement && childElement.tagName.toLowerCase() === 'input' && childElement.parentElement?.parentElement) {
+        childElement = childElement.parentElement.parentElement as HTMLButtonElement
+      }
+
+      const childRect = childElement.getBoundingClientRect()
       setPosition({
-        top: closestScrollableElement.scrollTop + childRect.bottom + 6,
+        top: closestScrollableElement.scrollTop + childRect.bottom + 10,
         left: closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popoverRef.current?.offsetWidth ?? 0) / 2,
       })
     }
@@ -112,18 +130,37 @@ export const Popover: FC<Props> = (props) => {
     }
   }, [popoverState.isActive])
 
-  const clonedElement = useMemo(() => {
+  const clonedChildren = useMemo(() => {
+    if (!children) return null
     const eventHandlersObject = {
       click: { onClick: handleClick },
       focus: { onFocus: handleFocus, onBlur: handleBlur },
       hover: { onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
     }
-
     return cloneElement(children as ReactElement<ButtonHTMLAttributes<HTMLButtonElement> & { ref?: React.Ref<HTMLButtonElement> }>, {
       ...eventHandlersObject[trigger],
-      ref: childRef,
+      ref: (e) => {
+        if (childRef.current !== e) {
+          childRef.current = e
+        }
+        if (typeof children === 'object' && 'ref' in children) {
+          if (typeof children.ref === 'function') {
+            children.ref(e)
+          } else if (children.ref) {
+            ;(children.ref as React.MutableRefObject<HTMLButtonElement | null>).current = e
+          }
+        }
+      },
     })
   }, [children, trigger])
+
+  const clonedContent = useMemo(() => {
+    if (!content) return null
+    return cloneElement(content as ReactElement<HTMLAttributes<HTMLElement> & PopoverContentProps>, {
+      onClose: handleClick,
+    })
+  }, [content])
+  console.log(clonedContent)
 
   const closestScrollableElement = useMemo(() => {
     return closestScrollable(childRef.current)
@@ -149,14 +186,14 @@ export const Popover: FC<Props> = (props) => {
 
   return (
     <>
-      {clonedElement}
+      {clonedChildren}
       {popoverState.isOpen &&
-        content &&
+        clonedContent &&
         createPortal(
           <div>
             <div
               ref={popoverRef}
-              className={clsx('absolute z-10', popoverState.isActive ? 'animate-fade-in' : 'animate-fade-out')}
+              className={clsx('absolute z-10 overflow-hidden', popoverState.isActive ? 'animate-fade-in' : 'animate-fade-out')}
               style={{
                 visibility: popoverState.isDisplay ? 'visible' : 'hidden',
                 border: '1px solid #ccc',
@@ -167,7 +204,7 @@ export const Popover: FC<Props> = (props) => {
                 left: position.left,
               }}
             >
-              {content}
+              {clonedContent}
             </div>
           </div>,
           closestScrollableElement === document.documentElement ? document.body : document.documentElement,
