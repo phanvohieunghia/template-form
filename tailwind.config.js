@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -5,8 +6,8 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   presets: [
-    require('./tailwind.config.presets')
+    require('./src/configs/tailwind/presets.config')
   ],
   darkMode: ['selector'],
-  plugins: [],
+  plugins: [require('./src/configs/tailwind/plugin.config')],
 }

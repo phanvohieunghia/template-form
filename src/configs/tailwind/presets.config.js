@@ -47,13 +47,13 @@ export default {
         }
       },
       animation: {
-        'fade-in': 'fadeIn 0.3s ease-in forwards',
-        'fade-in-up': 'fadeInUp 0.3s ease-in forwards',
-        'fade-out': 'fadeOut 0.3s ease-out forwards',
-        'zoom-in': 'zoomIn 0.3s ease-in forwards',
-        'fadeInUp-zoomIn': 'fadeInUp-zoomIn 0.3s ease-in forwards',
-        'fadeOutUp-zoomOut': 'fadeOutUp-zoomOut 0.3s ease-in forwards'
-      }
+        'fade-in': 'fadeIn 0.1s ease-in forwards',
+        'fade-in-up': 'fadeInUp 0.1s ease-in forwards',
+        'fade-out': 'fadeOut 0.1s ease-out forwards',
+        'zoom-in': 'zoomIn 0.1s ease-in forwards',
+        'fadeInUp-zoomIn': 'fadeInUp-zoomIn 0.1s ease-in forwards',
+        'fadeOutUp-zoomOut': 'fadeOutUp-zoomOut 0.1s ease-in forwards'
+      },
     },
   },
 }

@@ -25,7 +25,7 @@ export const Popover: FC<Props> = (props) => {
       const timeout = setTimeout(() => {
         setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
         clearTimeout(timeout)
-      }, 100)
+      }, 0)
     }
   }
 
@@ -125,7 +125,6 @@ export const Popover: FC<Props> = (props) => {
       onClose: handleClick,
     })
   }, [content])
-  // console.log('popover', position)
 
   return (
     <>

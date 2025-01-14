@@ -64,7 +64,7 @@ export const Tooltip = (props: Props) => {
       const timeout = setTimeout(() => {
         setState((prev) => ({ ...prev, isActive: false }))
         clearTimeout(timeout)
-      }, 100)
+      }, 0)
     }
   }
 
@@ -74,7 +74,7 @@ export const Tooltip = (props: Props) => {
     else
       timeout = setTimeout(() => {
         setState((prev) => ({ ...prev, isDisplay: false }))
-      }, 200)
+      }, 100)
 
     return () => {
       if (timeout) clearTimeout(timeout)
@@ -118,7 +118,7 @@ export const Tooltip = (props: Props) => {
       },
     })
   }, [children])
-  console.log('tooltip', position)
+
   return (
     <>
       {clonedChildren}
@@ -129,7 +129,7 @@ export const Tooltip = (props: Props) => {
             <div
               ref={popupRef}
               className={clsx(
-                'absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-[6px] bg-black p-1 px-2 text-white duration-100',
+                'animate-duration-100 absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-[6px] bg-black p-1 px-2 text-white',
                 state.isActive ? 'animate-fade-in' : 'animate-fade-out',
               )}
               style={{
