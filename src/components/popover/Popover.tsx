@@ -14,6 +14,7 @@ import {
   useState,
 } from 'react'
 import { createPortal } from 'react-dom'
+import { getClosestScrollableElement, getNewPosition } from '../utils'
 import { PopoverContentProps } from './interfaces'
 
 type Props = PropsWithChildren & {
@@ -34,15 +35,15 @@ export const Popover: FC<Props> = (props) => {
   const [popoverState, setPopoverState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false })
 
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
-  const popoverRef = useRef<HTMLDivElement>(null)
+  const popupRef = useRef<HTMLDivElement>(null)
   const blurRef = useRef<boolean>(false)
 
   const handleClickOutside = (event: Event) => {
     if (
       childRef.current &&
       !childRef.current.contains(event.target as Node) &&
-      popoverRef.current &&
-      !popoverRef.current.contains(event.target as Node)
+      popupRef.current &&
+      !popupRef.current.contains(event.target as Node)
     ) {
       const timeout = setTimeout(() => {
         setPopoverState((prev) => ({ ...prev, isActive: false }))
@@ -62,7 +63,8 @@ export const Popover: FC<Props> = (props) => {
 
   const handleActivePopover = useCallback(() => {
     const timeout = setTimeout(() => {
-      updatePosition()
+      const newPosition = getNewPosition(childRef, popupRef)
+      if (newPosition) setPosition(newPosition)
       setPopoverState((prev) => ({ ...prev, isActive: !prev.isActive }))
       clearTimeout(timeout)
     }, 0)
@@ -88,23 +90,8 @@ export const Popover: FC<Props> = (props) => {
   }
 
   const handleMouseMove = (event: Event) => {
-    if (blurRef.current && popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+    if (blurRef.current && popupRef.current && !popupRef.current.contains(event.target as Node)) {
       setPopoverState((prev) => ({ ...prev, isActive: false }))
-    }
-  }
-
-  const updatePosition = () => {
-    if (childRef.current) {
-      let childElement = childRef.current
-      if (childElement && childElement.tagName.toLowerCase() === 'input' && childElement.parentElement?.parentElement) {
-        childElement = childElement.parentElement.parentElement as HTMLButtonElement
-      }
-
-      const childRect = childElement.getBoundingClientRect()
-      setPosition({
-        top: closestScrollableElement.scrollTop + childRect.bottom + 10,
-        left: closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popoverRef.current?.offsetWidth ?? 0) / 2,
-      })
     }
   }
 
@@ -160,29 +147,6 @@ export const Popover: FC<Props> = (props) => {
       onClose: handleClick,
     })
   }, [content])
-  console.log(clonedContent)
-
-  const closestScrollableElement = useMemo(() => {
-    return closestScrollable(childRef.current)
-  }, [])
-
-  function isScrollable(element: HTMLElement | null): boolean {
-    if (!element) return false
-    const style = window.getComputedStyle(element)
-    const overflowY = style.overflowY
-    const isOverflowScrollable = overflowY === 'scroll' || overflowY === 'auto'
-    return isOverflowScrollable && element.scrollHeight > element.clientHeight
-  }
-
-  function closestScrollable(element: HTMLElement | null): HTMLElement {
-    let currentElement = element
-
-    while (currentElement) {
-      if (isScrollable(currentElement) || currentElement === document.documentElement) return currentElement
-      currentElement = currentElement.parentElement
-    }
-    return document.documentElement
-  }
 
   return (
     <>
@@ -192,7 +156,7 @@ export const Popover: FC<Props> = (props) => {
         createPortal(
           <div>
             <div
-              ref={popoverRef}
+              ref={popupRef}
               className={clsx('absolute z-10 overflow-hidden', popoverState.isActive ? 'animate-fade-in' : 'animate-fade-out')}
               style={{
                 visibility: popoverState.isDisplay ? 'visible' : 'hidden',
@@ -207,7 +171,7 @@ export const Popover: FC<Props> = (props) => {
               {clonedContent}
             </div>
           </div>,
-          closestScrollableElement === document.documentElement ? document.body : document.documentElement,
+          getClosestScrollableElement(childRef.current) === document.documentElement ? document.body : document.documentElement,
         )}
     </>
   )

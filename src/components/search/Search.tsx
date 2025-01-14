@@ -19,9 +19,9 @@ export const Search = () => {
         placeholder='Bạn đang tìm văn bản nào?'
         extra={
           <Button
+            type='primary'
             icon={<SearchIcon />}
             className='mr-[3px] !min-w-[120px] !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'
-            type='primary'
           >
             Tìm ngay
           </Button>

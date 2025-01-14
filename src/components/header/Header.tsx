@@ -3,8 +3,8 @@ import { Button } from '@/components'
 
 export const Header = () => {
   return (
-    <header className='fixed left-0 right-0 top-0 z-50 border-b'>
-      <div className='mx-auto flex w-full max-w-screen-xl justify-between bg-white p-4'>
+    <header className='fixed left-0 right-0 top-0 z-50 border-b bg-white'>
+      <div className='mx-auto flex w-full max-w-screen-xl justify-between p-4'>
         <div className='flex items-center'>
           <LogoIcon fontSize={40} />
           <span className='text-xl'>MẪU VĂN BẢN</span>
