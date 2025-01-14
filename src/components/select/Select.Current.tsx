@@ -14,7 +14,7 @@ export const CurrentSelect = memo((props: CurrentSelectType) => {
   const restItemRef = useRef<HTMLSpanElement>(null)
 
   const [state, setState] = useState<CurrentSelectState>({ selectedItems: [], isDisplay: false, wrapperWidth: 0, resize: window.innerWidth })
-  console.log('rerender')
+
   useEffect(() => {
     if (!Array.isArray(selected)) return
     let currentLeftPosition = 0

@@ -1,7 +1,7 @@
 import CheckIcon from '@/assets/svgs/check.svg'
 import ChevronDownIcon from '@/assets/svgs/chevron_down.svg'
 import clsx from 'clsx'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { getNewPosition } from '../utils'
 import { DefaultOptionType, ModeType, Props, State } from './interfaces'
@@ -20,7 +20,7 @@ export const Select = (props: Props) => {
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
   const popupRef = useRef<HTMLDivElement>(null)
 
-  const [selectState, setSelectState] = useState<State>({
+  const [state, setState] = useState<State>({
     selected: getSelectedItem(options, mode, defaultValue),
     isActive: false,
     isOpen: false,
@@ -29,9 +29,9 @@ export const Select = (props: Props) => {
   })
 
   const handleClick = () => {
-    setSelectState((prev) => ({ ...prev, isOpen: true }))
-    if (selectState.isActive) {
-      setSelectState((prev) => ({ ...prev, isActive: !prev.isActive }))
+    setState((prev) => ({ ...prev, isOpen: true }))
+    if (state.isActive) {
+      setState((prev) => ({ ...prev, isActive: !prev.isActive }))
     } else {
       handleActiveSelect()
     }
@@ -40,8 +40,8 @@ export const Select = (props: Props) => {
   const handleActiveSelect = useCallback(() => {
     const timeout = setTimeout(() => {
       const newPosition = getNewPosition(childRef, popupRef, 6)
-      if (newPosition) setSelectState((prev) => ({ ...prev, position: newPosition }))
-      setSelectState((prev) => ({ ...prev, isActive: !prev.isActive }))
+      if (newPosition) setState((prev) => ({ ...prev, position: newPosition }))
+      setState((prev) => ({ ...prev, isActive: !prev.isActive }))
       clearTimeout(timeout)
     }, 0)
   }, [])
@@ -54,7 +54,7 @@ export const Select = (props: Props) => {
       !popupRef.current.contains(event.target as Node)
     ) {
       const timeout = setTimeout(() => {
-        setSelectState((prev) => ({ ...prev, isActive: false }))
+        setState((prev) => ({ ...prev, isActive: false }))
         clearTimeout(timeout)
       }, 100)
     }
@@ -62,7 +62,7 @@ export const Select = (props: Props) => {
 
   const handleChoose = (data: DefaultOptionType) => {
     if (mode === 'multiple')
-      setSelectState((prev) => {
+      setState((prev) => {
         const duplicatedIndex = (prev.selected as DefaultOptionType[]).findIndex((item) => item.value === data.value)
         if (duplicatedIndex !== -1) {
           const clonedSelected = [...(prev.selected as DefaultOptionType[])]
@@ -70,21 +70,21 @@ export const Select = (props: Props) => {
           return { ...prev, selected: [...clonedSelected] }
         } else return { ...prev, selected: [...(prev.selected as DefaultOptionType[]), data] }
       })
-    else setSelectState((prev) => ({ ...prev, isActive: false, selected: data }))
+    else setState((prev) => ({ ...prev, isActive: false, selected: data }))
   }
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null
-    if (selectState.isActive) setSelectState((prev) => ({ ...prev, isDisplay: true }))
+    if (state.isActive) setState((prev) => ({ ...prev, isDisplay: true }))
     else
       timeout = setTimeout(() => {
-        setSelectState((prev) => ({ ...prev, isDisplay: false }))
+        setState((prev) => ({ ...prev, isDisplay: false }))
       }, 300)
 
     return () => {
       if (timeout) clearTimeout(timeout)
     }
-  }, [selectState.isActive])
+  }, [state.isActive])
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
@@ -94,8 +94,8 @@ export const Select = (props: Props) => {
   }, [])
 
   useEffect(() => {
-    if (onChange) onChange(selectState.selected)
-  }, [selectState.selected])
+    if (onChange) onChange(state.selected)
+  }, [state.selected])
 
   return (
     <div>
@@ -105,33 +105,33 @@ export const Select = (props: Props) => {
         onClick={handleClick}
         style={style}
       >
-        <CurrentSelect selected={selectState.selected} defaultValue={defaultValue} placeholder={placeholder} mode={mode} />
+        <CurrentSelect selected={state.selected} defaultValue={defaultValue} placeholder={placeholder} mode={mode} />
         <ChevronDownIcon fontSize={20} stroke={'grey'} className='ml-1' />
       </span>
-      {selectState.isOpen &&
+      {state.isOpen &&
         createPortal(
           <div>
             <div
               ref={popupRef}
               className={clsx(
                 'absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-md bg-white p-1',
-                selectState.isActive ? 'animate-fade-in' : 'animate-fade-out',
+                state.isActive ? 'animate-fade-in' : 'animate-fade-out',
               )}
               style={{
                 boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-                visibility: selectState.isDisplay ? 'visible' : 'hidden',
-                top: selectState.position.top,
-                left: selectState.position.left,
+                visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
+                top: state.position.top,
+                left: state.position.left,
                 width: style?.width,
               }}
             >
               {options &&
                 options.map((item) => {
                   const isSelectedItem = () => {
-                    if (Array.isArray(selectState.selected)) {
-                      return selectState.selected.some((selectedItem) => selectedItem.value === item.value)
+                    if (Array.isArray(state.selected)) {
+                      return state.selected.some((selectedItem) => selectedItem.value === item.value)
                     }
-                    return item.value === selectState.selected?.value
+                    return item.value === state.selected?.value
                   }
                   return (
                     <div

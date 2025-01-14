@@ -1,45 +1,37 @@
 import clsx from 'clsx'
-import debounce from 'lodash/debounce'
-import { ButtonHTMLAttributes, cloneElement, CSSProperties, FC, HTMLAttributes, ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import { debounce } from 'lodash'
+import { ButtonHTMLAttributes, cloneElement, CSSProperties, ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { getClosestScrollableElement, getNewPosition } from '../utils'
-import { PopoverContentProps, Props, State } from './interfaces'
+import { Props, State } from './interfaces'
 
-export const Popover: FC<Props> = (props) => {
-  const { children, trigger = 'click', content } = props
-
-  const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
-  const [state, setState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false })
+export const Tooltip = (props: Props) => {
+  const { children, title, trigger = 'hover' } = props
 
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
   const popupRef = useRef<HTMLDivElement>(null)
   const blurRef = useRef<boolean>(false)
 
-  const handleClickOutside = (event: Event) => {
-    if (
-      childRef.current &&
-      !childRef.current.contains(event.target as Node) &&
-      popupRef.current &&
-      !popupRef.current.contains(event.target as Node)
-    ) {
-      const timeout = setTimeout(() => {
-        setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
-        clearTimeout(timeout)
-      }, 100)
-    }
-  }
+  const [state, setState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false, position: { top: 0, left: 0 } })
+  const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
 
   const handleActive = () => {
     const timeout = setTimeout(() => {
-      const newPosition = getNewPosition(childRef, popupRef)
+      const newPosition = getNewPosition(childRef, popupRef, 4)
       if (newPosition) setPosition(newPosition)
       setState((prev) => ({ ...prev, isActive: !prev.isActive }))
       clearTimeout(timeout)
     }, 0)
   }
 
+  const handleMouseEnter = () => {
+    blurRef.current = false
+    setState((prev) => (!prev.isOpen ? { ...prev, isOpen: true } : prev))
+    handleActive()
+  }
+
   const handleClick = () => {
-    setState((prev) => ({ ...prev, isOpen: true }))
+    setState((prev) => (!prev.isOpen ? { ...prev, isOpen: true } : prev))
     if (state.isActive) {
       setState((prev) => ({ ...prev, isActive: !prev.isActive }))
     } else {
@@ -56,21 +48,38 @@ export const Popover: FC<Props> = (props) => {
     setState((prev) => ({ ...prev, isActive: false }))
   }
 
-  const handleMouseEnter = () => {
-    blurRef.current = false
-    setState((prev) => (!prev.isOpen ? { ...prev, isOpen: true } : prev))
-    handleActive()
-  }
-
-  const handleMouseLeave = () => {
-    blurRef.current = true
-  }
-
   const handleMouseMove = (event: Event) => {
     if (blurRef.current && popupRef.current && !popupRef.current.contains(event.target as Node)) {
       setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
     }
   }
+
+  const handleClickOutside = (event: Event) => {
+    if (
+      childRef.current &&
+      !childRef.current.contains(event.target as Node) &&
+      popupRef.current &&
+      !popupRef.current.contains(event.target as Node)
+    ) {
+      const timeout = setTimeout(() => {
+        setState((prev) => ({ ...prev, isActive: false }))
+        clearTimeout(timeout)
+      }, 100)
+    }
+  }
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout | null = null
+    if (state.isActive) setState((prev) => ({ ...prev, isDisplay: true }))
+    else
+      timeout = setTimeout(() => {
+        setState((prev) => ({ ...prev, isDisplay: false }))
+      }, 200)
+
+    return () => {
+      if (timeout) clearTimeout(timeout)
+    }
+  }, [state.isActive])
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
@@ -81,19 +90,9 @@ export const Popover: FC<Props> = (props) => {
     }
   }, [])
 
-  useEffect(() => {
-    let timeout: NodeJS.Timeout | null = null
-    if (state.isActive) setState((prev) => ({ ...prev, isDisplay: true }))
-    else
-      timeout = setTimeout(() => {
-        setState((prev) => ({ ...prev, isDisplay: false }))
-      }, 300)
-
-    return () => {
-      if (timeout) clearTimeout(timeout)
-    }
-  }, [state.isActive])
-
+  const handleMouseLeave = () => {
+    blurRef.current = true
+  }
   const clonedChildren = useMemo(() => {
     if (!children) return null
 
@@ -102,6 +101,7 @@ export const Popover: FC<Props> = (props) => {
       focus: { onFocus: handleFocus, onBlur: handleBlur },
       hover: { onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
     }
+
     return cloneElement(children as ReactElement<ButtonHTMLAttributes<HTMLButtonElement> & { ref?: React.Ref<HTMLButtonElement> }>, {
       ...eventHandlersObject[trigger],
       ref: (e: HTMLButtonElement) => {
@@ -117,39 +117,29 @@ export const Popover: FC<Props> = (props) => {
         }
       },
     })
-  }, [children, trigger])
-
-  const clonedContent = useMemo(() => {
-    if (!content) return null
-    return cloneElement(content as ReactElement<HTMLAttributes<HTMLElement> & PopoverContentProps>, {
-      onClose: handleClick,
-    })
-  }, [content])
-  // console.log('popover', position)
-
+  }, [children])
+  console.log('tooltip', position)
   return (
     <>
       {clonedChildren}
       {state.isOpen &&
-        clonedContent &&
+        title &&
         createPortal(
           <div>
             <div
               ref={popupRef}
               className={clsx(
-                'absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-md bg-white',
+                'absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-[6px] bg-black p-1 px-2 text-white duration-100',
                 state.isActive ? 'animate-fade-in' : 'animate-fade-out',
               )}
               style={{
-                border: '1px solid #ccc',
-                backgroundColor: '#fff',
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
                 visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
                 top: position.top,
                 left: position.left,
               }}
             >
-              {clonedContent}
+              {title}
             </div>
           </div>,
           getClosestScrollableElement(childRef.current) === document.documentElement ? document.body : document.documentElement,

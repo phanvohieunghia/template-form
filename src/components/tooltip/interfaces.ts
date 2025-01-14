@@ -1,14 +1,13 @@
 import { PropsWithChildren } from 'react'
 
-export type PopoverContentProps = { onClose?: () => void }
-
 export type Props = PropsWithChildren & {
   trigger?: 'hover' | 'focus' | 'click'
-  content?: React.ReactNode | JSX.Element
+  title: string
 }
 
 export type State = {
   isOpen: boolean
   isActive: boolean
   isDisplay: boolean
+  position: { top: number; left: number }
 }

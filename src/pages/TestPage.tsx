@@ -1,4 +1,4 @@
-import { Button, Popover, Select, TestModal, TestModalPayload } from '@/components'
+import { Button, Popover, Select, TestModal, TestModalPayload, Tooltip } from '@/components'
 import { EVENT_NAME, EventManager } from '@/utils'
 
 const content = <div>Hover</div>
@@ -7,7 +7,7 @@ export const TestPage = () => {
     EventManager.emit<TestModalPayload>(EVENT_NAME.TEST_MODAL_OPEN, { content: 'body', title: 'Header' })
   }
 
-  const testChange = (data: unknown) => {
+  const testChange = () => {
     // console.log(data)
   }
 
@@ -41,13 +41,13 @@ export const TestPage = () => {
 
       <div></div>
 
-      <Popover>
+      <Popover content={content}>
         <Button>Click</Button>
       </Popover>
       <Popover trigger='hover' content={content}>
         <Button>Hover</Button>
       </Popover>
-      <Popover trigger='focus'>
+      <Popover trigger='focus' content={content}>
         <Button>Focus</Button>
       </Popover>
 
@@ -60,6 +60,10 @@ export const TestPage = () => {
         options={data.map((item, index) => ({ ...item, label: '1'.repeat(index + 1) }))}
         style={{ width: '30%' }}
       />
+
+      <Tooltip title='tooltip'>
+        <Button>Hello</Button>
+      </Tooltip>
     </>
   )
 }
