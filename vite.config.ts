@@ -26,6 +26,9 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       open: true, // auto open default browser
     },
+    preview: {
+      port: Number(env.VITE_PORT) || 3146,
+    },
     resolve: {
       alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
     },
