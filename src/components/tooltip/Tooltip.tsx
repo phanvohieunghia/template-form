@@ -2,24 +2,35 @@ import clsx from 'clsx'
 import { debounce } from 'lodash'
 import { ButtonHTMLAttributes, cloneElement, CSSProperties, ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { getClosestScrollableElement, getNewPosition } from '../utils'
+import { getClosestScrollableElement, getNewArrowPosition, getNewPopupPosition, TOOLTIP } from '../utils'
 import { Props, State } from './interfaces'
+import styles from './styles.module.css'
 
 export const Tooltip = (props: Props) => {
-  const { children, title, trigger = 'hover' } = props
+  const { children, title, trigger = 'hover', arrow } = props
 
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
   const popupRef = useRef<HTMLDivElement>(null)
   const blurRef = useRef<boolean>(false)
 
-  const [state, setState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false, position: { top: 0, left: 0 } })
-  const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
+  const [state, setState] = useState<State>({
+    isActive: false,
+    isOpen: false,
+    isDisplay: false,
+    position: { popup: { top: 0, left: 0 }, arrow: { top: 0 } },
+  })
 
   const handleActive = () => {
     const timeout = setTimeout(() => {
-      const newPosition = getNewPosition(childRef, popupRef, 4)
-      if (newPosition) setPosition(newPosition)
-      setState((prev) => ({ ...prev, isActive: !prev.isActive }))
+      const newPosition: Partial<State['position']> = {}
+
+      const newArrowPosition = getNewArrowPosition(childRef, arrow ? TOOLTIP.GAP.ARROW : TOOLTIP.GAP.WITHOUT_ARROW)
+      if (newArrowPosition) newPosition.arrow = newArrowPosition
+
+      const newPopupPosition = getNewPopupPosition(childRef, popupRef, arrow ? TOOLTIP.GAP.ARROW : TOOLTIP.GAP.WITHOUT_ARROW)
+      if (newPopupPosition) newPosition.popup = newPopupPosition
+      console.log(newArrowPosition, newPopupPosition)
+      setState((prev) => ({ ...prev, isActive: !prev.isActive, position: newPosition as State['position'] }))
       clearTimeout(timeout)
     }, 0)
   }
@@ -45,12 +56,12 @@ export const Tooltip = (props: Props) => {
   }
 
   const handleBlur = () => {
-    setState((prev) => ({ ...prev, isActive: false }))
+    // setState((prev) => ({ ...prev, isActive: false }))
   }
 
   const handleMouseMove = (event: Event) => {
     if (blurRef.current && popupRef.current && !popupRef.current.contains(event.target as Node)) {
-      setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
+      // setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
     }
   }
 
@@ -126,20 +137,30 @@ export const Tooltip = (props: Props) => {
         title &&
         createPortal(
           <div>
-            <div
-              ref={popupRef}
-              className={clsx(
-                'animate-duration-100 absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-[6px] bg-black p-1 px-2 text-white',
-                state.isActive ? 'animate-fade-in' : 'animate-fade-out',
+            <div>
+              <div
+                ref={popupRef}
+                className={clsx(
+                  'absolute z-10 rounded-[6px] bg-black p-1 px-2 text-white animate-duration-100',
+                  state.isActive ? 'animate-fade-in' : 'animate-fade-out',
+                )}
+                style={{
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                  visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
+                  ...state.position.popup,
+                }}
+              >
+                {title}
+              </div>
+              {arrow && (
+                <div
+                  className={clsx(styles['arrow'], state.isActive ? 'animate-fade-in' : 'animate-fade-out')}
+                  style={{
+                    visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
+                    ...state.position.arrow,
+                  }}
+                ></div>
               )}
-              style={{
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
-                top: position.top,
-                left: position.left,
-              }}
-            >
-              {title}
             </div>
           </div>,
           getClosestScrollableElement(childRef.current) === document.documentElement ? document.body : document.documentElement,

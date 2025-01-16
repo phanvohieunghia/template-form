@@ -2,13 +2,14 @@ import clsx from 'clsx'
 import debounce from 'lodash/debounce'
 import { ButtonHTMLAttributes, cloneElement, CSSProperties, FC, HTMLAttributes, ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { getClosestScrollableElement, getNewPosition } from '../utils'
+import { getClosestScrollableElement, getNewPopupPosition, POPOVER } from '../utils'
+import { PositionState } from '../utils/intefaces'
 import { PopoverContentProps, Props, State } from './interfaces'
 
 export const Popover: FC<Props> = (props) => {
   const { children, trigger = 'click', content } = props
 
-  const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
+  const [position, setPosition] = useState<PositionState>({ top: 0, left: 0 })
   const [state, setState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false })
 
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
@@ -31,7 +32,7 @@ export const Popover: FC<Props> = (props) => {
 
   const handleActive = () => {
     const timeout = setTimeout(() => {
-      const newPosition = getNewPosition(childRef, popupRef)
+      const newPosition = getNewPopupPosition(childRef, popupRef, POPOVER.GAP)
       if (newPosition) setPosition(newPosition)
       setState((prev) => ({ ...prev, isActive: !prev.isActive }))
       clearTimeout(timeout)

@@ -1,10 +1,9 @@
 import clsx from 'clsx'
 import debounce from 'lodash/debounce'
 import { memo, useEffect, useRef, useState } from 'react'
+import { SELECT } from '../utils'
 import { CurrentSelectState, CurrentSelectType, DefaultOptionType } from './interfaces'
-
-const REST_COUNT_CURRENT_SELECT_STYLE = 'whitespace-nowrap rounded-md bg-gray-200 py-1 px-2'
-const CURRENT_SELECT_GAP = 4
+import styles from './style.module.css'
 
 export const CurrentSelect = memo((props: CurrentSelectType) => {
   const { selected, defaultValue, placeholder, mode } = props
@@ -40,7 +39,7 @@ export const CurrentSelect = memo((props: CurrentSelectType) => {
           element: item,
           isDisplay: getIsDisplay(),
         }
-        currentLeftPosition += currentSelectedItemWidth + CURRENT_SELECT_GAP
+        currentLeftPosition += currentSelectedItemWidth + SELECT.GAP
         return mappedSelectedItems
       })
     const newState: Partial<CurrentSelectState> = { selectedItems: newSelectedItems }
@@ -66,21 +65,17 @@ export const CurrentSelect = memo((props: CurrentSelectType) => {
   } else if (Array.isArray(selected)) {
     const restCount = state.selectedItems.reduce((a, v) => a + (v.isDisplay ? 0 : 1), 0)
     return (
-      <div
-        className='inline-flex flex-1 flex-nowrap'
-        style={{ maxWidth: 'calc(100% - 24px)', gap: CURRENT_SELECT_GAP }}
-        ref={selectedItemsWrapperRef}
-      >
+      <div className='inline-flex flex-1 flex-nowrap' style={{ maxWidth: 'calc(100% - 24px)', gap: SELECT.GAP }} ref={selectedItemsWrapperRef}>
         {selected.map((item, index) => (
           <span
-            className={clsx(REST_COUNT_CURRENT_SELECT_STYLE, !state.selectedItems[index]?.isDisplay && 'absolute opacity-0')}
+            className={clsx(styles['rest-count'], !state.selectedItems[index]?.isDisplay && 'absolute opacity-0')}
             key={item.value}
             ref={(el) => (selectedItemsRefs.current[index] = el as HTMLSpanElement)}
           >
             {item.label}
           </span>
         ))}
-        <span className={clsx(REST_COUNT_CURRENT_SELECT_STYLE, !restCount && 'absolute opacity-0')} ref={restItemRef}>
+        <span className={clsx(styles['rest-count'], !restCount && 'absolute opacity-0')} ref={restItemRef}>
           + {restCount} ...
         </span>
       </div>

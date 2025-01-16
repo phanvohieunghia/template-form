@@ -1,18 +1,42 @@
 import { RefObject } from 'react'
 
-export const getNewPosition = (childrenRef: RefObject<HTMLElement>, popupRef: RefObject<HTMLElement>, rowGap: number = 10) => {
-  if (childrenRef.current) {
-    let childElement = childrenRef.current
-    if (childElement && childElement.tagName.toLowerCase() === 'input' && childElement.parentElement?.parentElement) {
-      childElement = childElement.parentElement.parentElement as HTMLButtonElement
-    }
+export const getNewPopupPosition = (childrenRef: RefObject<HTMLElement>, popupRef: RefObject<HTMLElement>, rowGap: number) => {
+  if (!childrenRef.current) return
 
-    const childRect = childElement.getBoundingClientRect()
-    const closestScrollableElement = getClosestScrollableElement(childrenRef.current)
-    return {
-      top: closestScrollableElement.scrollTop + childRect.bottom + rowGap,
-      left: closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popupRef.current?.offsetWidth ?? 0) / 2,
-    }
+  let childElement = childrenRef.current
+  if (childElement && childElement.tagName.toLowerCase() === 'input' && childElement.parentElement?.parentElement) {
+    childElement = childElement.parentElement.parentElement as HTMLButtonElement
+  }
+
+  const childRect = childElement.getBoundingClientRect()
+  const closestScrollableElement = getClosestScrollableElement(childrenRef.current)
+
+  const getHorizontalPosition = () => {
+    const left = closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popupRef.current?.offsetWidth ?? 0) / 2
+    if (left <= 0) return { left: 0 }
+    else if (left + (popupRef.current?.offsetWidth ?? 0) >= window.innerWidth) return { right: -closestScrollableElement.scrollLeft }
+    return { left }
+  }
+
+  return {
+    top: closestScrollableElement.scrollTop + childRect.bottom + rowGap,
+    ...getHorizontalPosition(),
+  }
+}
+
+export const getNewArrowPosition = (childrenRef: RefObject<HTMLElement>, rowGap: number) => {
+  if (!childrenRef.current) return
+
+  let childElement = childrenRef.current
+  if (childElement && childElement.tagName.toLowerCase() === 'input' && childElement.parentElement?.parentElement) {
+    childElement = childElement.parentElement.parentElement as HTMLButtonElement
+  }
+  const childRect = childElement.getBoundingClientRect()
+  const closestScrollableElement = getClosestScrollableElement(childrenRef.current)
+  console.log(closestScrollableElement.scrollLeft, childRect.left, childRect.width)
+  return {
+    top: closestScrollableElement.scrollTop + childRect.bottom + rowGap / 2,
+    left: closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - 8,
   }
 }
 

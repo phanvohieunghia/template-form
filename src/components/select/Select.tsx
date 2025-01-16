@@ -3,7 +3,7 @@ import ChevronDownIcon from '@/assets/svgs/chevron_down.svg'
 import clsx from 'clsx'
 import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { getNewPosition } from '../utils'
+import { getNewPopupPosition } from '../utils'
 import { DefaultOptionType, ModeType, Props, State } from './interfaces'
 import { CurrentSelect } from './Select.Current'
 
@@ -39,7 +39,7 @@ export const Select = (props: Props) => {
 
   const handleActiveSelect = useCallback(() => {
     const timeout = setTimeout(() => {
-      const newPosition = getNewPosition(childRef, popupRef, 6)
+      const newPosition = getNewPopupPosition(childRef, popupRef, 6)
       if (newPosition) setState((prev) => ({ ...prev, position: newPosition }))
       setState((prev) => ({ ...prev, isActive: !prev.isActive }))
       clearTimeout(timeout)

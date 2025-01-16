@@ -5,7 +5,7 @@ export type State = {
   isActive: boolean
   isDisplay: boolean
   selected: DefaultOptionType | DefaultOptionType[] | undefined
-  position: { top: number; left: number }
+  position: { top: number; left?: number }
 }
 
 export type DefaultOptionType = {

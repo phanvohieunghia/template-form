@@ -1,0 +1,4 @@
+.arrow {
+  @apply absolute h-4 w-4;
+  @apply before:clip-path-arrow before:absolute before:inset-0 before:bg-black before:content-[''];
+}

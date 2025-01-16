@@ -61,9 +61,29 @@ export const TestPage = () => {
         style={{ width: '30%' }}
       />
 
-      <Tooltip title='tooltip'>
-        <Button>Hello</Button>
-      </Tooltip>
+      <div className='flex w-[150%] justify-between'>
+        <Tooltip title='left tooltip will be show'>
+          <Button>Hello</Button>
+        </Tooltip>
+        <Tooltip title='tooltip'>
+          <Button>Hello</Button>
+        </Tooltip>
+        <Tooltip title='right tooltip will be show'>
+          <Button>Hello</Button>
+        </Tooltip>
+      </div>
+
+      <div className='flex w-[150%] justify-between'>
+        <Tooltip arrow title='left tooltip will be show'>
+          <Button>Hello</Button>
+        </Tooltip>
+        <Tooltip arrow title='tooltip'>
+          <Button>Hello</Button>
+        </Tooltip>
+        <Tooltip arrow title='right tooltip will be show'>
+          <Button>Hello</Button>
+        </Tooltip>
+      </div>
     </>
   )
 }
