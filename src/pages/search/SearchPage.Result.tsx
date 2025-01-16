@@ -1,5 +1,6 @@
 import SearchResultData from '@/assets/mock-data/search-result.json'
 import FileIcon from '@/assets/svgs/file.svg'
+import { FC } from 'react'
 import styles from './style.module.css'
 
 type SearchResultResults = (typeof SearchResultData)[0]
@@ -18,8 +19,8 @@ export const Result = (props: Props) => {
         <span className='text-sm text-gray-400'>{total} kết quả</span>
       </div>
       <div className='mt-6 flex flex-col gap-4'>
-        {SearchResultData.map((item) => {
-          return <Item data={item} />
+        {SearchResultData.map((item, index) => {
+          return <Item data={item} key={index} />
         })}
       </div>
     </div>
@@ -28,7 +29,7 @@ export const Result = (props: Props) => {
 type ItemProps = {
   data: SearchResultResults
 }
-const Item = (props: ItemProps) => {
+const Item: FC<ItemProps> = (props) => {
   const { data } = props
   const { category, code, image, title } = data
   return (

@@ -29,7 +29,6 @@ export const Tooltip = (props: Props) => {
 
       const newPopupPosition = getNewPopupPosition(childRef, popupRef, arrow ? TOOLTIP.GAP.ARROW : TOOLTIP.GAP.WITHOUT_ARROW)
       if (newPopupPosition) newPosition.popup = newPopupPosition
-      console.log(newArrowPosition, newPopupPosition)
       setState((prev) => ({ ...prev, isActive: !prev.isActive, position: newPosition as State['position'] }))
       clearTimeout(timeout)
     }, 0)

@@ -15,7 +15,7 @@ const getSelectedItem = (options: DefaultOptionType[] | undefined, mode?: ModeTy
 }
 
 export const Select = (props: Props) => {
-  const { mode, options, defaultValue, onChange, style, placeholder = '' } = props
+  const { mode, options, defaultValue, onChange, placeholder = '', ...restProps } = props
 
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
   const popupRef = useRef<HTMLDivElement>(null)
@@ -63,12 +63,12 @@ export const Select = (props: Props) => {
   const handleChoose = (data: DefaultOptionType) => {
     if (mode === 'multiple')
       setState((prev) => {
-        const duplicatedIndex = (prev.selected as DefaultOptionType[]).findIndex((item) => item.value === data.value)
+        const duplicatedIndex = ((prev.selected as DefaultOptionType[] | undefined) ?? []).findIndex((item) => item.value === data.value)
         if (duplicatedIndex !== -1) {
-          const clonedSelected = [...(prev.selected as DefaultOptionType[])]
+          const clonedSelected = [...((prev.selected as DefaultOptionType[] | undefined) ?? [])]
           clonedSelected.splice(duplicatedIndex, 1)
           return { ...prev, selected: [...clonedSelected] }
-        } else return { ...prev, selected: [...(prev.selected as DefaultOptionType[]), data] }
+        } else return { ...prev, selected: [...((prev.selected as DefaultOptionType[] | undefined) ?? []), data] }
       })
     else setState((prev) => ({ ...prev, isActive: false, selected: data }))
   }
@@ -98,14 +98,17 @@ export const Select = (props: Props) => {
   }, [state.selected])
 
   return (
-    <div>
+    <>
       <span
-        className='inline-flex items-center justify-between rounded-md border-[1px] border-gray-300 px-2 py-1 hover:cursor-pointer'
         ref={childRef}
         onClick={handleClick}
-        style={style}
+        {...restProps}
+        className={clsx(
+          'inline-flex items-center justify-between rounded-md border-[1px] border-gray-300 px-2 py-1 hover:cursor-pointer',
+          restProps.className,
+        )}
       >
-        <CurrentSelect selected={state.selected} defaultValue={defaultValue} placeholder={placeholder} mode={mode} />
+        <CurrentSelect selected={state.selected} placeholder={placeholder} mode={mode} />
         <ChevronDownIcon fontSize={20} stroke={'grey'} className='ml-1' />
       </span>
       {state.isOpen &&
@@ -122,7 +125,7 @@ export const Select = (props: Props) => {
                 visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
                 top: state.position.top,
                 left: state.position.left,
-                width: style?.width,
+                width: restProps.style?.width ?? childRef.current?.offsetWidth,
               }}
             >
               {options &&
@@ -151,6 +154,6 @@ export const Select = (props: Props) => {
           </div>,
           document.body,
         )}
-    </div>
+    </>
   )
 }

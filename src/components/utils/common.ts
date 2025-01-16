@@ -33,7 +33,6 @@ export const getNewArrowPosition = (childrenRef: RefObject<HTMLElement>, rowGap:
   }
   const childRect = childElement.getBoundingClientRect()
   const closestScrollableElement = getClosestScrollableElement(childrenRef.current)
-  console.log(closestScrollableElement.scrollLeft, childRect.left, childRect.width)
   return {
     top: closestScrollableElement.scrollTop + childRect.bottom + rowGap / 2,
     left: closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - 8,

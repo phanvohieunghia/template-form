@@ -1,0 +1,34 @@
+[
+  {
+    "label": "Mẫu báo cáo",
+    "value": "1"
+  },
+  {
+    "label": "Mẫu biên bản",
+    "value": "2"
+  },
+  {
+    "label": "Mẫu công văn",
+    "value": "3"
+  },
+  {
+    "label": "Mẫu đơn",
+    "value": "4"
+  },
+  {
+    "label": "Mẫu giấy tờ",
+    "value": "5"
+  },
+  {
+    "label": "Mẫu hợp đồng",
+    "value": "6"
+  },
+  {
+    "label": "Mẫu quyết định",
+    "value": "7"
+  },
+  {
+    "label": "Mẫu thông báo",
+    "value": "8"
+  }
+]

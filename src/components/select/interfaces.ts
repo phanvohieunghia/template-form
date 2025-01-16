@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { HTMLAttributes } from 'react'
 
 export type State = {
   isOpen: boolean
@@ -23,10 +23,9 @@ export type Props = {
   defaultValue?: string
   placeholder?: string
   onChange?: (selectedParam: State['selected']) => void
-  style?: CSSProperties
-}
+} & HTMLAttributes<HTMLDivElement>
+
 export type CurrentSelectType = {
-  defaultValue: string | undefined
   placeholder: Props['placeholder']
 } & Pick<State, 'selected'> &
   Pick<Props, 'mode'>

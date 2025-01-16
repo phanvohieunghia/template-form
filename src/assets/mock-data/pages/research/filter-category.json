@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Giáo dục & Đào tạo",
+    "value": "0"
+  },
+  {
+    "label": "Văn hoá & Tôn Giáo",
+    "value": "1"
+  },
+  {
+    "label": "Việc làm & Nhân sự",
+    "value": "2"
+  },
+  {
+    "label": "Xuất khẩu & Ngoại thương",
+    "value": "3"
+  },
+  {
+    "label": "Y tế & Sức khỏe",
+    "value": "4"
+  }
+]

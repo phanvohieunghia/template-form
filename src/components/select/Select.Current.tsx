@@ -6,7 +6,7 @@ import { CurrentSelectState, CurrentSelectType, DefaultOptionType } from './inte
 import styles from './style.module.css'
 
 export const CurrentSelect = memo((props: CurrentSelectType) => {
-  const { selected, defaultValue, placeholder, mode } = props
+  const { selected, placeholder, mode } = props
 
   const selectedItemsWrapperRef = useRef<HTMLDivElement>(null)
   const selectedItemsRefs = useRef<HTMLSpanElement[]>([])
@@ -60,7 +60,7 @@ export const CurrentSelect = memo((props: CurrentSelectType) => {
     }
   }, [])
 
-  if (!defaultValue || !selected || (selected as DefaultOptionType[]).length === 0) {
+  if (!selected || (selected as DefaultOptionType[]).length === 0) {
     return <span className='text-gray-300'>{placeholder}</span>
   } else if (Array.isArray(selected)) {
     const restCount = state.selectedItems.reduce((a, v) => a + (v.isDisplay ? 0 : 1), 0)
