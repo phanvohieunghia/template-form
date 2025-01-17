@@ -100,3 +100,4 @@ export const Button = forwardRef<ButtonElement, Props>((props, ref) => {
     </button>
   )
 })
+// TODO: don't perform event when this button disabled

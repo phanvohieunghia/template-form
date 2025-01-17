@@ -1,4 +1,5 @@
-export * from './InputTestPage'
+export * from './detail'
 export * from './main/MainPage'
 export * from './search'
-export * from './TestPage'
+export * from './test/InputTestPage'
+export * from './test/TestPage'

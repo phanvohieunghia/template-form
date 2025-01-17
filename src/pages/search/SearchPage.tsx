@@ -6,11 +6,11 @@ import styles from './style.module.css'
 
 export const SearchPage = () => {
   return (
-    <div className=''>
-      <div className='mx-auto max-w-[625px] pt-10 text-center'>
+    <>
+      <div className='mx-auto max-w-[700px] pt-10 text-center'>
         <Search />
       </div>
-      <div className='mx-auto mt-10 flex w-full max-w-screen-xl p-4'>
+      <div className='mt-10 flex'>
         <div className='w-[350px] pr-5'>
           <Filter />
         </div>
@@ -18,7 +18,7 @@ export const SearchPage = () => {
           <Result total={111} />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

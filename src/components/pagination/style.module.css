@@ -1,0 +1,6 @@
+.button.primary {
+  @apply !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500 hover:!text-white;
+}
+.button {
+  @apply hover:!border-green-600 hover:!text-green-600 active:!border-green-700 active:!text-green-700;
+}
