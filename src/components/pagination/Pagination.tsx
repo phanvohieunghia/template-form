@@ -9,7 +9,7 @@ type Props = {
   total: number
   defaultCurrent?: number
   defaultPageSize?: number
-  onChange?: () => void
+  onChange?: (data: Record<string, unknown>) => void
 }
 
 type State = {
@@ -44,13 +44,15 @@ export const Pagination = (props: Props) => {
 
   const changePreviousPage = () => {
     if (state.currentPage <= 1) return
-    setState((prev) => ({
-      ...prev,
-      currentPage: prev.currentPage - 1,
-      disabledLeft: prev.currentPage - 1 === 1,
-      disabledRight: false,
-    }))
-    if (onChange) onChange()
+    setState((prev) => {
+      if (onChange) onChange()
+      return {
+        ...prev,
+        currentPage: prev.currentPage - 1,
+        disabledLeft: prev.currentPage - 1 === 1,
+        disabledRight: false,
+      }
+    })
   }
 
   const changeNextPage = () => {
@@ -73,6 +75,7 @@ export const Pagination = (props: Props) => {
     }))
     if (onChange) onChange()
   }
+  if (total === 0) return null
 
   return (
     <div className='inline-flex items-center gap-3'>

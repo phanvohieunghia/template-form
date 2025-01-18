@@ -15,7 +15,7 @@ export const SearchPage = () => {
           <Filter />
         </div>
         <div className='flex-1'>
-          <Result total={111} />
+          <Result />
         </div>
       </div>
     </>

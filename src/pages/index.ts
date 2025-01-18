@@ -1,4 +1,5 @@
 export * from './detail'
+export * from './ErrorBoundary'
 export * from './main/MainPage'
 export * from './search'
 export * from './test/InputTestPage'
