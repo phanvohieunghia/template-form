@@ -1,15 +1,15 @@
 import ChevronLeftIcon from '@/assets/svgs/chevron_left.svg'
 import ChevronRightIcon from '@/assets/svgs/chevron_right.svg'
 import clsx from 'clsx'
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { Button } from '../button'
 import styles from './style.module.css'
 
-type Props = {
+export type PaginationProps = {
   total: number
   defaultCurrent?: number
   defaultPageSize?: number
-  onChange?: (data: Record<string, unknown>) => void
+  onChange?: (page: number, pageSize: number) => void
 }
 
 type State = {
@@ -20,7 +20,7 @@ type State = {
 
 const PRESENTED_NUMBERS = 5
 
-export const Pagination = (props: Props) => {
+export const Pagination = memo((props: PaginationProps) => {
   const { total, defaultPageSize = 10, defaultCurrent = 1, onChange } = props
 
   const totalPage = useMemo(() => {
@@ -34,7 +34,7 @@ export const Pagination = (props: Props) => {
   })
 
   const PresentedPageNumbers = useMemo(() => {
-    const init = Array(PRESENTED_NUMBERS).fill(null)
+    const init = Array(Math.min(PRESENTED_NUMBERS, totalPage)).fill(null)
     if (totalPage > PRESENTED_NUMBERS) {
       if (3 <= state.currentPage && state.currentPage <= totalPage - 2) return init.map((_, i) => state.currentPage - 2 + i)
       else if (state.currentPage < 3) return init.map((_, i) => i + 1)
@@ -44,15 +44,13 @@ export const Pagination = (props: Props) => {
 
   const changePreviousPage = () => {
     if (state.currentPage <= 1) return
-    setState((prev) => {
-      if (onChange) onChange()
-      return {
-        ...prev,
-        currentPage: prev.currentPage - 1,
-        disabledLeft: prev.currentPage - 1 === 1,
-        disabledRight: false,
-      }
-    })
+    setState((prev) => ({
+      ...prev,
+      currentPage: prev.currentPage - 1,
+      disabledLeft: prev.currentPage - 1 === 1,
+      disabledRight: false,
+    }))
+    if (onChange) onChange(state.currentPage - 1, defaultPageSize)
   }
 
   const changeNextPage = () => {
@@ -63,7 +61,7 @@ export const Pagination = (props: Props) => {
       disabledLeft: false,
       disabledRight: state.currentPage + 1 === totalPage,
     }))
-    if (onChange) onChange()
+    if (onChange) onChange(state.currentPage + 1, defaultPageSize)
   }
 
   const changeCurrentPage = (currentPage: number) => {
@@ -73,8 +71,9 @@ export const Pagination = (props: Props) => {
       disabledLeft: currentPage === 1,
       disabledRight: currentPage === totalPage,
     }))
-    if (onChange) onChange()
+    if (onChange) onChange(currentPage, defaultPageSize)
   }
+
   if (total === 0) return null
 
   return (
@@ -112,4 +111,5 @@ export const Pagination = (props: Props) => {
       )}
     </div>
   )
-}
+})
+// TODO: Don't render when click to current button when we're at current page
