@@ -1,9 +1,9 @@
 import { z } from 'zod'
-import { Pagination, PaginationDataRes } from './pagination.schema'
 import { cachThucThucHienSchema } from './cachThucThucHien.schema'
-import { thanhPhanHoSoSchema } from './thanhPhanHoSo.schema'
 import { giayToSchema } from './giayTo.schema'
 import { mauGiayToSchema } from './mauGiayTo.schema'
+import { Pagination, PaginationDataRes } from './pagination.schema'
+import { thanhPhanHoSoSchema } from './thanhPhanHoSo.schema'
 
 export const thuTucSchema = z.object({
   thuTucId: z.string(),

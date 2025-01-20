@@ -1,0 +1,7 @@
+.card-tab-item-title {
+  @apply inline-block w-[200px] text-sm font-bold text-gray-700;
+}
+
+.card-tab-item-value {
+  @apply text-sm font-semibold;
+}

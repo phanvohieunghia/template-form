@@ -1,11 +1,14 @@
 import { createChat } from '@n8n/chat'
 import '@n8n/chat/style.css'
 import { useEffect } from 'react'
+import { appConfig } from './configs'
 import { ConfigProvider } from './contexts'
 import { BaseRoutes } from './routes'
 import './styles'
 
 function App() {
+  document.title = appConfig.title
+
   useEffect(() => {
     createChat({
       webhookUrl: 'https://n8n.aivos.tech/webhook/11ef8a4c-a48f-40b6-aa3d-4caf419cda50/chat',

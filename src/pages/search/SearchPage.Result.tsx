@@ -1,24 +1,27 @@
 import ExampleTemplatePaperImage from '@/assets/images/example-template-paper.png'
 import FileIcon from '@/assets/svgs/file.svg'
 import LoadingIcon from '@/assets/svgs/loading.svg'
-import { Pagination } from '@/components'
-import { useAppSelector } from '@/hooks'
+import { Pagination, PaginationProps } from '@/components'
+import { useAppSelector, useURLSearchParams, UseURLSearchParamsReturn } from '@/hooks'
 import { ProcedureService } from '@/stores'
-import { ProcedureData, ThuTucUI } from '@/stores/procedure/interfaces'
-import { HTMLAttributes, useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { ProcedureList, ThuTucUI } from '@/stores/procedure/interfaces'
+import { convertText, getSearchParams } from '@/utils'
+import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css'
 
 export const Result = () => {
-  const [searchParams] = useSearchParams()
+  const { getParam, setParam } = useURLSearchParams()
   const procedureData = useAppSelector((state) => state.procedure)
-
   const [loading, setLoading] = useState<boolean>(false)
 
   const fetchData = async () => {
     try {
       setLoading(true)
-      await ProcedureService.instance.getAll({ search: searchParams.get('search') || '' })
+      await ProcedureService.instance.getAll({
+        search: procedureData.search,
+        page: Number(getSearchParams().page ?? 1),
+      })
     } finally {
       setLoading(false)
     }
@@ -26,7 +29,7 @@ export const Result = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [getParam('page'), procedureData.search])
 
   return (
     <div>
@@ -35,12 +38,12 @@ export const Result = () => {
           <FileIcon fontSize={28} stroke={'gray'} />
           <span>Kết quả tìm kiếm</span>
         </div>
-        {!loading && procedureData.data.rows && procedureData.data.rows.length !== 0 && (
-          <span className='text-sm text-gray-400'>{procedureData.data.total} kết quả</span>
+        {!loading && procedureData.procedureList.rows && procedureData.procedureList.rows.length !== 0 && (
+          <span className='text-sm text-gray-400'>{procedureData.procedureList.total} kết quả</span>
         )}
       </div>
       <div className='mt-6'>
-        <ConditionalResult loading={loading} data={procedureData.data.rows} />
+        <ConditionalResult loading={loading} data={procedureData.procedureList} onGetParam={getParam} onSetParam={setParam} />
       </div>
     </div>
   )
@@ -48,20 +51,23 @@ export const Result = () => {
 
 type ConditionalResultType = {
   loading: boolean
-  data: ProcedureData['rows']
+  data: ProcedureList
+  onGetParam: UseURLSearchParamsReturn['getParam']
+  onSetParam: UseURLSearchParamsReturn['setParam']
 }
 
 const ConditionalResult = (props: ConditionalResultType) => {
-  const { loading, data } = props
+  const { loading, data, onSetParam, onGetParam } = props
   const navigate = useNavigate()
 
   const handleClick = (data: ThuTucUI) => {
-    navigate(`/tim-kiem/${data.tenThuTuc.replace(' ', '-')}-i.${data.thuTucId}`)
+    navigate(`/tim-kiem/${convertText(data.tenThuTuc, /( |\/|\\)/g, '-')}-i.${data.thuTucId}`)
   }
 
-  const handleChange = (data) => {
-    console.log(data)
-  }
+  const handleChange: PaginationProps['onChange'] = useCallback((page: number) => {
+    window.scrollTo({ top: 0 })
+    onSetParam('page', page.toString())
+  }, [])
 
   if (loading)
     return (
@@ -70,20 +76,20 @@ const ConditionalResult = (props: ConditionalResultType) => {
       </div>
     )
 
-  if (!data) return
+  if (!data.rows) return
 
-  if (data.length === 0) return <div className='text-center text-2xl text-gray-500'>No data</div>
+  if (data.rows.length === 0) return <div className='text-center text-2xl text-gray-500'>No data</div>
 
-  if (data.length > 0)
+  if (data.rows.length > 0)
     return (
       <>
         <div className='flex flex-col gap-4'>
-          {data.map((item, index) => {
+          {data.rows.map((item, index) => {
             return <Item data={item} key={index} onClick={() => handleClick(item)} />
           })}
         </div>
         <div className='mt-4 flex justify-center'>
-          <Pagination total={60} onChange={handleChange} />
+          <Pagination defaultCurrent={Number(onGetParam('page') ?? 1)} total={data.total} onChange={handleChange} />
         </div>
       </>
     )
@@ -95,15 +101,18 @@ type ItemProps = {
 
 const Item = (props: ItemProps) => {
   const { data, ...restProps } = props
-  const { maThuTuc, tenThuTuc, linhVuc, loaiThuTuc } = data
+  const { maThuTuc, tenThuTuc, loaiThuTuc } = data
   return (
-    <div className='overflow-hidden rounded-lg border-[1px] border-transparent hover:cursor-pointer hover:border-green-600' {...restProps}>
-      <div className='flex gap-3 rounded-lg border-[1px] border-green-600 p-4'>
-        <div className='h-[100px] w-[200px] overflow-hidden rounded-lg border-[1px] border-green-300'>
+    <div
+      className='ease rounded-lg border-[1px] border-transparent bg-transparent transition-[border-color,background-color] duration-300 hover:cursor-pointer hover:border-green-600 hover:bg-green-600'
+      {...restProps}
+    >
+      <div className='flex gap-3 rounded-lg border-[1px] border-green-600 bg-white p-4'>
+        <div className='h-[150px] w-[200px] overflow-hidden rounded-lg border-[1px] border-green-300'>
           <img src={ExampleTemplatePaperImage} alt={tenThuTuc} />
         </div>
-        <div className='flex flex-1 flex-col justify-center gap-1'>
-          <div className='text-xs text-green-400'>{loaiThuTuc}</div>
+        <div className='flex flex-1 flex-col justify-start gap-1'>
+          <div className='text-sm text-green-400'>{loaiThuTuc}</div>
           <div className='text-xl'>{tenThuTuc}</div>
           <div className='text-gray-500'>Mã tài liệu: {maThuTuc}</div>
         </div>

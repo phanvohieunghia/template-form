@@ -1,8 +1,8 @@
 import { ProcedureApiService } from '@/services'
 import { AxiosError } from 'axios'
 import { store } from '../store'
-import { GetListParamsVariables, ProcedureData, ProcedureError, ProcedureResponse } from './interfaces'
-import { setData } from './store'
+import { GetAllParamsVariables, GetOneParamsVariables, ProcedureError, ProcedureList, ProcedureResponse } from './interfaces'
+import { setProcedure, setProcedureDetail, setSearch } from './store'
 
 export class ProcedureService {
   private static _instance: ProcedureService
@@ -18,11 +18,11 @@ export class ProcedureService {
     this.dispatch = store.dispatch
   }
 
-  public async getAll(params?: GetListParamsVariables): Promise<ProcedureResponse | void> {
+  public async getAll(params?: GetAllParamsVariables): Promise<ProcedureResponse | void> {
     try {
-      const newParams: GetListParamsVariables = { limit: 10, page: 1, ...params }
-      const { data } = await ProcedureApiService.instance.getList(newParams)
-      const newData: ProcedureData = {
+      const newParams: GetAllParamsVariables = { limit: 10, page: 1, ...params }
+      const { data } = await ProcedureApiService.instance.getAll(newParams)
+      const newData: ProcedureList = {
         total: data.total,
         rows: data.thuTucs.map((item) => ({
           maThuTuc: item.maThuTuc,
@@ -32,7 +32,7 @@ export class ProcedureService {
           thuTucId: item.thuTucId,
         })),
       }
-      this.dispatch(setData(newData))
+      this.dispatch(setProcedure(newData))
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: ProcedureError = e.response?.data
@@ -40,5 +40,22 @@ export class ProcedureService {
       }
       throw new Error(e as string)
     }
+  }
+
+  public async getOne(params: GetOneParamsVariables): Promise<ProcedureResponse | void> {
+    try {
+      const { data } = await ProcedureApiService.instance.getOne(params)
+      this.dispatch(setProcedureDetail(data))
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const data: ProcedureError = e.response?.data
+        return { message: data.message }
+      }
+      throw new Error(e as string)
+    }
+  }
+
+  public updateSearch(param: string): void {
+    this.dispatch(setSearch(param))
   }
 }

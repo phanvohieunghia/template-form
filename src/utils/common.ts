@@ -91,3 +91,27 @@ export const validPassword = (input: string) => {
   }
   return false
 }
+
+export const getSearchParams = () => {
+  const params = new URLSearchParams(window.location.search)
+  const queryObject: Record<string, string> = {}
+  for (const [key, value] of params.entries()) {
+    queryObject[key] = value
+  }
+  return queryObject
+}
+
+export const convertText = (text: string, findText: RegExp | string, replaceText: string) => {
+  if (typeof text !== 'string') {
+    throw new Error('The "text" parameter must be a string.')
+  }
+
+  if (!(findText instanceof RegExp) && typeof findText !== 'string') {
+    throw new Error('The "findText" parameter must be a valid RegExp.')
+  }
+
+  if (typeof replaceText !== 'string') {
+    throw new Error('The "replaceText" parameter must be a string.')
+  }
+  return text.replace(findText, replaceText)
+}

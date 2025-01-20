@@ -14,7 +14,7 @@ export const SearchPage = () => {
         <div className='w-[350px] pr-5'>
           <Filter />
         </div>
-        <div className='flex-1'>
+        <div className='max-w-[898px] flex-1'>
           <Result />
         </div>
       </div>
