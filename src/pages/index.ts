@@ -1,5 +1,6 @@
 export * from './detail'
 export * from './ErrorBoundary'
+export * from './expert'
 export * from './main/MainPage'
 export * from './search'
 export * from './test/InputTestPage'

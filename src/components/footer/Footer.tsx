@@ -1,6 +1,7 @@
 import DMCAProtectedLogo from '@/assets/images/dmca-protected.webp'
 import BoCongThuongLogo from '@/assets/images/logo-da-thong-bao-bo-cong-thuong.webp'
 import LogoIcon from '@/assets/svgs/logo.svg'
+import { appConfig } from '@/configs'
 
 export const Footer = () => {
   return (
@@ -9,7 +10,7 @@ export const Footer = () => {
         <div className='flex-1'>
           <div className='flex items-center'>
             <LogoIcon fontSize={40} />
-            <span className='text-xl'>MẪU VĂN BẢN</span>
+            <span className='text-xl'>{appConfig.title}</span>
           </div>
           <p className='mt-4'>
             Chúng tôi hướng tới trở thành nền tảng biểu mẫu văn bản hàng đầu Việt Nam, mang đến giải pháp tìm kiếm và sử dụng biểu mẫu nhanh chóng,
