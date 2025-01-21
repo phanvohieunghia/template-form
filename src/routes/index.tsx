@@ -1,5 +1,5 @@
 import { MainLayout } from '@/layouts'
-import { DetailPage, ExpertPage, InputTestPage, MainPage, SearchPage, TestPage } from '@/pages'
+import { DetailPage, ExpertPage, InputTestPage, MainPage, SearchPage, TestPage, UploadPage } from '@/pages'
 import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
 const RouteComponent = () => {
@@ -19,6 +19,7 @@ const RouteComponent = () => {
           <Route path=':id' element={<DetailPage />} />
         </Route>
         <Route path='chuyen-gia' element={<ExpertPage />} />
+        <Route path='upload' element={<UploadPage />} />
 
         <Route path='test' element={<TestPage />} />
         <Route path='test-input' element={<InputTestPage />} />
