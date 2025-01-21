@@ -41,13 +41,13 @@ export const ExpertAdviceModal = () => {
     <>
       {modalState.isOpen &&
         createPortal(
-          <BaseModal active={modalState.isActive} escKeyboard>
+          <BaseModal active={modalState.isActive} escKeyboard className='z-50'>
             <BaseModal.Header title={modalState.data?.title || ''} onClose={closeModal} className='text-xl font-semibold' />
             <BaseModal.Body>
               <div className='text-center'>{modalState.data?.content}</div>
             </BaseModal.Body>
             <BaseModal.Footer>
-              <Footer closeModal={closeModal} />
+              <Footer closeModal={closeModal} onConfirm={modalState.data?.onConfirm} />
             </BaseModal.Footer>
           </BaseModal>,
           document.body,
@@ -56,12 +56,15 @@ export const ExpertAdviceModal = () => {
   )
 }
 
-const Footer = (props: { closeModal: () => void }) => {
-  const { closeModal } = props
-
+const Footer = (props: { closeModal: () => void; onConfirm?: () => void }) => {
+  const { closeModal, onConfirm } = props
+  const handleClickButton = () => {
+    closeModal()
+    if (onConfirm) onConfirm()
+  }
   return (
     <div className='flex justify-center'>
-      <Button onClick={closeModal} className='!border-green-600 !bg-green-600 !text-white hover:!border-green-500 hover:!bg-green-500'>
+      <Button onClick={handleClickButton} className='!border-green-600 !bg-green-600 !text-white hover:!border-green-500 hover:!bg-green-500'>
         Gợi ý chuyên gia
       </Button>
     </div>

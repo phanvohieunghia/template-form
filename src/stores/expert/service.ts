@@ -2,8 +2,8 @@ import { ExpertApiService } from '@/services'
 import { AxiosError } from 'axios'
 import { MessageError } from '../interfaces'
 import { store } from '../store'
-import { ExpertList, GetAllExpertResponse, GetAllExpertVariables } from './interfaces'
-import { setExpertList } from './store'
+import { ExpertList, ExpertUI, GetAllExpertResponse, GetAllExpertVariables } from './interfaces'
+import { setExpertList, setSelectedExpert } from './store'
 
 export class ExpertService {
   private static _instance: ExpertService
@@ -37,5 +37,9 @@ export class ExpertService {
       }
       throw new Error(e as string)
     }
+  }
+
+  public setSelectExpert(expert: ExpertUI) {
+    this.dispatch(setSelectedExpert(expert))
   }
 }

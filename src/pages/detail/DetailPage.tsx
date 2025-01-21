@@ -88,7 +88,7 @@ export const DetailPage = () => {
                 </>
               ),
               onConfirm: () => {
-                navigate('/expert')
+                navigate('/chuyen-gia')
               },
             })
           }

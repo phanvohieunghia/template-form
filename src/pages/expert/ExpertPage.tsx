@@ -6,6 +6,7 @@ import { ExpertUI } from '@/stores/expert/interfaces'
 import { Button } from 'antd'
 import clsx from 'clsx'
 import { HTMLAttributes, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './styles.module.css'
 
 export const ExpertPage = () => {
@@ -61,30 +62,32 @@ const ProfileCard = (props: ProfileCardProps) => {
   const { index, data } = props
   const { user } = data
   const imageSrc = `src/assets/images/avatar/${index + 1}.png`
+  const navigate = useNavigate()
+
+  const makeAdvice = () => {
+    ExpertService.instance.setSelectExpert(data)
+    navigate(`/tai-len-tap-tin`)
+  }
 
   return (
     <div className={clsx('relative w-full max-w-sm overflow-hidden rounded-xl bg-white p-6 shadow-lg')}>
       <div className={styles['background']}></div>
-      {/* Profile Image */}
       <div className='relative flex justify-center'>
         <div className={clsx(styles['box-shadow'], 'h-24 w-24 overflow-hidden rounded-full')}>
           <img src={imageSrc} alt='Profile' className='h-full w-full object-cover' />
         </div>
       </div>
 
-      {/* Name and Role */}
       <div className='relative mt-4 text-center'>
         <h2 className='text-xl font-bold text-gray-900'>{user.name}</h2>
         <p className='text-sm text-gray-600'>Chuyên gia tư vấn</p>
       </div>
 
-      {/* About Section */}
       <div className='relative mt-6'>
         <h3 className='text-sm font-bold text-gray-700'>GIỚI THIỆU</h3>
         <p className='mt-2 text-sm text-gray-600'>{expertBioData[index]}</p>
       </div>
 
-      {/* Social Media Links */}
       <div className='relative mt-6 flex justify-center space-x-4'>
         <a href='#' className='text-gray-400 hover:text-blue-600' aria-label='Facebook'>
           <i className='fab fa-facebook-f'></i>
@@ -99,23 +102,9 @@ const ProfileCard = (props: ProfileCardProps) => {
           <i className='fab fa-linkedin-in'></i>
         </a>
       </div>
-      <Button type='primary' block className='!border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'>
+      <Button type='primary' block className='!border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500' onClick={makeAdvice}>
         Tư vấn
       </Button>
-      {/* Navigation */}
-      {/* <div className='mt-6 border-t border-gray-200'>
-        <div className='mt-4 flex justify-around text-sm text-gray-600'>
-          <a href='#' className='hover:text-gray-900'>
-            ABOUT
-          </a>
-          <a href='#' className='hover:text-gray-900'>
-            EXPERIENCE
-          </a>
-          <a href='#' className='hover:text-gray-900'>
-            CONTACT
-          </a>
-        </div>
-      </div> */}
     </div>
   )
 }

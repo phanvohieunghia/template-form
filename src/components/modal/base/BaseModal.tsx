@@ -1,15 +1,16 @@
 import { EVENT_NAME, EventManager } from '@/utils'
 import clsx from 'clsx'
-import { FC, PropsWithChildren, useEffect, useState } from 'react'
+import { FC, HTMLAttributes, PropsWithChildren, useEffect, useState } from 'react'
 import { BaseModalBody as Body } from './BaseModal.Body'
 import { BaseModalFooter as Footer } from './BaseModal.Footer'
 import { BaseModalHeader as Header } from './BaseModal.Header'
 
-type Props = PropsWithChildren & {
-  active: boolean
-  maskClosable?: boolean
-  escKeyboard?: boolean // Whether support press esc to close
-}
+type Props = PropsWithChildren &
+  HTMLAttributes<HTMLDivElement> & {
+    active: boolean
+    maskClosable?: boolean
+    escKeyboard?: boolean // Whether support press esc to close
+  }
 type BaseModalComponent = FC<Props> & {
   Header: typeof Header
   Footer: typeof Footer
@@ -17,7 +18,7 @@ type BaseModalComponent = FC<Props> & {
 }
 
 export const BaseModal: BaseModalComponent = (props) => {
-  const { children, active: isActive, maskClosable = false, escKeyboard = false } = props
+  const { children, active: isActive, maskClosable = false, escKeyboard = false, className, style, ...restProps } = props
   const [modalDisplay, setModalDisplay] = useState<boolean>(isActive)
 
   useEffect(() => {
@@ -49,9 +50,10 @@ export const BaseModal: BaseModalComponent = (props) => {
 
   return (
     <div
-      style={{ display: modalDisplay ? 'block' : 'none' }}
-      className={clsx('fixed inset-0 bg-black bg-opacity-35 backdrop-blur-sm', isActive ? 'animate-fade-in' : 'animate-fade-out')}
+      style={{ ...style, display: modalDisplay ? 'block' : 'none' }}
+      className={clsx('fixed inset-0 bg-black bg-opacity-35 backdrop-blur-sm', className, isActive ? 'animate-fade-in' : 'animate-fade-out')}
       onClick={maskClosable ? () => EventManager.emit(EVENT_NAME.TEST_MODAL_CLOSE) : undefined}
+      {...restProps}
     >
       <div className='fixed inset-0 flex items-start justify-center py-20'>
         <div

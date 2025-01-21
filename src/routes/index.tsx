@@ -19,7 +19,7 @@ const RouteComponent = () => {
           <Route path=':id' element={<DetailPage />} />
         </Route>
         <Route path='chuyen-gia' element={<ExpertPage />} />
-        <Route path='upload' element={<UploadPage />} />
+        <Route path='tai-len-tap-tin' element={<UploadPage />} />
 
         <Route path='test' element={<TestPage />} />
         <Route path='test-input' element={<InputTestPage />} />
