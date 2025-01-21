@@ -1,7 +1,6 @@
 import { getSearchParams } from '@/utils'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../store'
 import { ProcedureDetailUI, ProcedureList } from './interfaces'
 
 interface ProcedureState {
@@ -32,7 +31,5 @@ export const procedureSlice = createSlice({
 })
 
 export const { setProcedure, setSearch, setProcedureDetail } = procedureSlice.actions
-
-export const selectCount = (state: RootState) => state.procedure
 
 export default procedureSlice.reducer

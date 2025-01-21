@@ -18,7 +18,7 @@ const RouteComponent = () => {
           <Route index element={<SearchPage />} />
           <Route path=':id' element={<DetailPage />} />
         </Route>
-        <Route path='expert' element={<ExpertPage />} />
+        <Route path='chuyen-gia' element={<ExpertPage />} />
 
         <Route path='test' element={<TestPage />} />
         <Route path='test-input' element={<InputTestPage />} />

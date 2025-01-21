@@ -29,7 +29,6 @@ export const DetailPage = () => {
     }
   }
 
-  console.log(procedureDetail)
   const tabData: TabProps['items'] = useMemo(() => {
     return (
       procedureDetail?.cachThucThucHiens.map((item) => ({
@@ -131,7 +130,9 @@ export const DetailPage = () => {
         <LoadingIcon fontSize={80} fill='green' />
       </div>
     )
+
   if (!procedureDetail) return
+
   return (
     <div className='space-y-4'>
       <div className='pb-5 text-3xl font-semibold' style={{ wordSpacing: '2px' }}>

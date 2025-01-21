@@ -1,0 +1,16 @@
+.background {
+  @apply absolute inset-0 z-0;
+  background:
+    radial-gradient(at 13% 12%, #16a34ab2 0px, transparent 50%),
+    radial-gradient(at 79% 18%, #03aa41b2 0px, transparent 50%) #ffffff;
+  mix-blend-mode: var(100px);
+  filter: blur(1px);
+}
+
+.box-shadow {
+  box-shadow:
+    rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  background-color: #ffffff;
+}

@@ -1,7 +1,8 @@
 import { ProcedureApiService } from '@/services'
 import { AxiosError } from 'axios'
+import { MessageError } from '../interfaces'
 import { store } from '../store'
-import { GetAllParamsVariables, GetOneParamsVariables, ProcedureError, ProcedureList, ProcedureResponse } from './interfaces'
+import { GetAllProcedureVariables, GetOneVariables, ProcedureList, ProcedureResponse } from './interfaces'
 import { setProcedure, setProcedureDetail, setSearch } from './store'
 
 export class ProcedureService {
@@ -18,9 +19,9 @@ export class ProcedureService {
     this.dispatch = store.dispatch
   }
 
-  public async getAll(params?: GetAllParamsVariables): Promise<ProcedureResponse | void> {
+  public async getAll(params?: GetAllProcedureVariables): Promise<ProcedureResponse | void> {
     try {
-      const newParams: GetAllParamsVariables = { limit: 10, page: 1, ...params }
+      const newParams: GetAllProcedureVariables = { limit: 10, page: 1, ...params }
       const { data } = await ProcedureApiService.instance.getAll(newParams)
       const newData: ProcedureList = {
         total: data.total,
@@ -35,20 +36,20 @@ export class ProcedureService {
       this.dispatch(setProcedure(newData))
     } catch (e) {
       if (e instanceof AxiosError) {
-        const data: ProcedureError = e.response?.data
+        const data: MessageError = e.response?.data
         return { message: data.message }
       }
       throw new Error(e as string)
     }
   }
 
-  public async getOne(params: GetOneParamsVariables): Promise<ProcedureResponse | void> {
+  public async getOne(params: GetOneVariables): Promise<ProcedureResponse | void> {
     try {
       const { data } = await ProcedureApiService.instance.getOne(params)
       this.dispatch(setProcedureDetail(data))
     } catch (e) {
       if (e instanceof AxiosError) {
-        const data: ProcedureError = e.response?.data
+        const data: MessageError = e.response?.data
         return { message: data.message }
       }
       throw new Error(e as string)

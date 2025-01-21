@@ -20,20 +20,14 @@ export type ProcedureResponse = {
   [key: string]: unknown
 }
 
-export type ProcedureError = {
-  message: string
-  name: string
-}
-
-export type GetAllParamsVariables = {
+export type GetAllProcedureVariables = {
   search?: string
   page?: number
   limit?: number
 }
 export type GetAllThuTucResponse = getThuTucsResType
 
-export type GetOneParamsVariables = {
+export type GetOneVariables = {
   id: string
 }
-
 export type GetOneThuTucResponse = getThuTucResType
