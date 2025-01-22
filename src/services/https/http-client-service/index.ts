@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE } from '@/utils'
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios'
 import { DEFAULT_HEADERS, DEFAULT_TIMEOUT } from '../httpConfig'
 
@@ -79,10 +80,17 @@ export class HttpClientService {
   /* eslint-enable */
 
   private static async getConfig(customOptions?: AxiosRequestConfig): Promise<AxiosRequestConfig> {
-    const { data, params, ...remaining } = customOptions ?? {}
+    const { data, params, headers, ...remaining } = customOptions ?? {}
+    const access_token = localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN)
+    const customHeaders: AxiosRequestConfig['headers'] = {
+      Authorization: access_token ? `Bearer ${access_token}` : undefined,
+      ...headers,
+    }
+
     const defaultConfig: AxiosRequestConfig = {
       data,
       params,
+      headers: customHeaders,
       ...remaining,
     }
     return defaultConfig

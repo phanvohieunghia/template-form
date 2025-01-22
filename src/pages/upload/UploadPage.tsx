@@ -4,9 +4,10 @@ import FileIcon from '@/assets/svgs/file.svg'
 import UploadIcon from '@/assets/svgs/upload.svg'
 import { Button } from '@/components'
 import { useAppSelector } from '@/hooks'
+import { ExpertService } from '@/stores'
 import { ExpertUI } from '@/stores/expert/interfaces'
 import clsx from 'clsx'
-import React, { HTMLAttributes, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import styles from './styles.module.css'
 
 type FileState = {
@@ -57,7 +58,18 @@ export const UploadPage = () => {
     }, 50)
   }
 
-  const payBill = () => {}
+  const payBill = async () => {
+    const { momoUrl } = await ExpertService.instance.payBill()
+    if (momoUrl) {
+      window.location.href = momoUrl
+    }
+  }
+
+  useEffect(() => {
+    if (!isUploading && files.length > 0) {
+      ExpertService.instance.setFiles(files.map((item) => item.file))
+    }
+  }, [files, isUploading])
 
   return (
     <div className='flex items-start gap-6 p-6'>

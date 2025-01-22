@@ -1,2 +1,5 @@
 export * from './expert'
+export * from './message'
 export * from './procedure'
+export * from './session'
+export * from './uploaded-file'

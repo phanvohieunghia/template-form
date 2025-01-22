@@ -12,7 +12,6 @@ export type ExpertList = {
 }
 
 export type ExpertResponse = {
-  data?: ExpertList
   error?: Error
   [key: string]: unknown
 }
@@ -23,3 +22,7 @@ export type GetAllExpertVariables = {
   page?: number
   limit?: number
 }
+
+export type PayBillResponse = {
+  momoUrl?: string
+} & ExpertResponse

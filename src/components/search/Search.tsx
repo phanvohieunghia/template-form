@@ -3,6 +3,7 @@ import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, Popover, PopoverContentProps } from '@/components'
 import { useURLSearchParams } from '@/hooks'
 import { ProcedureService } from '@/stores'
+import { getSearchParams } from '@/utils'
 import { useForm, UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -11,7 +12,7 @@ type SearchInput = {
 }
 
 export const Search = () => {
-  const { register, handleSubmit, setValue, getValues } = useForm<SearchInput>({ defaultValues: { search: '' } })
+  const { register, handleSubmit, setValue, getValues } = useForm<SearchInput>({ defaultValues: { search: getSearchParams().search } })
   const { pathname } = useLocation()
   const { setParam } = useURLSearchParams()
 
@@ -19,9 +20,9 @@ export const Search = () => {
 
   const handleSearch = () => {
     const value = getValues('search')
+    ProcedureService.instance.updateSearch(value)
     if (pathname.includes('tim-kiem')) {
       setParam('search', value)
-      ProcedureService.instance.updateSearch(value)
     } else {
       navigate(`/tim-kiem/?search=${value}`)
     }
@@ -33,6 +34,7 @@ export const Search = () => {
         style={{ boxShadow: '0 14px 14px 0px #BFC5E040' }}
         size='large'
         placeholder='Bạn đang tìm văn bản nào?'
+        onEnter={handleSearch}
         extra={
           <Button
             type='primary'

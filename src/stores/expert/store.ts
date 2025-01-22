@@ -4,12 +4,14 @@ import { ExpertList, ExpertUI } from './interfaces'
 
 interface ExpertState {
   expertList: ExpertList
+  files: File[]
   selectedExpert?: ExpertUI
   index?: number
 }
 
 const initialState: ExpertState = {
   expertList: { total: 0, rows: undefined },
+  files: [],
 }
 
 export const expertSlice = createSlice({
@@ -25,9 +27,12 @@ export const expertSlice = createSlice({
     setIndex: (state, action: PayloadAction<number>) => {
       state.index = action.payload
     },
+    setFiles: (state, action: PayloadAction<File[]>) => {
+      state.files = action.payload
+    },
   },
 })
 
-export const { setExpertList, setSelectedExpert, setIndex } = expertSlice.actions
+export const { setExpertList, setSelectedExpert, setIndex, setFiles } = expertSlice.actions
 
 export default expertSlice.reducer

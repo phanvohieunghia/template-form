@@ -1,6 +1,6 @@
 import { ApiEndpointService } from '@/services/endpoints'
 import { HttpClientService } from '@/services/https'
-import { GetAllExpertResponse, GetAllExpertVariables } from '@/stores/expert/interfaces'
+import { CreateOneMessageResponse, CreateOneMessageVariables } from './interfaces'
 
 export class MessageApiService extends ApiEndpointService {
   private static _instance: MessageApiService
@@ -16,8 +16,8 @@ export class MessageApiService extends ApiEndpointService {
     this.endpoint = `${this.endpoint}/messages`
   }
 
-  public async createOneMessage(params?: GetAllExpertVariables): Promise<GetAllExpertResponse> {
+  public async createOneMessage(data?: CreateOneMessageVariables): Promise<CreateOneMessageResponse> {
     const endpoint = this.endpoint
-    return await HttpClientService.post(endpoint, { params })
+    return await HttpClientService.post(endpoint, data)
   }
 }

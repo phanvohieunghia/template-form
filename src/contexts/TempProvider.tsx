@@ -1,8 +1,13 @@
-import { AutoClickService } from '@/services'
+import { AutoClickService, LocalStorageService } from '@/services'
+import { LOCAL_STORAGE } from '@/utils'
 import { PropsWithChildren } from 'react'
 
 export const TempProvider = (props: PropsWithChildren) => {
   const { children } = props
+  LocalStorageService.instance.set(
+    LOCAL_STORAGE.ACCESS_TOKEN,
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTY1YmllczYwMDAwd2p3czFtejRzdmJvIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3Mzg0MDY0MDAsInRva2VuVHlwZSI6IkFjY2Vzc1Rva2VuIiwiaWF0IjoxNzM3NTQyNDAwfQ.JqsTOF5zuI9NiFZOKWP3ggquxV2p9Ay0WGszwQuLc1k',
+  )
   AutoClickService.instance
     .press(['F2'])
     // homepage

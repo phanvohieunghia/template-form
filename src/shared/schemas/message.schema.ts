@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { PaymentSchema } from './payment.schema'
 
 export const MessageSchema = z.object({
   messageId: z.string(),
@@ -20,6 +21,8 @@ export type CreateMessageBodyType = z.infer<typeof CreateMessageBody>
 
 export const CreateMessageRes = z.object({
   message: z.string(),
-  data: MessageSchema
+  data: MessageSchema.extend({
+    payment: PaymentSchema.nullable().optional()
+  })
 })
 export type CreateMessageResType = z.infer<typeof CreateMessageRes>

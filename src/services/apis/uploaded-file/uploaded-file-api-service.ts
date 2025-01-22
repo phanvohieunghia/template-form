@@ -1,6 +1,7 @@
 import { ApiEndpointService } from '@/services/endpoints'
 import { HttpClientService } from '@/services/https'
-import { GetAllExpertResponse, GetAllExpertVariables } from '@/stores/expert/interfaces'
+import { CONTENT_TYPE } from '@/services/https/httpConfig'
+import { UploadOneFileResponse, UploadOneFileVariables } from './interfaces'
 
 export class UploadedFileApiService extends ApiEndpointService {
   private static _instance: UploadedFileApiService
@@ -16,8 +17,8 @@ export class UploadedFileApiService extends ApiEndpointService {
     this.endpoint = `${this.endpoint}/upload-files`
   }
 
-  public async uploadOneFile(params?: GetAllExpertVariables): Promise<GetAllExpertResponse> {
+  public async uploadOneFile(data?: UploadOneFileVariables): Promise<UploadOneFileResponse> {
     const endpoint = this.endpoint
-    return await HttpClientService.post(endpoint, { params })
+    return await HttpClientService.post(endpoint, data, { headers: { 'Content-Type': CONTENT_TYPE.FORM_DATA } })
   }
 }

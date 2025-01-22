@@ -11,16 +11,17 @@ import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css'
 
 export const Result = () => {
-  const { getParam, setParam } = useURLSearchParams()
+  const { setParam } = useURLSearchParams()
   const procedureData = useAppSelector((state) => state.procedure)
   const [loading, setLoading] = useState<boolean>(false)
-
+  const urlQuery = getSearchParams()
+  console.log(procedureData.search)
   const fetchData = async () => {
     try {
       setLoading(true)
       await ProcedureService.instance.getAll({
-        search: procedureData.search,
-        page: Number(getSearchParams().page ?? 1),
+        search: getSearchParams().search ?? '',
+        page: Number(urlQuery.page ?? 1),
       })
     } finally {
       setLoading(false)
@@ -29,7 +30,7 @@ export const Result = () => {
 
   useEffect(() => {
     fetchData()
-  }, [getParam('page'), procedureData.search])
+  }, [urlQuery.page, procedureData.search])
 
   return (
     <div>
@@ -43,7 +44,7 @@ export const Result = () => {
         )}
       </div>
       <div className='mt-6'>
-        <ConditionalResult loading={loading} data={procedureData.procedureList} onGetParam={getParam} onSetParam={setParam} />
+        <ConditionalResult loading={loading} data={procedureData.procedureList} onSetParam={setParam} />
       </div>
     </div>
   )
@@ -52,12 +53,11 @@ export const Result = () => {
 type ConditionalResultType = {
   loading: boolean
   data: ProcedureList
-  onGetParam: UseURLSearchParamsReturn['getParam']
   onSetParam: UseURLSearchParamsReturn['setParam']
 }
 
 const ConditionalResult = (props: ConditionalResultType) => {
-  const { loading, data, onSetParam, onGetParam } = props
+  const { loading, data, onSetParam } = props
   const navigate = useNavigate()
 
   const handleClick = (data: ThuTucUI) => {
@@ -89,7 +89,7 @@ const ConditionalResult = (props: ConditionalResultType) => {
           })}
         </div>
         <div className='mt-4 flex justify-center'>
-          <Pagination defaultCurrent={Number(onGetParam('page') ?? 1)} total={data.total} onChange={handleChange} />
+          <Pagination defaultCurrent={Number(getSearchParams().page ?? 1)} total={data.total} onChange={handleChange} />
         </div>
       </>
     )

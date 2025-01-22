@@ -1,4 +1,5 @@
 export const MEDIA_MESSAGES = {
+  INVALID_FILE_TYPE: 'Invalid file type!',
   FILE_UPLOAD_IS_EMPTY: 'File upload is empty!',
   UPLOAD_FILE_SUCCESSFULLY: 'Upload file successfully!',
   NO_FILE_WAS_UPLOADED: 'No file was uploaded!',

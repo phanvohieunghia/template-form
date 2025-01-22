@@ -1,10 +1,11 @@
-import { ExpertApiService } from '@/services'
+import { ExpertApiService, MessageApiService, UploadedFileApiService } from '@/services'
+import { SessionApiService } from '@/services/apis/session'
 import { AxiosError } from 'axios'
 import cloneDeep from 'lodash/cloneDeep'
 import { MessageError } from '../interfaces'
 import { store } from '../store'
-import { ExpertList, ExpertUI, GetAllExpertResponse, GetAllExpertVariables } from './interfaces'
-import { setExpertList, setIndex, setSelectedExpert } from './store'
+import { ExpertList, ExpertUI, GetAllExpertResponse, GetAllExpertVariables, PayBillResponse } from './interfaces'
+import { setExpertList, setFiles, setIndex, setSelectedExpert } from './store'
 
 export class ExpertService {
   private static _instance: ExpertService
@@ -50,9 +51,39 @@ export class ExpertService {
     this.dispatch(setIndex(index))
   }
 
-  public payBill() {
+  public setFiles(files: File[]) {
+    console.log(files)
+    this.dispatch(setFiles(files))
+  }
+
+  public async payBill(): Promise<PayBillResponse> {
     const expert = this.state().expert
     console.log(expert)
+    try {
+      const { procedureDetail } = this.state().procedure
+      const { selectedExpert, files } = this.state().expert
+
+      const sessionResponse = await SessionApiService.instance.CreateOneSession({
+        mentorId: selectedExpert?.mentorId ?? '',
+        thuTucId: procedureDetail?.thuTucId ?? '',
+      })
+
+      const { data } = await UploadedFileApiService.instance.uploadOneFile({ file: files[0] })
+
+      const response3 = await MessageApiService.instance.createOneMessage({
+        fileUrl: data.url,
+        sessionId: sessionResponse.data.sessionId,
+        content: null,
+      })
+
+      return { momoUrl: response3.data.payment?.payUrl ?? '' }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const data: MessageError = e.response?.data
+        return { message: data.message, data: e.response?.data }
+      }
+      throw new Error(e as string)
+    }
     // SessionApiService.instance.CreateOneSession()
   }
 }

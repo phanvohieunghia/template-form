@@ -1,6 +1,6 @@
 import { ApiEndpointService } from '@/services/endpoints'
 import { HttpClientService } from '@/services/https'
-import { GetAllExpertResponse, GetAllExpertVariables } from '@/stores/expert/interfaces'
+import { CreateOneSessionResponse, CreateOneSessionVariables } from './interfaces'
 
 export class SessionApiService extends ApiEndpointService {
   private static _instance: SessionApiService
@@ -16,8 +16,8 @@ export class SessionApiService extends ApiEndpointService {
     this.endpoint = `${this.endpoint}/sessions`
   }
 
-  public async CreateOneSession(params?: GetAllExpertVariables): Promise<GetAllExpertResponse> {
+  public async CreateOneSession(data?: CreateOneSessionVariables): Promise<CreateOneSessionResponse> {
     const endpoint = this.endpoint
-    return await HttpClientService.get(endpoint, { params })
+    return await HttpClientService.post(endpoint, data)
   }
 }

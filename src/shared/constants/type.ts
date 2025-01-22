@@ -38,3 +38,12 @@ export const SessionStatus = {
 } as const
 export type SessionStatusType = (typeof SessionStatus)[keyof typeof SessionStatus]
 export const SessionStatusValues = Object.values(SessionStatus) as [SessionStatusType, ...SessionStatusType[]]
+
+// Payment Status
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
+export type PaymentStatusType = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+export const PaymentStatusValues = Object.values(PaymentStatus) as [PaymentStatusType, ...PaymentStatusType[]]
