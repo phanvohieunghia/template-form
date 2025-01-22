@@ -64,7 +64,7 @@ const Footer = (props: { closeModal: () => void; onConfirm?: () => void }) => {
   }
   return (
     <div className='flex justify-center'>
-      <Button onClick={handleClickButton} className='!border-green-600 !bg-green-600 !text-white hover:!border-green-500 hover:!bg-green-500'>
+      <Button type='primary' onClick={handleClickButton} className='!border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'>
         Gợi ý chuyên gia
       </Button>
     </div>

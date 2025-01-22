@@ -1,13 +1,16 @@
 import { ExpertApiService } from '@/services'
 import { AxiosError } from 'axios'
+import cloneDeep from 'lodash/cloneDeep'
 import { MessageError } from '../interfaces'
 import { store } from '../store'
 import { ExpertList, ExpertUI, GetAllExpertResponse, GetAllExpertVariables } from './interfaces'
-import { setExpertList, setSelectedExpert } from './store'
+import { setExpertList, setIndex, setSelectedExpert } from './store'
 
 export class ExpertService {
   private static _instance: ExpertService
   private dispatch: typeof store.dispatch
+  private state: typeof store.getState
+
   public static get instance(): ExpertService {
     if (!ExpertService._instance) {
       ExpertService._instance = new ExpertService()
@@ -17,6 +20,7 @@ export class ExpertService {
 
   constructor() {
     this.dispatch = store.dispatch
+    this.state = store.getState
   }
 
   public async getAll(params?: GetAllExpertVariables): Promise<GetAllExpertResponse | void> {
@@ -39,7 +43,16 @@ export class ExpertService {
     }
   }
 
-  public setSelectExpert(expert: ExpertUI) {
-    this.dispatch(setSelectedExpert(expert))
+  public setSelectExpert(expert: ExpertUI, imageSrc: string, index: number) {
+    const newData = cloneDeep(expert)
+    newData.user.avatar = imageSrc
+    this.dispatch(setSelectedExpert(newData))
+    this.dispatch(setIndex(index))
+  }
+
+  public payBill() {
+    const expert = this.state().expert
+    console.log(expert)
+    // SessionApiService.instance.CreateOneSession()
   }
 }

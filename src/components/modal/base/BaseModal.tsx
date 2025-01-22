@@ -51,7 +51,7 @@ export const BaseModal: BaseModalComponent = (props) => {
   return (
     <div
       style={{ ...style, display: modalDisplay ? 'block' : 'none' }}
-      className={clsx('fixed inset-0 bg-black bg-opacity-35 backdrop-blur-sm', className, isActive ? 'animate-fade-in' : 'animate-fade-out')}
+      className={clsx('modal fixed inset-0 bg-black bg-opacity-35 backdrop-blur-sm', className, isActive ? 'animate-fade-in' : 'animate-fade-out')}
       onClick={maskClosable ? () => EventManager.emit(EVENT_NAME.TEST_MODAL_CLOSE) : undefined}
       {...restProps}
     >

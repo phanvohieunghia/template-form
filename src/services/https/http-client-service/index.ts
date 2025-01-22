@@ -62,7 +62,6 @@ export class HttpClientService {
   public static async post<T>(uri: string, data: unknown, options?: AxiosRequestConfig): Promise<T> {
     const config = await this.getConfig(options)
     const response = await this.instance.post<T>(uri, data, config)
-    console.log(response)
     return response.data as T
   }
 

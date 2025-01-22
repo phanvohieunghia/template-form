@@ -1,9 +1,9 @@
 import expertBioData from '@/assets/mock-data/expert.json'
 import LoadingIcon from '@/assets/svgs/loading.svg'
+import { Button } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { ExpertService } from '@/stores/expert'
 import { ExpertUI } from '@/stores/expert/interfaces'
-import { Button } from 'antd'
 import clsx from 'clsx'
 import { HTMLAttributes, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -65,7 +65,7 @@ const ProfileCard = (props: ProfileCardProps) => {
   const navigate = useNavigate()
 
   const makeAdvice = () => {
-    ExpertService.instance.setSelectExpert(data)
+    ExpertService.instance.setSelectExpert(data, imageSrc, index)
     navigate(`/tai-len-tap-tin`)
   }
 
@@ -102,7 +102,12 @@ const ProfileCard = (props: ProfileCardProps) => {
           <i className='fab fa-linkedin-in'></i>
         </a>
       </div>
-      <Button type='primary' block className='!border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500' onClick={makeAdvice}>
+      <Button
+        type='primary'
+        block
+        className='relative !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'
+        onClick={makeAdvice}
+      >
         Tư vấn
       </Button>
     </div>
