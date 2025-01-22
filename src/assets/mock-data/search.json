@@ -1,22 +1,40 @@
 [
   {
-    "title": "Đầu tư & Kinh doanh",
-    "items": ["Price quotation form", "Mẫu hợp đồng sang nhượng quán cafe, cà phê", "Investment partnership agreement", "Business plan template"]
+    "title": "Hải quan",
+    "items": [
+      "Thủ tục hải quan đối với xăng dầu, hóa chất, khí chuyển tiêu thụ nội địa",
+      "Thủ tục hải quan đối với xăng dầu, hóa chất, khí, nguyên liệu xuất khẩu, tái xuất",
+      "Thủ tục hải quan đối với xăng dầu cung ứng xuất khẩu, tái xuất cho máy bay",
+      "Thủ tục hải quan đối với hàng hóa lạc tuyến quốc tế"
+    ]
   },
   {
-    "title": "Doanh nghiệp & Doanh nhân",
-    "items": ["Conference invitation", "Corporate meeting agenda", "Entrepreneurial success stories"]
+    "title": "Lâm nghiệp",
+    "items": [
+      "Công nhận giống cây trồng lâm nghiệp",
+      "Chuyển loại rừng đối với khu rừng do Thủ tướng Chính phủ quyết định thành lập",
+      "Phê duyệt phương án khai thác động vật rừng thông thường từ tự nhiên"
+    ]
   },
   {
-    "title": "Phát triển cá nhân",
-    "items": ["Time management guide", "Daily productivity checklist", "Self-improvement eBook"]
+    "title": "Công chúng",
+    "items": [
+      "Phê duyệt Điều lệ Hiệp hội công chứng viên Việt Nam",
+      "Công nhận tương đương đối với người được đào tạo nghề công chứng ở nước ngoài",
+      "Miễn nhiệm công chứng viên (trường hợp được miễn nhiệm)",
+      "Bổ nhiệm công chứng viên",
+      "Chấm dứt tập sự hành nghề công chứng",
+      "Thay đổi công chứng viên hướng dẫn tập sự trong trường hợp người tập sự đề nghị thay đổi"
+    ]
   },
   {
-    "title": "Marketing & Truyền thông",
-    "items": ["Social media marketing strategy", "Email campaign templates", "Branding and design resources", "Content calendar template"]
-  },
-  {
-    "title": "Công nghệ & Sáng tạo",
-    "items": ["AI in modern business", "Blockchain basics", "Website development checklist", "Tech startup case studies"]
+    "title": "Đấu thầu",
+    "items": [
+      "Đăng ký tham gia Hệ thống mạng đấu thầu quốc gia đối với nhà thầu, nhà đầu tư",
+      "Thẩm định, phê duyệt báo cáo nghiên cứu khả thi dự án do nhà đầu tư đề xuất",
+      "Thẩm định, phê duyệt báo cáo nghiên cứu khả thi dự án do nhà đầu tư đề xuất (cấp tỉnh)",
+      "Thẩm định báo cáo nghiên cứu tiền khả thi, quyết định chủ trương đầu tư dự án do nhà đầu tư đề xuất (cấp tỉnh)",
+      "Thủ tục giải quyết kiến nghị về kết quả lựa chọn nhà thầu thuộc thẩm quyền của Ủy ban nhân dân Thành phố"
+    ]
   }
 ]

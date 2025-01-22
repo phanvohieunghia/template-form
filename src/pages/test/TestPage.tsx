@@ -1,4 +1,4 @@
-import { Button, Pagination, Popover, Select, TestModal, TestModalPayload, Tooltip } from '@/components'
+import { Button, Collapse, Pagination, Popover, Select, TestModal, TestModalPayload, Tooltip } from '@/components'
 import { EVENT_NAME, EventManager } from '@/utils'
 
 const content = <div>Hover</div>
@@ -97,6 +97,7 @@ export const TestPage = () => {
       <div className='flex justify-center p-4'>
         <Pagination total={500} />
       </div>
+      <Collapse />
     </>
   )
 }

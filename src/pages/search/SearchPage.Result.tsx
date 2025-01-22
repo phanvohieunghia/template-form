@@ -102,7 +102,7 @@ type ItemProps = {
 
 const Item = (props: ItemProps) => {
   const { data, ...restProps } = props
-  const { maThuTuc, tenThuTuc, loaiThuTuc } = data
+  const { maThuTuc, tenThuTuc, loaiThuTuc, linhVuc } = data
   return (
     <div
       className='ease rounded-lg border-[1px] border-transparent bg-transparent transition-[border-color,background-color] duration-300 hover:cursor-pointer hover:border-green-600 hover:bg-green-600'
@@ -116,6 +116,7 @@ const Item = (props: ItemProps) => {
           <div className='text-sm text-green-400'>{loaiThuTuc}</div>
           <div className='text-xl'>{tenThuTuc}</div>
           <div className='text-gray-500'>Mã tài liệu: {maThuTuc}</div>
+          <div className='text-sm font-semibold text-gray-500'> {linhVuc}</div>
         </div>
       </div>
     </div>
