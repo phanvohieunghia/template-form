@@ -5,7 +5,7 @@ import { Pagination, PaginationProps } from '@/components'
 import { useAppSelector, useURLSearchParams, UseURLSearchParamsReturn } from '@/hooks'
 import { ProcedureService } from '@/stores'
 import { ProcedureList, ThuTucUI } from '@/stores/procedure/interfaces'
-import { convertText, getSearchParams } from '@/utils'
+import { getSearchParams, getUrlDecoding } from '@/utils'
 import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css'
@@ -15,12 +15,12 @@ export const Result = () => {
   const procedureData = useAppSelector((state) => state.procedure)
   const [loading, setLoading] = useState<boolean>(false)
   const urlQuery = getSearchParams()
-  console.log(procedureData.search)
+
   const fetchData = async () => {
     try {
       setLoading(true)
       await ProcedureService.instance.getAll({
-        search: getSearchParams().search ?? '',
+        search: getUrlDecoding(getSearchParams().search ?? ''),
         page: Number(urlQuery.page ?? 1),
       })
     } finally {
@@ -61,7 +61,8 @@ const ConditionalResult = (props: ConditionalResultType) => {
   const navigate = useNavigate()
 
   const handleClick = (data: ThuTucUI) => {
-    navigate(`/tim-kiem/${convertText(data.tenThuTuc, /( |\/|\\)/g, '-')}-i.${data.thuTucId}`)
+    const convertedProcedureName = data.tenThuTuc.replace(/( |\/|\\)/g, '-').replace(/%/g, '-phần-trăm')
+    navigate(`/tim-kiem/${convertedProcedureName}-i.${data.thuTucId}`)
   }
 
   const handleChange: PaginationProps['onChange'] = useCallback((page: number) => {

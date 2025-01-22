@@ -1,4 +1,4 @@
-import { getSearchParams } from '@/utils'
+import { getSearchParams, getUrlDecoding } from '@/utils'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { ProcedureDetailUI, ProcedureList } from './interfaces'
@@ -11,7 +11,7 @@ interface ProcedureState {
 const url = getSearchParams()
 const initialState: ProcedureState = {
   procedureList: { total: 0, rows: undefined },
-  search: url.search ?? '',
+  search: getUrlDecoding(url.search ?? ''),
 }
 
 export const procedureSlice = createSlice({

@@ -1,4 +1,5 @@
 import expertBioData from '@/assets/mock-data/expert.json'
+import MoneyData from '@/assets/mock-data/pages/expert/money.json'
 import LoadingIcon from '@/assets/svgs/loading.svg'
 import { Button } from '@/components'
 import { useAppSelector } from '@/hooks'
@@ -108,7 +109,7 @@ const ProfileCard = (props: ProfileCardProps) => {
         className='relative !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'
         onClick={makeAdvice}
       >
-        Tư vấn
+        Tư vấn - ${MoneyData[index].price}
       </Button>
     </div>
   )

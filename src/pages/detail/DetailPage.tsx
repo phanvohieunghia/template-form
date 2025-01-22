@@ -28,6 +28,7 @@ export const DetailPage = () => {
       setLoading(false)
     }
   }
+  console.log(procedureDetail)
 
   const tabData: TabProps['items'] = useMemo(() => {
     return (
@@ -98,7 +99,7 @@ export const DetailPage = () => {
               type='link'
               onClick={handleClick}
               key={index}
-              // href={`https://csdl.dichvucong.gov.vn/web/jsp/download_file.jsp?ma='${item.mauGiayToIdDVC}'`}
+              href={`https://csdl.dichvucong.gov.vn/web/jsp/download_file.jsp?ma='${item.mauGiayToIdDVC}'`}
             >
               {item.tenMauGiayTo}
             </Button>

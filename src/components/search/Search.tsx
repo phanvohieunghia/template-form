@@ -3,7 +3,7 @@ import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, Popover, PopoverContentProps } from '@/components'
 import { useURLSearchParams } from '@/hooks'
 import { ProcedureService } from '@/stores'
-import { getSearchParams } from '@/utils'
+import { getSearchParams, getUrlDecoding, getUrlEncoding } from '@/utils'
 import { useForm, UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -12,7 +12,9 @@ type SearchInput = {
 }
 
 export const Search = () => {
-  const { register, handleSubmit, setValue, getValues } = useForm<SearchInput>({ defaultValues: { search: getSearchParams().search } })
+  const { register, handleSubmit, setValue, getValues } = useForm<SearchInput>({
+    defaultValues: { search: getUrlDecoding(getSearchParams().search ?? '') },
+  })
   const { pathname } = useLocation()
   const { setParam } = useURLSearchParams()
 
@@ -24,7 +26,9 @@ export const Search = () => {
     if (pathname.includes('tim-kiem')) {
       setParam('search', value)
     } else {
-      navigate(`/tim-kiem/?search=${value}`)
+      const convertedSearchValue = getUrlEncoding(value)
+
+      navigate(`/tim-kiem/?search=${convertedSearchValue}`)
     }
   }
   return (
