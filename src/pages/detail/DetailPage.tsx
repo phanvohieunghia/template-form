@@ -3,7 +3,7 @@ import { Button, ExpertAdviceModal, Tab, TabProps } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { mauGiayToType } from '@/shared/schemas/mauGiayTo.schema'
 import { ProcedureService } from '@/stores'
-import { convertText, EVENT_NAME, EventManager } from '@/utils'
+import { EVENT_NAME, EventManager } from '@/utils'
 import { Collapse, CollapseProps, Table } from 'antd'
 import clsx from 'clsx'
 import { HTMLAttributes, PropsWithChildren, useEffect, useMemo, useState } from 'react'
@@ -32,26 +32,38 @@ export const DetailPage = () => {
 
   const tabData: TabProps['items'] = useMemo(() => {
     return (
-      procedureDetail?.cachThucThucHiens.map((item) => ({
-        label: item.hinhThucNop ?? '',
-        key: item.id.toString(),
-        children: (
-          <div key={item.id}>
-            <div className='mt-2 flex'>
-              <span className={styles['card-tab-item-title']}>Thời hạn giải quyết</span>
-              <span className={styles['card-tab-item-value']}>{item.thoiHanGiaiQuyet}</span>
+      procedureDetail?.cachThucThucHiens.map((item) => {
+        const formatText = (text: string) => {
+          return text
+            .replace(/\+/g, '`+')
+            .split('`')
+            .map((item, index) => (
+              <div key={index} className={item.includes('+') ? 'ml-2 text-xs' : ''}>
+                {item}
+              </div>
+            ))
+        }
+        return {
+          label: item.hinhThucNop ?? '',
+          key: item.id.toString(),
+          children: (
+            <div key={item.id}>
+              <div className='mt-2 flex'>
+                <span className={styles['card-tab-item-title']}>Thời hạn giải quyết</span>
+                <span className={clsx(styles['card-tab-item-value'], 'space-y-2')}>{formatText(item.thoiHanGiaiQuyet ?? '')}</span>
+              </div>
+              <div className='mt-2 flex'>
+                <span className={styles['card-tab-item-title']}>Phí, lệ phí</span>
+                <span className={styles['card-tab-item-value']}>{item.lePhi === '' && '0 Đồng. Không quy định.'}</span>
+              </div>
+              <div className='mt-2 flex'>
+                <span className={styles['card-tab-item-title']}>Mô tả</span>
+                <span className={styles['card-tab-item-value']}>{item.moTa === '' ? 'Không có' : item.moTa}</span>
+              </div>
             </div>
-            <div className='mt-2 flex'>
-              <span className={styles['card-tab-item-title']}>Phí, lệ phí</span>
-              <span className={styles['card-tab-item-value']}>{item.lePhi === '' && '0 Đồng. Không quy định.'}</span>
-            </div>
-            <div className='mt-2 flex'>
-              <span className={styles['card-tab-item-title']}>Mô tả</span>
-              <span className={styles['card-tab-item-value']}>{item.moTa}</span>
-            </div>
-          </div>
-        ),
-      })) ?? []
+          ),
+        }
+      }) ?? []
     )
   }, [procedureDetail])
 
@@ -124,6 +136,23 @@ export const DetailPage = () => {
   useEffect(() => {
     fetchData()
   }, [])
+  const newQuyTrinhThucHien = useMemo(() => {
+    const formatText = (text: string) => {
+      return text
+        .trim()
+        .replace(/(-|\+)/g, '`')
+        .replace(/Bước/g, '`Bước')
+        .replace(/(\(\d\))/g, '`$1')
+        .split('`')
+        .map((item, index) => (
+          <div className='mt-3' key={index}>
+            {item}
+          </div>
+        ))
+    }
+
+    return formatText(procedureDetail?.trinhTuThucHien ?? '')
+  }, [procedureDetail])
 
   if (loading)
     return (
@@ -163,15 +192,7 @@ export const DetailPage = () => {
       <Card title='Thành phần hồ sơ'>
         <Collapse items={collapseData} className='noah' />
       </Card>
-      <Card title='Quy trình thực hiện'>
-        {convertText(procedureDetail?.trinhTuThucHien ?? '', /Bước/g, '-Bước')
-          .split('-')
-          .map((item, index) => (
-            <div className='mt-3' key={index}>
-              {item}
-            </div>
-          ))}
-      </Card>
+      <Card title='Quy trình thực hiện'>{newQuyTrinhThucHien}</Card>
       <ExpertAdviceModal />
     </div>
   )

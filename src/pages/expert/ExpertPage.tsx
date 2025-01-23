@@ -109,7 +109,8 @@ const ProfileCard = (props: ProfileCardProps) => {
         className='relative !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'
         onClick={makeAdvice}
       >
-        Tư vấn - ${MoneyData[index].price}
+        <span className='text-md font-semibold'>Tư vấn:</span>
+        {MoneyData[index].price}
       </Button>
     </div>
   )
