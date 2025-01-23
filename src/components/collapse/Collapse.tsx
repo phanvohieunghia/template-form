@@ -1,9 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
 
-interface PanelProps {
-  title: string
-  content: string
-}
 const items = [
   {
     title: 'This is panel header 1',
