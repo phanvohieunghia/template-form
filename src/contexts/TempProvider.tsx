@@ -19,7 +19,7 @@ export const TempProvider = (props: PropsWithChildren) => {
         'ease rounded-lg border-[1px] border-transparent bg-transparent transition-[border-color,background-color] duration-300 hover:cursor-pointer hover:border-green-600 hover:bg-green-600',
     })
     .click({ tagName: '.noah .ant-collapse-header' })
-    .click({ tagName: '.noah button' })
+    .click({ tagName: '.noah a' })
     .click({ className: ['modal', '.footer', 'button'] })
     // expert page
     .click({ className: 'relative !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500' })

@@ -22,13 +22,13 @@ export const DetailPage = () => {
       setLoading(true)
 
       const splittedPathname = pathname.split('-i.')
+      if (splittedPathname.length === 1) navigate('/tim-kiem')
       const id = splittedPathname[splittedPathname.length - 1]
       await ProcedureService.instance.getOne({ id })
     } finally {
       setLoading(false)
     }
   }
-  console.log(procedureDetail)
 
   const tabData: TabProps['items'] = useMemo(() => {
     return (
