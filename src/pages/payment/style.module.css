@@ -1,48 +1,47 @@
 .background {
   --side-position: 220px;
   --side-radius: 20px;
-  --bottom-radius: 20px;
-  --bottom-spacing: 40px;
+  --bottom-radius: 10px;
+  --bottom-spacing: 12px;
   --blur-thickness: 1px;
   --background-color: white;
   --dash-width: 10px;
-  --adjusted-dash-position: -1px;
+  --dash-color: rgb(63, 63, 63);
+  --adjusted-dash-position: 50%;
   --adjusted-bottom-position: 50%;
   --line-x-position: calc(var(--side-radius) + 4px);
-  filter: drop-shadow(0px 0px 10px #000000);
+  filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.35));
   background:
     radial-gradient(
         var(--side-radius) at 0 var(--side-position),
         transparent calc(var(--side-radius) - var(--blur-thickness)),
         var(--background-color) var(--side-radius)
       )
-      no-repeat 0 0 / var(--side-radius) calc(100% - var(--bottom-radius)),
+      no-repeat 0 0 / var(--side-radius) 100%,
     radial-gradient(
         var(--side-radius) at 100% var(--side-position),
         transparent calc(var(--side-radius) - var(--blur-thickness)),
         var(--background-color) var(--side-radius)
       )
-      no-repeat 100% 0 / var(--side-radius) calc(100% - var(--bottom-radius)),
+      no-repeat 100% 0 / var(--side-radius) 100%,
     linear-gradient(var(--background-color) 0, var(--background-color) 0) no-repeat var(--side-radius) 0 / calc(100% - var(--side-radius) * 2)
       calc(100% - var(--bottom-radius)),
     radial-gradient(
         var(--bottom-radius) at 50% calc(100% - var(--bottom-radius)),
-        transparent calc(var(--side-radius) - var(--blur-thickness)),
-        var(--background-color) var(--side-radius)
+        transparent calc(var(--bottom-radius) - var(--blur-thickness)),
+        var(--background-color) var(--bottom-radius)
       )
       repeat-x var(--adjusted-bottom-position) calc(100% + var(--bottom-radius)) / calc(var(--bottom-radius) * 2 + var(--bottom-spacing))
       calc(var(--bottom-radius) * 2);
   @apply relative after:absolute after:left-[var(--line-x-position)] after:right-[var(--line-x-position)] after:top-[var(--side-position)] after:h-[2px] after:border-dashed after:border-b-black after:content-[''];
   &::after {
     background:
-      radial-gradient(circle closest-side, black 98%, transparent) calc(var(--adjusted-dash-position) + 50%) / var(--dash-width) 100%,
-      linear-gradient(90deg, black 50%, transparent 0) calc(var(--adjusted-dash-position) + 50%) / calc(var(--dash-width) * 2) 100%;
+      radial-gradient(circle closest-side, var(--dash-color) 98%, transparent) calc(var(--adjusted-dash-position) + 50%) / var(--dash-width) 100%,
+      linear-gradient(90deg, var(--dash-color) 50%, transparent 0) calc(var(--adjusted-dash-position) + 50%) / calc(var(--dash-width) * 2) 100%;
   }
   &::before {
-    @apply pointer-events-none;
-    content: '';
-    position: absolute;
-    inset: 0;
+    @apply pointer-events-none absolute inset-0 content-[''];
     background: radial-gradient(at 50% -100px, #0fda4f86 0px, transparent 50%);
   }
 }
+/* TODO: remake dash line in this css */

@@ -16,3 +16,10 @@ export const PaymentSchema = z.object({
   createdAt: z.date()
 })
 export type PaymentType = z.infer<typeof PaymentSchema>
+
+//  Get payment
+export const GetPaymentRes = z.object({
+  message: z.string(),
+  data: PaymentSchema
+})
+export type GetPaymentResType = z.infer<typeof GetPaymentRes>

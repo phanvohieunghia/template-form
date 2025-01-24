@@ -42,7 +42,7 @@ export const SessionStatusValues = Object.values(SessionStatus) as [SessionStatu
 // Payment Status
 export const PaymentStatus = {
   PENDING: 'PENDING',
-  SUCCESS: 'SUCCESS',
+  COMPLETED: 'COMPLETED',
   FAILED: 'FAILED'
 } as const
 export type PaymentStatusType = (typeof PaymentStatus)[keyof typeof PaymentStatus]

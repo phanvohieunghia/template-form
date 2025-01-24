@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import expert from './expert/store'
+import payment from './payment/store'
 import procedure from './procedure/store'
 
 export const store = configureStore({
   reducer: {
-    procedure: procedure,
-    expert: expert,
+    procedure,
+    expert,
+    payment,
   },
 })
 
