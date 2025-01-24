@@ -2,11 +2,12 @@ import { PaymentApiService } from '@/services'
 import { AxiosError } from 'axios'
 import { MessageError } from '../interfaces'
 import { store } from '../store'
-import { PaymentResponse } from './interfaces'
+import { MomoRedirectUrlVariables, PaymentResponse } from './interfaces'
+import { setInformation } from './store'
 
 export class PaymentService {
   private static _instance: PaymentService
-  // private dispatch: typeof store.dispatch
+  private dispatch: typeof store.dispatch
   private state: typeof store.getState
 
   public static get instance(): PaymentService {
@@ -17,13 +18,13 @@ export class PaymentService {
   }
 
   constructor() {
-    // this.dispatch = store.dispatch
+    this.dispatch = store.dispatch
     this.state = store.getState
   }
 
   public async getOne(): Promise<PaymentResponse | void> {
     const data = this.state().payment
-    const paymentId = data.information?.paymentId
+    const paymentId = data.information?.requestId.replace('AIVOS-', '')
     console.log(paymentId)
     try {
       if (!paymentId)
@@ -40,5 +41,9 @@ export class PaymentService {
       }
       throw new Error(e as string)
     }
+  }
+
+  public setInformation(params: MomoRedirectUrlVariables): void {
+    this.dispatch(setInformation(params))
   }
 }

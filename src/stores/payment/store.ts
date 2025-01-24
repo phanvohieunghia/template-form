@@ -1,9 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { Payment } from './interfaces'
+import { MomoRedirectUrlVariables } from './interfaces'
 
 interface PaymentState {
-  information?: Payment
+  information?: MomoRedirectUrlVariables
 }
 const initialState: PaymentState = {}
 

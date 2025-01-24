@@ -12,3 +12,19 @@ export type GetOneVariables = {
   paymentId: string
 }
 export type GetOneResponse = GetPaymentResType
+
+export type MomoRedirectUrlVariables = {
+  amount: number
+  extraData: string
+  message: string
+  orderId: string
+  orderInfo: string
+  orderType: string
+  partnerCode: string
+  payType: string
+  requestId: string
+  responseTime: number
+  resultCode: number
+  signature: string
+  transId: number
+}
