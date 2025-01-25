@@ -1,5 +1,5 @@
 .background {
-  --side-position: 220px;
+  --side-position: 280px;
   --side-radius: 20px;
   --bottom-radius: 10px;
   --bottom-spacing: 12px;
@@ -33,7 +33,7 @@
       )
       repeat-x var(--adjusted-bottom-position) calc(100% + var(--bottom-radius)) / calc(var(--bottom-radius) * 2 + var(--bottom-spacing))
       calc(var(--bottom-radius) * 2);
-  @apply relative after:absolute after:left-[var(--line-x-position)] after:right-[var(--line-x-position)] after:top-[var(--side-position)] after:h-[2px] after:border-dashed after:border-b-black after:content-[''];
+  @apply relative after:absolute after:top-[var(--side-position)] after:right-[var(--line-x-position)] after:left-[var(--line-x-position)] after:h-[2px] after:border-dashed after:border-b-black after:content-[''];
   &::after {
     background:
       radial-gradient(circle closest-side, var(--dash-color) 98%, transparent) calc(var(--adjusted-dash-position) + 50%) / var(--dash-width) 100%,
@@ -41,7 +41,7 @@
   }
   &::before {
     @apply pointer-events-none absolute inset-0 content-[''];
-    background: radial-gradient(at 50% -100px, #0fda4f86 0px, transparent 50%);
+    /* background: radial-gradient(at 50% -100px, #0fda4f86 0px, transparent 50%); */
   }
 }
 /* TODO: remake dash line in this css */

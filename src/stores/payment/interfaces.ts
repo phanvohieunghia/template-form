@@ -5,6 +5,7 @@ export type Payment = PaymentType
 export type PaymentResponse = {
   data?: Payment
   error?: Error
+  status?: 'FAILED' | 'SUCCESS'
   [key: string]: unknown
 }
 

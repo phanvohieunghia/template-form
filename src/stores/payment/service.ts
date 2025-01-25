@@ -33,7 +33,9 @@ export class PaymentService {
         }
       const { data } = await PaymentApiService.instance.getOne({ paymentId })
       console.log(data)
-      // this.dispatch(setInformation(data))
+      return {
+        status: data.status as PaymentResponse['status'],
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
