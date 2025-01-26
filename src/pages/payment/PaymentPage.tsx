@@ -11,7 +11,7 @@ type StatusBillType = PaymentResponse['status'] | undefined
 
 export const PaymentPage = () => {
   const navigate = useNavigate()
-  const [statusBill, setStatusBill] = useState<StatusBillType>('FAILED')
+  const [statusBill, setStatusBill] = useState<StatusBillType>('SUCCESS')
 
   const fetchData = async () => {
     const result = await PaymentService.instance.getOne()
@@ -47,7 +47,7 @@ const Ticket = (props: TicketType) => {
       </div>
       {/* Card Content */}
       <div className='relative mt-8 text-center'>
-        <h2 className='text-2xl font-bold'>{statusBill === 'SUCCESS' ? 'Thanh Toán Thành Công' : 'Thanh Toán Thất Bại'}</h2>
+        <h2 className='text-2xl font-bold'>{statusBill === 'SUCCESS' ? 'Thanh Toán Thành Công' : 'Thanh Toán Không Thành Công'}</h2>
       </div>
       <div className='relative h-[100px]'></div>
       <div className={'space-y-4 p-6 text-sm'}>
@@ -71,14 +71,14 @@ const Icons = (props: { type: StatusBillType }) => {
   const renderIcon = (): { icon: JSX.Element; wrapperColor: string; backgroundColor: string } => {
     if (type === 'FAILED')
       return {
-        icon: <CloseCircleIcon fontSize={60} fill='white' />,
-        wrapperColor: 'bg-[#f167675a]',
+        icon: <CloseCircleIcon fontSize={32} fill='white' />,
+        wrapperColor: 'bg-[#f1676720]',
         backgroundColor: 'from-red-300 to-red-500',
       }
     else if (type === 'SUCCESS')
       return {
-        icon: <CheckCircleIcon fontSize={60} fill='white' />,
-        wrapperColor: 'bg-[#67f1805a]',
+        icon: <CheckCircleIcon fontSize={32} fill='white' />,
+        wrapperColor: 'bg-[#67f18020]',
         backgroundColor: 'from-green-300 to-green-500',
       }
     return {
@@ -89,8 +89,8 @@ const Icons = (props: { type: StatusBillType }) => {
   }
 
   return (
-    <div className={clsx('relative flex h-32 w-32 items-center justify-center rounded-full', renderIcon().wrapperColor)}>
-      <div className={clsx('relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r', renderIcon().backgroundColor)}>
+    <div className={clsx('relative flex h-20 w-20 items-center justify-center rounded-full', renderIcon().wrapperColor)}>
+      <div className={clsx('relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r', renderIcon().backgroundColor)}>
         {renderIcon().icon}
       </div>
     </div>
