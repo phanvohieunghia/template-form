@@ -38,9 +38,7 @@ export const TestPage = () => {
     <>
       <Button onClick={handleClick}>Click to Open Modal</Button>
       <TestModal />
-
       <div></div>
-
       <Popover content={content}>
         <Button>Click</Button>
       </Popover>
@@ -50,7 +48,6 @@ export const TestPage = () => {
       <Popover trigger='focus' content={content}>
         <Button>Focus</Button>
       </Popover>
-
       {/* <Select defaultValue={'1'} onChange={testChange} options={data} style={{ width: '15%' }} /> */}
       <Select
         defaultValue={'1'}
@@ -60,7 +57,6 @@ export const TestPage = () => {
         options={data.map((item, index) => ({ ...item, label: '1'.repeat(index + 1) }))}
         style={{ width: '30%' }}
       />
-
       <div className='flex w-[150%] justify-between'>
         <Tooltip title='left tooltip will be show'>
           <Button>Hello</Button>
@@ -72,7 +68,6 @@ export const TestPage = () => {
           <Button>Hello</Button>
         </Tooltip>
       </div>
-
       <div className='flex w-[150%] justify-between'>
         <Tooltip arrow title='left tooltip will be show'>
           <Button>Hello</Button>
@@ -93,11 +88,29 @@ export const TestPage = () => {
       <div className='flex justify-center p-4'>
         <Pagination total={95} />
       </div>
-
       <div className='flex justify-center p-4'>
         <Pagination total={500} />
       </div>
-      <Collapse />
+      {/* <Collapse /> */}
+      <div className='mx-auto max-w-xl p-4'>
+        <Collapse
+          items={[
+            {
+              key: '1',
+              header: 'First Item',
+              content: 'Content for first item',
+            },
+            {
+              key: '2',
+              header: 'Second Item',
+              content: 'Content for second item',
+            },
+          ]}
+          accordion
+          defaultActiveKey={['1']}
+        />
+      </div>
+      {/* <ExampleTable /> */}
     </>
   )
 }

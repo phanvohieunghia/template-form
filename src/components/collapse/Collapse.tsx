@@ -1,61 +1,69 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
-
-const items = [
-  {
-    title: 'This is panel header 1',
-    content:
-      'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.',
-  },
-  {
-    title: 'This is panel header 2',
-    content:
-      'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.',
-  },
-  {
-    title: 'This is panel header 3',
-    content:
-      'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.',
-  },
-]
-
-type ItemProps = Pick<State, 'content' | 'title'> & {
-  index: number
-  open: boolean
-  onOpen: Dispatch<SetStateAction<State[]>>
+import ChevronDownIcon from '@/assets/svgs/chevron_down.svg'
+import clsx from 'clsx'
+import { FC, useEffect, useRef, useState } from 'react'
+interface CollapseProps {
+  items: ItemProps[]
+  accordion?: boolean
+  defaultActiveKey?: string[]
+  onChange?: (activeKeys: string[]) => void
 }
 
-const Items = (props: ItemProps) => {
-  const { title, content, open: isOpen, onOpen, index } = props
+type ItemProps = {
+  header: React.ReactNode
+  content: React.ReactNode
+  key: string
+}
+
+export const Collapse: FC<CollapseProps> = (props) => {
+  const { items, accordion = false, defaultActiveKey = [], onChange } = props
+  const [activeKeys, setActiveKeys] = useState<string[]>(defaultActiveKey)
+  const contentRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+
+  const handleToggle = (key: string) => {
+    let newActiveKeys: string[]
+    if (accordion) {
+      newActiveKeys = activeKeys.includes(key) ? [] : [key]
+    } else {
+      newActiveKeys = activeKeys.includes(key) ? activeKeys.filter((k) => k !== key) : [...activeKeys, key]
+    }
+    setActiveKeys(newActiveKeys)
+    onChange?.(newActiveKeys)
+  }
+
+  useEffect(() => {
+    items.forEach((item) => {
+      const contentEl = contentRefs.current[item.key]
+      if (contentEl) {
+        contentEl.style.maxHeight = activeKeys.includes(item.key) ? `${contentEl.scrollHeight}px` : '0'
+      }
+    })
+  }, [activeKeys, items])
 
   return (
-    <div className='mb-2 rounded-lg border border-gray-300'>
-      <button
-        onClick={() => onOpen((prev) => ({ ...prev, isOpen: !prev[index].isOpen }))}
-        className='flex w-full items-center justify-between px-4 py-2 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-      >
-        <span>{title}</span>
-        <span className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>▼</span>
-      </button>
-      {isOpen && <div className='border-t border-gray-300 px-4 py-2 text-gray-700'>{content}</div>}
-    </div>
-  )
-}
-type State = {
-  title: string
-  content: string
-  isOpen: boolean
-}
+    <div className='w-full overflow-hidden rounded-lg border'>
+      {items.map((item) => (
+        <div key={item.key} className='border-b'>
+          {/* Header */}
+          <div
+            role='button'
+            className='flex cursor-pointer items-center justify-between p-4 transition-colors hover:bg-gray-50'
+            onClick={() => handleToggle(item.key)}
+          >
+            <div className='font-medium'>{item.header}</div>
 
-export const Collapse: React.FC = () => {
-  const [state, setState] = useState<State[]>(items.map((item) => ({ ...item, isOpen: false })))
+            <ChevronDownIcon className={clsx('h-4 w-4 transform transition-transform', activeKeys.includes(item.key) ? 'rotate-180' : '')} />
+          </div>
 
-  return (
-    <div className='mx-auto mt-10 max-w-md'>
-      {items.map((item, index) => (
-        <Items title={item.title} content={item.content} open={state[index].isOpen} onOpen={setState} index={index} />
+          {/* Content */}
+          <div
+            ref={(el) => (contentRefs.current[item.key] = el)}
+            className='overflow-hidden transition-all duration-300 ease-in-out'
+            style={{ maxHeight: '0' }}
+          >
+            <div className='p-4'>{item.content}</div>
+          </div>
+        </div>
       ))}
     </div>
   )
 }
-
-export default Collapse
