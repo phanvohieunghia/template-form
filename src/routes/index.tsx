@@ -1,6 +1,7 @@
 import { MainLayout } from '@/layouts'
-import { DetailPage, ExpertPage, InputTestPage, MainPage, PaymentPage, RedirectToPayment, SearchPage, TestPage, UploadPage } from '@/pages'
+import { DetailPage, ExpertPage, InputTestPage, LoginPage, MainPage, PaymentPage, RedirectToPayment, SearchPage, TestPage, UploadPage } from '@/pages'
 import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Authenticated } from './Authenticated'
 
 const RouteComponent = () => {
   return (
@@ -8,9 +9,11 @@ const RouteComponent = () => {
       <Route
         path='/'
         element={
-          <MainLayout>
-            <Outlet />
-          </MainLayout>
+          <Authenticated type='token' fallback={<Navigate to='/sign-in' />}>
+            <MainLayout>
+              <Outlet />
+            </MainLayout>
+          </Authenticated>
         }
       >
         <Route index element={<MainPage />} />
@@ -25,10 +28,19 @@ const RouteComponent = () => {
         <Route path='tai-len-tap-tin' element={<UploadPage />} />
         <Route path='thanh-toan' element={<PaymentPage />} />
         <Route path='checkout/notification' element={<RedirectToPayment />} />
-        <Route path='test' element={<TestPage />} />
-        <Route path='test-input' element={<InputTestPage />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Route>
+
+      <Route
+        path='dang-nhap'
+        element={
+          <Authenticated type='public' fallback={<Navigate to='/' />}>
+            <LoginPage />
+          </Authenticated>
+        }
+      />
+      <Route path='test' element={<TestPage />} />
+      <Route path='test-input' element={<InputTestPage />} />
     </Routes>
   )
 }
