@@ -1,6 +1,14 @@
-import { FC, PropsWithChildren } from 'react'
+import clsx from 'clsx'
+import { FC, HTMLAttributes, PropsWithChildren } from 'react'
 
-export const BaseModalBody: FC<PropsWithChildren> = (props) => {
-  const { children } = props
-  return <main className='bg-white p-4'>{children}</main>
+type Props = PropsWithChildren & HTMLAttributes<HTMLDivElement>
+
+export const BaseModalBody: FC<Props> = (props) => {
+  const { children, className, ...restProps } = props
+
+  return (
+    <main className={clsx('bg-white p-4', className)} {...restProps}>
+      {children}
+    </main>
+  )
 }

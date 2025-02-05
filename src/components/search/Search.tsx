@@ -3,7 +3,7 @@ import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, Popover, PopoverContentProps } from '@/components'
 import { useURLSearchParams } from '@/hooks'
 import { ProcedureService } from '@/stores'
-import { getSearchParams, getUrlDecoding, getUrlEncoding } from '@/utils'
+import { getSearchParams, getUrlDecoding, getUrlEncoding, ROUTE_NAME } from '@/utils'
 import { useForm, UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -23,12 +23,12 @@ export const Search = () => {
   const handleSearch = () => {
     const value = getValues('search')
     ProcedureService.instance.updateSearch(value)
-    if (pathname.includes('tim-kiem')) {
+    if (pathname.includes(ROUTE_NAME.RESEARCH)) {
       setParam('search', value)
     } else {
       const convertedSearchValue = getUrlEncoding(value)
 
-      navigate(`/tim-kiem/?search=${convertedSearchValue}`)
+      navigate(`${ROUTE_NAME.RESEARCH_}/?search=${convertedSearchValue}`)
     }
   }
   return (

@@ -1,6 +1,6 @@
 import { ApiEndpointService } from '@/services/endpoints'
 import { HttpClientService } from '@/services/https'
-import { LoginResponse } from '@/stores/auth/interfaces'
+import { LoginResponse, LogoutResponse, LogoutVariables, RegisterResponse, RegisterVariables } from '@/stores/auth/interfaces'
 import { LoginVariables } from '@/validations'
 
 export class AuthApiService extends ApiEndpointService {
@@ -12,29 +12,24 @@ export class AuthApiService extends ApiEndpointService {
     }
     return AuthApiService._instance
   }
+
   constructor() {
     super()
     this.endpoint = `${this.endpoint}/auth`
   }
 
-  public async getAll(params?: Record<string, unknown>): Promise<unknown> {
-    const endpoint = this.endpoint
-    return await HttpClientService.get(endpoint, { params })
-  }
-
-  public async getOne(params?: Record<string, unknown>): Promise<unknown> {
-    const endpoint = this.endpoint
-    return await HttpClientService.get(endpoint, { params })
-  }
-
   public async login(data: LoginVariables): Promise<LoginResponse> {
-    const endpoint  = `${this.endpoint}/login`
+    const endpoint = `${this.endpoint}/login`
     return await HttpClientService.post(endpoint, data)
   }
 
-  public logout() {
- 
+  public register(data: RegisterVariables): Promise<RegisterResponse> {
+    const endpoint = `${this.endpoint}/register`
+    return HttpClientService.post(endpoint, data)
   }
 
-  public register() {}
+  public logout(data: LogoutVariables): Promise<LogoutResponse> {
+    const endpoint = `${this.endpoint}/logout`
+    return HttpClientService.post(endpoint, data)
+  }
 }

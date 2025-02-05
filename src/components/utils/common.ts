@@ -1,6 +1,12 @@
 import { RefObject } from 'react'
+import { PlacementType } from './intefaces'
 
-export const getNewPopupPosition = (childrenRef: RefObject<HTMLElement>, popupRef: RefObject<HTMLElement>, rowGap: number) => {
+export const getNewPopupPosition = (
+  childrenRef: RefObject<HTMLElement>,
+  popupRef: RefObject<HTMLElement>,
+  rowGap: number,
+  placement?: PlacementType,
+) => {
   if (!childrenRef.current) return
 
   let childElement = childrenRef.current
@@ -15,11 +21,33 @@ export const getNewPopupPosition = (childrenRef: RefObject<HTMLElement>, popupRe
     const left = closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popupRef.current?.offsetWidth ?? 0) / 2
     if (left <= 0) return { left: 0 }
     else if (left + (popupRef.current?.offsetWidth ?? 0) >= window.innerWidth) return { right: -closestScrollableElement.scrollLeft }
+    else if (placement) {
+      switch (placement) {
+        case 'bottomRight':
+        case 'topRight':
+          return { left: closestScrollableElement.scrollLeft + childRect.left + childRect.width - (popupRef.current?.offsetWidth ?? 0) }
+        case 'bottomLeft':
+        case 'topLeft':
+          return { left: closestScrollableElement.scrollLeft + childRect.left }
+      }
+    }
     return { left }
   }
 
+  const getVerticalPosition = () => {
+    switch (placement) {
+      case 'top':
+      case 'topLeft':
+      case 'topRight':
+        return {
+          top: closestScrollableElement.scrollTop + childRect.top - rowGap - (popupRef.current?.offsetHeight ?? 0),
+        }
+    }
+    return { top: closestScrollableElement.scrollTop + childRect.bottom + rowGap }
+  }
+
   return {
-    top: closestScrollableElement.scrollTop + childRect.bottom + rowGap,
+    ...getVerticalPosition(),
     ...getHorizontalPosition(),
   }
 }

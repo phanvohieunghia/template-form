@@ -48,6 +48,32 @@ export const TestPage = () => {
       <Popover trigger='focus' content={content}>
         <Button>Focus</Button>
       </Popover>
+      <div>
+        <Popover content={content} placement='bottom'>
+          <Button>Bottom</Button>
+        </Popover>
+
+        <Popover content={content} placement='bottomLeft'>
+          <Button>Bottom Left</Button>
+        </Popover>
+
+        <Popover content={content} placement='bottomRight'>
+          <Button>Bottom Right</Button>
+        </Popover>
+
+        <Popover content={content} placement='top'>
+          <Button>Top</Button>
+        </Popover>
+
+        <Popover content={content} placement='topLeft'>
+          <Button>Top Left</Button>
+        </Popover>
+
+        <Popover content={content} placement='topRight'>
+          <Button>Top Right</Button>
+        </Popover>
+      </div>
+
       {/* <Select defaultValue={'1'} onChange={testChange} options={data} style={{ width: '15%' }} /> */}
       <Select
         defaultValue={'1'}

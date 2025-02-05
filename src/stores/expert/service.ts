@@ -52,13 +52,10 @@ export class ExpertService {
   }
 
   public setFiles(files: File[]) {
-    console.log(files)
     this.dispatch(setFiles(files))
   }
 
   public async payBill(): Promise<PayBillResponse> {
-    const expert = this.state().expert
-    console.log(expert)
     try {
       const { procedureDetail } = this.state().procedure
       const { selectedExpert, files } = this.state().expert

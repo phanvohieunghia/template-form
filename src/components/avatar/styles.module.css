@@ -1,0 +1,12 @@
+.avatar {
+  @apply inline-flex items-center justify-center overflow-hidden bg-gray-400;
+}
+.avatar.shape-circle {
+  @apply rounded-full;
+}
+.avatar.shape-square {
+  @apply rounded-md;
+}
+.avatar.src {
+  @apply rounded-none bg-transparent;
+}

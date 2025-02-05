@@ -5,7 +5,7 @@ import { Pagination, PaginationProps } from '@/components'
 import { useAppSelector, useURLSearchParams, UseURLSearchParamsReturn } from '@/hooks'
 import { ProcedureService } from '@/stores'
 import { ProcedureList, ThuTucUI } from '@/stores/procedure/interfaces'
-import { getSearchParams, getUrlDecoding } from '@/utils'
+import { getSearchParams, getUrlDecoding, ROUTE_NAME } from '@/utils'
 import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css'
@@ -62,7 +62,7 @@ const ConditionalResult = (props: ConditionalResultType) => {
 
   const handleClick = (data: ThuTucUI) => {
     const convertedProcedureName = data.tenThuTuc.replace(/( |\/|\\)/g, '-').replace(/%/g, '-phần-trăm')
-    navigate(`/tim-kiem/${convertedProcedureName}-i.${data.thuTucId}`)
+    navigate(`${ROUTE_NAME.RESEARCH_}/${convertedProcedureName}-i.${data.thuTucId}`)
   }
 
   const handleChange: PaginationProps['onChange'] = useCallback((page: number) => {

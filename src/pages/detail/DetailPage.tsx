@@ -1,9 +1,9 @@
 import LoadingIcon from '@/assets/svgs/loading.svg'
-import { Button, ExpertAdviceModal, Tab, TabProps } from '@/components'
+import { Button, ExpertAdviceModal, ExpertAdviceModalPayload, Tab, TabProps } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { mauGiayToType } from '@/shared/schemas/mauGiayTo.schema'
 import { ProcedureService } from '@/stores'
-import { EVENT_NAME, EventManager } from '@/utils'
+import { EVENT_NAME, EventManager, ROUTE_NAME } from '@/utils'
 import { Collapse, CollapseProps, Table } from 'antd'
 import clsx from 'clsx'
 import { HTMLAttributes, PropsWithChildren, useEffect, useMemo, useState } from 'react'
@@ -22,7 +22,7 @@ export const DetailPage = () => {
       setLoading(true)
 
       const splittedPathname = pathname.split('-i.')
-      if (splittedPathname.length === 1) navigate('/tim-kiem')
+      if (splittedPathname.length === 1) navigate(ROUTE_NAME.RESEARCH_)
       const id = splittedPathname[splittedPathname.length - 1]
       await ProcedureService.instance.getOne({ id })
     } finally {
@@ -91,7 +91,7 @@ export const DetailPage = () => {
         render(text: mauGiayToType[]) {
           const localStyle = 'font-semibold text-green-600'
           const handleClick = () => {
-            EventManager.emit<ExpertAdviceModal>(EVENT_NAME.TEST_MODAL_OPEN, {
+            EventManager.emit<ExpertAdviceModalPayload>(EVENT_NAME.EXPERT_ADVICE.OPEN, {
               title: 'Chuyên gia tư vấn',
               content: (
                 <>

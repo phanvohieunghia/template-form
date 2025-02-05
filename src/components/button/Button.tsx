@@ -49,6 +49,7 @@ export const Button = forwardRef<ButtonElement, Props>((props, ref) => {
     onMouseLeave,
     onBlur,
     onFocus,
+    ...restProps
   } = props
 
   const commonProps = {
@@ -70,6 +71,7 @@ export const Button = forwardRef<ButtonElement, Props>((props, ref) => {
     onMouseLeave,
     onBlur,
     onFocus,
+    ...restProps,
   }
 
   if (href && /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(href)) {

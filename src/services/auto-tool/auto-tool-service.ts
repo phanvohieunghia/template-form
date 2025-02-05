@@ -53,8 +53,6 @@ export class AutoClickService {
     const init = async () => {
       const domString = this.selectorsToDomString(classString)
       await this.delay(delayTime)
-      console.log(domString)
-      console.log('click', document.querySelector(domString))
       ;(document.querySelector(domString) as HTMLElement)?.click()
     }
     this.handlerQueue.push(init)
@@ -73,7 +71,6 @@ export class AutoClickService {
           const writeText = async () => {
             if (current < value.length) {
               inputElement.value += value[current]
-              console.log(value[current])
               current++
               await this.delay(typingSpeed || 10)
               writeText()

@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
           const i = css.indexOf(`.${name}`)
           const lineNumber = css.substring(0, i).split(/[\r\n]/).length
           const hash = stringHash(filename).toString(36).substring(0, 5)
-          return mode === 'production' ? `${hash}_${lineNumber}` : `${name}__${hash}_${lineNumber}`
+          return mode === 'production' ? `aivos_${hash}_${lineNumber}` : `${name}__${hash}_${lineNumber}`
         },
       },
     },

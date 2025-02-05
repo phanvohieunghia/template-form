@@ -117,11 +117,9 @@ export const convertText = (text: string, findText: RegExp | string, replaceText
 }
 
 export const getUrlEncoding = (text: string) => {
-  console.log('#', text, '#')
   return text.replace(/ /g, '-').replace(/\//g, '%2F').replace(/\\/g, '%5C').replace(/%/g, '%25')
 }
 
 export const getUrlDecoding = (text: string) => {
-  console.log('@', text, '@')
   return text.replace(/-/g, ' ').replace(/%2F/g, '/').replace(/%5C/g, '\\').replace(/%25/g, '%')
 }
