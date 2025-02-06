@@ -4,7 +4,7 @@ import { CSSProperties, FocusEvent, forwardRef, MouseEvent, PropsWithChildren, R
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
-type ButtonType = 'primary' | 'default' | 'text' | 'link'
+type ButtonType = 'default' | 'primary' | 'text' | 'link'
 type ButtonSize = 'small' | 'default' | 'large'
 type ButtonIconPosition = 'start' | 'end' | 'top'
 type ButtonShape = 'default' | 'circle' | 'round'

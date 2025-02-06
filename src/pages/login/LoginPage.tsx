@@ -1,9 +1,10 @@
 import { Button, Input } from '@/components'
 import { AuthService } from '@/stores'
+import { ROUTE_NAME } from '@/utils'
 import { LoginVariables, validateLogin } from '@/validations'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const defaultFrom = { password: '', email: '' }
 
@@ -35,9 +36,16 @@ export const LoginPage = () => {
         onFocus={() => setErrorMessage(defaultFrom)}
         type='password'
       />
-      <Button block type='primary' onClick={handleSubmit(onSubmit)}>
+      <Button block type='primary' onClick={handleSubmit(onSubmit)} className='button-primary'>
         Đăng nhập
       </Button>
+
+      <div className='text-center text-sm'>
+        Bạn chưa có tài khoản?{' '}
+        <Link to={ROUTE_NAME.REGISTER_} className='text-green-600'>
+          Đăng ký
+        </Link>
+      </div>
     </div>
   )
 }

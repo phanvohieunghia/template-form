@@ -8,7 +8,7 @@ export const TempProvider = (props: PropsWithChildren) => {
     .press(['F2'])
     // homepage
     .input({ tagName: 'body input' }, 'Nhà đất công')
-    .click({ className: 'mr-[3px] !min-w-[120px] !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500' })
+    .click({ className: 'mr-[3px] !min-w-[120px] button-primary' })
     // research page
     .click({
       className:
@@ -18,7 +18,7 @@ export const TempProvider = (props: PropsWithChildren) => {
     .click({ tagName: '.noah a' })
     .click({ className: ['modal', '.footer', 'button'] })
     // expert page
-    .click({ className: 'relative !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500' })
+    .click({ className: 'relative button-primary' })
   //upload file page
   return <>{children}</>
 }

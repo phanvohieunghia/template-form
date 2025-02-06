@@ -3,12 +3,14 @@ import { LoginResType, LogoutBodyType, LogoutResType, RegisterBodyType, Register
 export type LoginResponse = LoginResType
 
 export type SuccessResponse = {
-  success: boolean
+  success: true
   redirectTo: string
 }
 
 export type AuthResponse = {
+  success: false
   error?: Error
+  message: string
   [key: string]: unknown
 }
 

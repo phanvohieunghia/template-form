@@ -33,7 +33,7 @@ export class AuthService {
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        return { message: data.message }
+        return { success: false, message: data.message }
       }
       throw new Error(e as string)
     }
@@ -64,7 +64,7 @@ export class AuthService {
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        return { message: data.message }
+        return { success: false, message: data.message }
       }
       throw new Error(e as string)
     }
@@ -80,7 +80,7 @@ export class AuthService {
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        return { message: data.message }
+        return { success: false, message: data.message }
       }
       throw new Error(e as string)
     }
@@ -88,23 +88,19 @@ export class AuthService {
 
   public async logout(): Promise<SuccessResponse | AuthResponse> {
     try {
-      const refreshToken = LocalStorageService.instance.get(LOCAL_STORAGE.REFRESH_TOKEN)
-      const response = await AuthApiService.instance.logout({ refreshToken: refreshToken as string })
+      const refreshToken = LocalStorageService.instance.get<string>(LOCAL_STORAGE.REFRESH_TOKEN)
+      const response = await AuthApiService.instance.logout({ refreshToken: refreshToken ?? '' })
       if (response.message === 'Logout success') {
         LocalStorageService.instance.clear()
-        return {
-          success: true,
-          redirectTo: ROUTE_NAME.LOGIN_,
-        }
+        return { success: true, redirectTo: ROUTE_NAME.LOGIN_ }
       }
-      return {
-        success: false,
-        redirectTo: null,
-      }
+      return { success: false, redirectTo: null, message: 'Logout failed' }
     } catch (e) {
+      console.log(e)
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        return { message: data.message }
+        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
+        return { success: false, message: data.message }
       }
       throw new Error(e as string)
     }

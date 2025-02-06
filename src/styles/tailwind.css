@@ -15,3 +15,12 @@
     @apply rounded-full bg-gray-300 transition-colors duration-300 hover:bg-gray-400;
   }
 }
+
+@layer components {
+  .button-primary {
+    @apply !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500;
+  }
+  .button-default {
+    @apply hover:!border-green-600 hover:!text-green-600 active:!border-green-700 active:!text-green-700;
+  }
+}

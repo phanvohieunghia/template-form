@@ -1,6 +1,7 @@
+import ArrowLeftIcon from '@/assets/svgs/arrow_left.svg'
 import { AlertSuccessfulModal, AlertSuccessfulModalPayload, Button, Input } from '@/components'
 import { AuthService } from '@/stores'
-import { EVENT_NAME, EventManager } from '@/utils'
+import { EVENT_NAME, EventManager, ROUTE_NAME } from '@/utils'
 import { RegisterForm, validateRegister } from '@/validations'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -36,7 +37,8 @@ export const RegisterPage = () => {
   }
 
   return (
-    <>
+    <div className='mx-auto mt-10 max-w-screen-lg'>
+      <Button icon={<ArrowLeftIcon />} shape='circle' className='button-default' href={ROUTE_NAME.LOGIN_} />
       <div className='mx-auto mt-40 w-full max-w-[500px] space-y-5'>
         <Input title='Email' {...register('email')} message={errorMessage.email} onFocus={() => setErrorMessage(defaultFrom)} />
         <Input title='Tên' {...register('name')} message={errorMessage.name} onFocus={() => setErrorMessage(defaultFrom)} />
@@ -56,11 +58,11 @@ export const RegisterPage = () => {
           type='password'
         />
 
-        <Button block type='primary' onClick={handleSubmit(onSubmit)}>
+        <Button block type='primary' onClick={handleSubmit(onSubmit)} className='button-primary'>
           Đăng ký
         </Button>
       </div>
       <AlertSuccessfulModal />
-    </>
+    </div>
   )
 }
