@@ -27,4 +27,8 @@ export const ROUTE_NAME = {
 
   RESEARCH: 'tim-kiem',
   RESEARCH_: '/tim-kiem',
+  REDIRECT: {
+    GOOGLE: 'login/oauth/google',
+    PAYMENT: 'checkout/notification',
+  },
 }

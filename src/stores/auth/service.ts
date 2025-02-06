@@ -96,7 +96,6 @@ export class AuthService {
       }
       return { success: false, redirectTo: null, message: 'Logout failed' }
     } catch (e) {
-      console.log(e)
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
         if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()

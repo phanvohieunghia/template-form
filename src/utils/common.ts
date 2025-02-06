@@ -123,3 +123,20 @@ export const getUrlEncoding = (text: string) => {
 export const getUrlDecoding = (text: string) => {
   return text.replace(/-/g, ' ').replace(/%2F/g, '/').replace(/%5C/g, '\\').replace(/%25/g, '%')
 }
+
+export const getOauthGoogleUrl = (clientId: string, redirectUrl: string) => {
+  const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+  const options = {
+    client_id: clientId,
+    redirect_uri: redirectUrl,
+    response_type: 'code',
+    scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'].join(' '),
+    state: 'google',
+    prompt: 'consent',
+    access_type: 'offline',
+  }
+
+  const queryString = new URLSearchParams(options).toString()
+  const url = `${rootUrl}?${queryString}`
+  return url
+}

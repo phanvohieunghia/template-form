@@ -1,8 +1,9 @@
 import { AutoClickService } from '@/services'
 import { PropsWithChildren } from 'react'
 
-export const TempProvider = (props: PropsWithChildren) => {
+export const TestProvider = (props: PropsWithChildren) => {
   const { children } = props
+  // if(appConfig.)
 
   AutoClickService.instance
     .press(['F2'])

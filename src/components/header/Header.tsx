@@ -17,7 +17,6 @@ export const Header = () => {
 
   const handleLogout = async () => {
     const result = await AuthService.instance.logout()
-    console.log(result)
     if (result.success) {
       navigate(result.redirectTo)
     } else {

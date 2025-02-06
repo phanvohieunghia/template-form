@@ -1,7 +1,9 @@
 import ArrowLeftIcon from '@/assets/svgs/arrow_left.svg'
+import GoogleIcon from '@/assets/svgs/google.svg'
 import { AlertSuccessfulModal, AlertSuccessfulModalPayload, Button, Input } from '@/components'
+import { appConfig } from '@/configs'
 import { AuthService } from '@/stores'
-import { EVENT_NAME, EventManager, ROUTE_NAME } from '@/utils'
+import { EVENT_NAME, EventManager, getOauthGoogleUrl, ROUTE_NAME } from '@/utils'
 import { RegisterForm, validateRegister } from '@/validations'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -61,7 +63,21 @@ export const RegisterPage = () => {
         <Button block type='primary' onClick={handleSubmit(onSubmit)} className='button-primary'>
           Đăng ký
         </Button>
+        <div className='flex items-center py-5'>
+          <span className='h-[1px] flex-1 bg-gray-300'></span>
+          <span className='px-3 text-sm text-gray-400'>hoặc đăng nhập với</span>
+          <span className='h-[1px] flex-1 bg-gray-300'></span>
+        </div>
+        <Button
+          icon={<GoogleIcon fontSize={20} />}
+          block
+          className='button-default'
+          href={getOauthGoogleUrl(appConfig.googleClientId, appConfig.authorizationRedirectUri)}
+        >
+          Google
+        </Button>
       </div>
+
       <AlertSuccessfulModal />
     </div>
   )

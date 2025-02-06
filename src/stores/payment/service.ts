@@ -31,7 +31,6 @@ export class PaymentService {
           navigate: '/',
         }
       const { data } = await PaymentApiService.instance.getOne({ paymentId })
-      console.log(data)
       return {
         status: data.status as PaymentResponse['status'],
       }

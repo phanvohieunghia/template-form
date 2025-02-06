@@ -6,6 +6,7 @@ import {
   LoginPage,
   MainPage,
   PaymentPage,
+  RedirectOnGoogleAuthentication,
   RedirectToPayment,
   RegisterPage,
   SearchPage,
@@ -40,7 +41,7 @@ const RouteComponent = () => {
         <Route path='chuyen-gia' element={<ExpertPage />} />
         <Route path='tai-len-tap-tin' element={<UploadPage />} />
         <Route path='thanh-toan' element={<PaymentPage />} />
-        <Route path='checkout/notification' element={<RedirectToPayment />} />
+        <Route path={ROUTE_NAME.REDIRECT.PAYMENT} element={<RedirectToPayment />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Route>
 
@@ -56,6 +57,7 @@ const RouteComponent = () => {
       >
         <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
         <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
+        <Route path={ROUTE_NAME.REDIRECT.GOOGLE} element={<RedirectOnGoogleAuthentication />} />
       </Route>
 
       <Route path='test' element={<TestPage />} />
