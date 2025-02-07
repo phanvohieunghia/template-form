@@ -1,7 +1,7 @@
 import searchData from '@/assets/mock-data/search.json'
 import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, Popover, PopoverContentProps } from '@/components'
-import { useURLSearchParams } from '@/hooks'
+import { URLSearchParamsService } from '@/services'
 import { ProcedureService } from '@/stores'
 import { getSearchParams, getUrlDecoding, getUrlEncoding, ROUTE_NAME } from '@/utils'
 import { useForm, UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
@@ -16,7 +16,6 @@ export const Search = () => {
     defaultValues: { search: getUrlDecoding(getSearchParams().search ?? '') },
   })
   const { pathname } = useLocation()
-  const { setParam } = useURLSearchParams()
 
   const navigate = useNavigate()
 
@@ -24,7 +23,7 @@ export const Search = () => {
     const value = getValues('search')
     ProcedureService.instance.updateSearch(value)
     if (pathname.includes(ROUTE_NAME.RESEARCH)) {
-      setParam('search', value)
+      URLSearchParamsService.set('search', value)
     } else {
       const convertedSearchValue = getUrlEncoding(value)
 

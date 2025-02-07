@@ -1,6 +1,8 @@
+import GoogleIcon from '@/assets/svgs/google.svg'
 import { Button, Input } from '@/components'
+import { appConfig } from '@/configs'
 import { AuthService } from '@/stores'
-import { ROUTE_NAME } from '@/utils'
+import { getOauthGoogleUrl, ROUTE_NAME } from '@/utils'
 import { LoginVariables, validateLogin } from '@/validations'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -27,7 +29,8 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className='mx-auto mt-40 w-full max-w-[500px] space-y-5'>
+    <div className='mx-auto mt-40 w-full max-w-[400px] space-y-5'>
+      <h1 className='mb-3 text-center text-2xl font-bold'>Đăng nhập</h1>
       <Input title='Email' {...register('email')} message={errorMessage.email} onFocus={() => setErrorMessage(defaultFrom)} />
       <Input
         title='Mật khẩu'
@@ -46,6 +49,16 @@ export const LoginPage = () => {
           Đăng ký
         </Link>
       </div>
+
+      <div className='flex items-center py-5'>
+        <span className='h-[1px] flex-1 bg-gray-300'></span>
+        <span className='px-3 text-sm text-gray-400'>hoặc đăng nhập với</span>
+        <span className='h-[1px] flex-1 bg-gray-300'></span>
+      </div>
+
+      <Button icon={<GoogleIcon fontSize={20} />} block className='button-default' href={getOauthGoogleUrl(appConfig.googleClientId)}>
+        Google
+      </Button>
     </div>
   )
 }

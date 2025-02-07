@@ -1,9 +1,7 @@
 import ArrowLeftIcon from '@/assets/svgs/arrow_left.svg'
-import GoogleIcon from '@/assets/svgs/google.svg'
 import { AlertSuccessfulModal, AlertSuccessfulModalPayload, Button, Input } from '@/components'
-import { appConfig } from '@/configs'
 import { AuthService } from '@/stores'
-import { EVENT_NAME, EventManager, getOauthGoogleUrl, ROUTE_NAME } from '@/utils'
+import { EVENT_NAME, EventManager, ROUTE_NAME } from '@/utils'
 import { RegisterForm, validateRegister } from '@/validations'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -41,7 +39,8 @@ export const RegisterPage = () => {
   return (
     <div className='mx-auto mt-10 max-w-screen-lg'>
       <Button icon={<ArrowLeftIcon />} shape='circle' className='button-default' href={ROUTE_NAME.LOGIN_} />
-      <div className='mx-auto mt-40 w-full max-w-[500px] space-y-5'>
+      <div className='mx-auto mt-10 w-full max-w-[400px] space-y-5'>
+        <h1 className='mb-3 text-center text-2xl font-bold'>Đăng ký</h1>
         <Input title='Email' {...register('email')} message={errorMessage.email} onFocus={() => setErrorMessage(defaultFrom)} />
         <Input title='Tên' {...register('name')} message={errorMessage.name} onFocus={() => setErrorMessage(defaultFrom)} />
         <Input title='Số điện thoại' {...register('phone')} message={errorMessage.phone} onFocus={() => setErrorMessage(defaultFrom)} />
@@ -62,19 +61,6 @@ export const RegisterPage = () => {
 
         <Button block type='primary' onClick={handleSubmit(onSubmit)} className='button-primary'>
           Đăng ký
-        </Button>
-        <div className='flex items-center py-5'>
-          <span className='h-[1px] flex-1 bg-gray-300'></span>
-          <span className='px-3 text-sm text-gray-400'>hoặc đăng nhập với</span>
-          <span className='h-[1px] flex-1 bg-gray-300'></span>
-        </div>
-        <Button
-          icon={<GoogleIcon fontSize={20} />}
-          block
-          className='button-default'
-          href={getOauthGoogleUrl(appConfig.googleClientId, appConfig.authorizationRedirectUri)}
-        >
-          Google
         </Button>
       </div>
 

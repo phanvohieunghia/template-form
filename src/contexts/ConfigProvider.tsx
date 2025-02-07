@@ -1,3 +1,4 @@
+import { appConfig } from '@/configs'
 import { FC, PropsWithChildren } from 'react'
 import { ErrorProvider } from './ErrorProvider'
 import { GoogleProvider } from './GoogleProvider'
@@ -6,6 +7,8 @@ import { TestProvider } from './TestProvider'
 
 export const ConfigProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props
+  document.title = appConfig.title
+
   return (
     <ErrorProvider>
       <TestProvider>

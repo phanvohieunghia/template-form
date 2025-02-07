@@ -5,7 +5,7 @@ export const getNewPopupPosition = (
   childrenRef: RefObject<HTMLElement>,
   popupRef: RefObject<HTMLElement>,
   rowGap: number,
-  placement?: PlacementType,
+  placement: PlacementType | '' = '',
 ) => {
   if (!childrenRef.current) return
 
@@ -18,19 +18,23 @@ export const getNewPopupPosition = (
   const closestScrollableElement = getClosestScrollableElement(childrenRef.current)
 
   const getHorizontalPosition = () => {
-    const left = closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popupRef.current?.offsetWidth ?? 0) / 2
+    let left
+    switch (placement) {
+      case 'bottomRight':
+      case 'topRight':
+        left = closestScrollableElement.scrollLeft + childRect.left + childRect.width - (popupRef.current?.offsetWidth ?? 0)
+        break
+      case 'bottomLeft':
+      case 'topLeft':
+        left = closestScrollableElement.scrollLeft + childRect.left
+        break
+      default:
+        left = closestScrollableElement.scrollLeft + childRect.left + childRect.width / 2 - (popupRef.current?.offsetWidth ?? 0) / 2
+        break
+    }
     if (left <= 0) return { left: 0 }
     else if (left + (popupRef.current?.offsetWidth ?? 0) >= window.innerWidth) return { right: -closestScrollableElement.scrollLeft }
-    else if (placement) {
-      switch (placement) {
-        case 'bottomRight':
-        case 'topRight':
-          return { left: closestScrollableElement.scrollLeft + childRect.left + childRect.width - (popupRef.current?.offsetWidth ?? 0) }
-        case 'bottomLeft':
-        case 'topLeft':
-          return { left: closestScrollableElement.scrollLeft + childRect.left }
-      }
-    }
+
     return { left }
   }
 
