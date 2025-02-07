@@ -28,6 +28,7 @@ interface Props {
   onEnter?: () => void
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   extra?: JSX.Element
+  titleExtra?: JSX.Element
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
@@ -48,6 +49,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
     onEnter = () => {},
     onChange = () => {},
     extra,
+    titleExtra,
     ...restProps
   } = props
   const [inputType, setInputType] = useState<InputType>(type)
@@ -84,11 +86,14 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
         readonly && styles['readonly'],
       )}
     >
-      {title && (
-        <div style={titleStyle} className={clsx(styles['title'])}>
-          {title}
-        </div>
-      )}
+      <div className='flex justify-between'>
+        {title && (
+          <div style={titleStyle} className={clsx(styles['title'])}>
+            {title}
+          </div>
+        )}
+        {titleExtra && titleExtra}
+      </div>
       <div className={clsx(styles['wrapper'])}>
         {icon && icon}
         <input {...commonProps} onKeyDown={handleKeyDown} ref={ref} />

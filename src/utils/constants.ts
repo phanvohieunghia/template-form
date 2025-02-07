@@ -27,8 +27,19 @@ export const ROUTE_NAME = {
 
   RESEARCH: 'tim-kiem',
   RESEARCH_: '/tim-kiem',
+
+  CHAT: 'nhan-tin',
+  CHAT_: '/nhan-tin',
+
+  FORGOT_PASSWORD: 'quen-mat-khau',
+  FORGOT_PASSWORD_: '/quen-mat-khau',
+
+  RESET_PASSWORD: 'lay-lai-mat-khau',
+  RESET_PASSWORD_: '/lay-lai-mat-khau',
+
   REDIRECT: {
     GOOGLE: 'login/oauth/google',
     PAYMENT: 'checkout/notification',
+    RESET_PASSWORD: 'reset-password',
   },
 }

@@ -9,7 +9,7 @@ export const UserSchema = z.object({
   userId: z.string(),
   email: z.string(),
   name: z.string(),
-  phone: z.string(),
+  phone: z.string().nullable(),
   password: z.string(),
   role: z.enum(RoleValues),
   status: z.enum(StatusUserValues),
@@ -77,7 +77,7 @@ export const RegisterBody = z
       max: 100,
       lengthMessage: AUTH_MESSAGES.NAME_LENGTH_MUST_BE_1_TO_100
     }),
-    phone: z.string().regex(PHONE_REGEX, AUTH_MESSAGES.INVALID_PHONE_NUMBER),
+    phone: z.string().regex(PHONE_REGEX, AUTH_MESSAGES.INVALID_PHONE_NUMBER).optional(),
     password: passwordValidator,
     confirmPassword: confirmPasswordValidator
   })
@@ -137,6 +137,17 @@ export const ForgotPasswordRes = z.object({
   message: z.string()
 })
 export type ForgotPasswordResType = z.infer<typeof ForgotPasswordRes>
+
+// Verify Forgot Password Token
+export const VerifyForgotPasswordTokenBody = z.object({
+  forgotPasswordToken: z.string()
+})
+export type VerifyForgotPasswordTokenBodyType = z.infer<typeof VerifyForgotPasswordTokenBody>
+
+export const VerifyForgotPasswordTokenRes = z.object({
+  message: z.string()
+})
+export type VerifyForgotPasswordTokenResType = z.infer<typeof VerifyForgotPasswordTokenRes>
 
 // Reset Password
 export const ResetPasswordBody = z.object({

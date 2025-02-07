@@ -1,3 +1,10 @@
+import { ChatPenal, ChatView } from '@/components'
+
 export const ChatPage = () => {
-  return <div>ChatPage</div>
+  return (
+    <div>
+      <ChatPenal />
+      <ChatView />
+    </div>
+  )
 }

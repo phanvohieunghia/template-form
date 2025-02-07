@@ -72,6 +72,12 @@ export class HttpClientService {
     return response.data as T
   }
 
+  public static async patch<T>(uri: string, data: unknown, options?: AxiosRequestConfig): Promise<T> {
+    const config = await this.getConfig(options)
+    const response = await this.instance.patch<T>(uri, data, config)
+    return response.data as T
+  }
+
   public static async delete<T>(uri: string, options?: AxiosRequestConfig): Promise<T> {
     const config = await this.getConfig(options)
     const response = await this.instance.delete<T>(uri, config)

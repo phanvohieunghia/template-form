@@ -6,7 +6,14 @@ import { LoginVariables } from '@/validations'
 import { AxiosError } from 'axios'
 import { MessageError } from '../interfaces'
 import { store } from '../store'
-import { AuthResponse, RegisterVariables, SuccessResponse } from './interfaces'
+import {
+  AuthResponse,
+  ForgotPasswordVariables,
+  RegisterVariables,
+  ResetPasswordVariables,
+  SuccessResponse,
+  VerifyForgotPasswordVariables,
+} from './interfaces'
 import { setExample } from './store'
 
 export class AuthService {
@@ -95,6 +102,48 @@ export class AuthService {
         return { success: true, redirectTo: ROUTE_NAME.LOGIN_ }
       }
       return { success: false, redirectTo: null, message: 'Logout failed' }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const data: MessageError = e.response?.data
+        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
+        return { success: false, message: data.message }
+      }
+      throw new Error(e as string)
+    }
+  }
+
+  public async forgotPassword(data: ForgotPasswordVariables): Promise<SuccessResponse | AuthResponse> {
+    try {
+      const response = await AuthApiService.instance.forgotPassword(data)
+      return { success: true, message: response.message }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const data: MessageError = e.response?.data
+        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
+        return { success: false, message: data.message }
+      }
+      throw new Error(e as string)
+    }
+  }
+
+  public async resetPassword(data: ResetPasswordVariables): Promise<SuccessResponse | AuthResponse> {
+    try {
+      const response = await AuthApiService.instance.resetPassword(data)
+      return { success: true, message: response.message }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const data: MessageError = e.response?.data
+        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
+        return { success: false, message: data.message }
+      }
+      throw new Error(e as string)
+    }
+  }
+
+  public async verifyForgotPassword(data: VerifyForgotPasswordVariables): Promise<SuccessResponse | AuthResponse> {
+    try {
+      const response = await AuthApiService.instance.verifyForgotPassword(data)
+      return { success: true, message: response.message }
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data

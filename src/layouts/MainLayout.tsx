@@ -21,7 +21,10 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
         },
       },
     })
+
+    return () => {}
   }, [])
+
   return (
     <>
       <Header />

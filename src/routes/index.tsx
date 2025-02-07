@@ -1,14 +1,18 @@
 import { MainLayout, PublicLayout } from '@/layouts'
 import {
+  ChatPage,
   DetailPage,
   ExpertPage,
+  ForgotPasswordPage,
   InputTestPage,
   LoginPage,
   MainPage,
   PaymentPage,
   RedirectOnGoogleAuthentication,
   RedirectToPayment,
+  RedirectToResetPassword,
   RegisterPage,
+  ResetPasswordPage,
   SearchPage,
   TestPage,
   UploadPage,
@@ -38,6 +42,7 @@ const RouteComponent = () => {
           <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
         </Route>
 
+        <Route path={ROUTE_NAME.CHAT} element={<ChatPage />} />
         <Route path='chuyen-gia' element={<ExpertPage />} />
         <Route path='tai-len-tap-tin' element={<UploadPage />} />
         <Route path='thanh-toan' element={<PaymentPage />} />
@@ -57,7 +62,11 @@ const RouteComponent = () => {
       >
         <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
         <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
+        <Route path={ROUTE_NAME.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
+        <Route path={ROUTE_NAME.RESET_PASSWORD} element={<ResetPasswordPage />} />
+
         <Route path={ROUTE_NAME.REDIRECT.GOOGLE} element={<RedirectOnGoogleAuthentication />} />
+        <Route path={ROUTE_NAME.REDIRECT.RESET_PASSWORD} element={<RedirectToResetPassword />} />
       </Route>
 
       <Route path='test' element={<TestPage />} />

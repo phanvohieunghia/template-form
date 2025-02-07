@@ -1,4 +1,6 @@
+export * from './avatar'
 export * from './button'
+export * from './chat'
 export * from './collapse'
 export * from './footer'
 export * from './header'
