@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       port: Number(env.VITE_PORT) || 3146,
-      allowedHosts: ['mauvanban.aivos.tech'],
+      allowedHosts: ['mauvanban.aivos.tech', 'aibieumau.com'],
       strictPort: true,
       open: true, // auto open default browser
     },
