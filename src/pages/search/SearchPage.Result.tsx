@@ -2,16 +2,16 @@ import ExampleTemplatePaperImage from '@/assets/images/example-template-paper.pn
 import FileIcon from '@/assets/svgs/file.svg'
 import LoadingIcon from '@/assets/svgs/loading.svg'
 import { Pagination, PaginationProps } from '@/components'
-import { useAppSelector, useURLSearchParams, UseURLSearchParamsReturn } from '@/hooks'
+import { useAppSelector } from '@/hooks'
+import { URLSearchParamsService } from '@/services'
 import { ProcedureService } from '@/stores'
 import { ProcedureList, ThuTucUI } from '@/stores/procedure/interfaces'
-import { getSearchParams, getUrlDecoding } from '@/utils'
+import { getSearchParams, getUrlDecoding, ROUTE_NAME } from '@/utils'
 import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css'
 
 export const Result = () => {
-  const { setParam } = useURLSearchParams()
   const procedureData = useAppSelector((state) => state.procedure)
   const [loading, setLoading] = useState<boolean>(false)
   const urlQuery = getSearchParams()
@@ -44,7 +44,7 @@ export const Result = () => {
         )}
       </div>
       <div className='mt-6'>
-        <ConditionalResult loading={loading} data={procedureData.procedureList} onSetParam={setParam} />
+        <ConditionalResult loading={loading} data={procedureData.procedureList} />
       </div>
     </div>
   )
@@ -53,21 +53,20 @@ export const Result = () => {
 type ConditionalResultType = {
   loading: boolean
   data: ProcedureList
-  onSetParam: UseURLSearchParamsReturn['setParam']
 }
 
 const ConditionalResult = (props: ConditionalResultType) => {
-  const { loading, data, onSetParam } = props
+  const { loading, data } = props
   const navigate = useNavigate()
 
   const handleClick = (data: ThuTucUI) => {
     const convertedProcedureName = data.tenThuTuc.replace(/( |\/|\\)/g, '-').replace(/%/g, '-phần-trăm')
-    navigate(`/tim-kiem/${convertedProcedureName}-i.${data.thuTucId}`)
+    navigate(`${ROUTE_NAME.RESEARCH_}/${convertedProcedureName}-i.${data.thuTucId}`)
   }
 
   const handleChange: PaginationProps['onChange'] = useCallback((page: number) => {
     window.scrollTo({ top: 0 })
-    onSetParam('page', page.toString())
+    URLSearchParamsService.set('page', page.toString())
   }, [])
 
   if (loading)

@@ -1,9 +1,9 @@
 import searchData from '@/assets/mock-data/search.json'
 import SearchIcon from '@/assets/svgs/search.svg'
 import { Button, Input, Popover, PopoverContentProps } from '@/components'
-import { useURLSearchParams } from '@/hooks'
+import { URLSearchParamsService } from '@/services'
 import { ProcedureService } from '@/stores'
-import { getSearchParams, getUrlDecoding, getUrlEncoding } from '@/utils'
+import { getSearchParams, getUrlDecoding, getUrlEncoding, ROUTE_NAME } from '@/utils'
 import { useForm, UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -16,19 +16,18 @@ export const Search = () => {
     defaultValues: { search: getUrlDecoding(getSearchParams().search ?? '') },
   })
   const { pathname } = useLocation()
-  const { setParam } = useURLSearchParams()
 
   const navigate = useNavigate()
 
   const handleSearch = () => {
     const value = getValues('search')
     ProcedureService.instance.updateSearch(value)
-    if (pathname.includes('tim-kiem')) {
-      setParam('search', value)
+    if (pathname.includes(ROUTE_NAME.RESEARCH)) {
+      URLSearchParamsService.set('search', value)
     } else {
       const convertedSearchValue = getUrlEncoding(value)
 
-      navigate(`/tim-kiem/?search=${convertedSearchValue}`)
+      navigate(`${ROUTE_NAME.RESEARCH_}/?search=${convertedSearchValue}`)
     }
   }
   return (
@@ -40,12 +39,7 @@ export const Search = () => {
         placeholder='Bạn đang tìm văn bản nào?'
         onEnter={handleSearch}
         extra={
-          <Button
-            type='primary'
-            icon={<SearchIcon />}
-            onClick={handleSearch}
-            className='mr-[3px] !min-w-[120px] !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'
-          >
+          <Button type='primary' icon={<SearchIcon />} onClick={handleSearch} className='button-primary mr-[3px] !min-w-[120px]'>
             Tìm ngay
           </Button>
         }

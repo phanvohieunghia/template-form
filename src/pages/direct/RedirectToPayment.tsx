@@ -11,7 +11,6 @@ export const RedirectToPayment = () => {
     resultCode: +params.resultCode,
     transId: +params.transId,
   } as MomoRedirectUrlVariables
-  console.log(params)
 
   PaymentService.instance.setInformation(convertedParams)
 

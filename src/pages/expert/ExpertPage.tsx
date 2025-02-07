@@ -103,12 +103,7 @@ const ProfileCard = (props: ProfileCardProps) => {
           <i className='fab fa-linkedin-in'></i>
         </a>
       </div>
-      <Button
-        type='primary'
-        block
-        className='relative !border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'
-        onClick={makeAdvice}
-      >
+      <Button type='primary' block className='button-primary relative' onClick={makeAdvice}>
         <span className='text-md font-semibold'>Tư vấn:</span>
         {MoneyData[index].price}
       </Button>

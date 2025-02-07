@@ -3,7 +3,6 @@ import ChevronRightIcon from '@/assets/svgs/chevron_right.svg'
 import clsx from 'clsx'
 import { memo, useMemo, useState } from 'react'
 import { Button } from '../button'
-import styles from './style.module.css'
 
 export type PaginationProps = {
   total: number
@@ -80,7 +79,7 @@ export const Pagination = memo((props: PaginationProps) => {
     <div className='inline-flex items-center gap-3'>
       {totalPage > PRESENTED_NUMBERS && (
         <Button
-          className={styles['button']}
+          className={'button-default'}
           shape='circle'
           type='text'
           icon={<ChevronLeftIcon fontSize={22} />}
@@ -90,7 +89,7 @@ export const Pagination = memo((props: PaginationProps) => {
       )}
       {PresentedPageNumbers.map((number, index) => (
         <Button
-          className={clsx(styles['button'], styles[state.currentPage === number ? 'primary' : 'default'])}
+          className={clsx(state.currentPage === number ? 'button-primary' : 'button-default')}
           key={index}
           shape='circle'
           type={state.currentPage === number ? 'primary' : 'default'}
@@ -101,7 +100,7 @@ export const Pagination = memo((props: PaginationProps) => {
       ))}
       {totalPage > PRESENTED_NUMBERS && (
         <Button
-          className={styles['button']}
+          className={'button-default'}
           shape='circle'
           type='text'
           icon={<ChevronRightIcon fontSize={22} />}

@@ -7,10 +7,10 @@ import { BaseModal } from '../base'
 type State = {
   isOpen: boolean
   isActive: boolean
-  data: ExpertAdviceModal | undefined
+  data: ExpertAdviceModalPayload | undefined
 }
 
-export type ExpertAdviceModal = {
+export type ExpertAdviceModalPayload = {
   title: string
   content: string | React.ReactNode
   onConfirm: () => void
@@ -19,7 +19,7 @@ export type ExpertAdviceModal = {
 export const ExpertAdviceModal = () => {
   const [modalState, setModalState] = useState<State>({ isOpen: false, isActive: false, data: undefined })
 
-  const openModal = (payload: CustomEvent<ExpertAdviceModal>) => {
+  const openModal = (payload: CustomEvent<ExpertAdviceModalPayload>) => {
     setModalState((prev) => ({ ...prev, isOpen: true, isActive: true, data: payload.detail }))
   }
 
@@ -28,12 +28,12 @@ export const ExpertAdviceModal = () => {
   }
 
   useEffect(() => {
-    EventManager.on(EVENT_NAME.TEST_MODAL_OPEN, openModal)
-    EventManager.on(EVENT_NAME.TEST_MODAL_CLOSE, closeModal)
+    EventManager.on(EVENT_NAME.EXPERT_ADVICE.OPEN, openModal)
+    EventManager.on(EVENT_NAME.EXPERT_ADVICE.CLOSE, closeModal)
 
     return () => {
-      EventManager.off(EVENT_NAME.TEST_MODAL_OPEN, openModal)
-      EventManager.off(EVENT_NAME.TEST_MODAL_CLOSE, closeModal)
+      EventManager.off(EVENT_NAME.EXPERT_ADVICE.OPEN, openModal)
+      EventManager.off(EVENT_NAME.EXPERT_ADVICE.CLOSE, closeModal)
     }
   }, [])
 
@@ -64,7 +64,7 @@ const Footer = (props: { closeModal: () => void; onConfirm?: () => void }) => {
   }
   return (
     <div className='flex justify-center'>
-      <Button type='primary' onClick={handleClickButton} className='!border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'>
+      <Button type='primary' onClick={handleClickButton} className='button-primary'>
         Gợi ý chuyên gia
       </Button>
     </div>

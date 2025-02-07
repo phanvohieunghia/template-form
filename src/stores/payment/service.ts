@@ -25,14 +25,12 @@ export class PaymentService {
   public async getOne(): Promise<PaymentResponse | void> {
     const data = this.state().payment
     const paymentId = data.information?.requestId.replace('AIVOS-', '')
-    console.log(paymentId)
     try {
       if (!paymentId)
         return {
           navigate: '/',
         }
       const { data } = await PaymentApiService.instance.getOne({ paymentId })
-      console.log(data)
       return {
         status: data.status as PaymentResponse['status'],
       }

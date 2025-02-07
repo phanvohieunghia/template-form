@@ -1,3 +1,4 @@
+import { appConfig } from '@/configs'
 import moment, { MomentInput } from 'moment'
 
 export const formatRemainingTime = (time: MomentInput) => {
@@ -117,11 +118,26 @@ export const convertText = (text: string, findText: RegExp | string, replaceText
 }
 
 export const getUrlEncoding = (text: string) => {
-  console.log('#', text, '#')
   return text.replace(/ /g, '-').replace(/\//g, '%2F').replace(/\\/g, '%5C').replace(/%/g, '%25')
 }
 
 export const getUrlDecoding = (text: string) => {
-  console.log('@', text, '@')
   return text.replace(/-/g, ' ').replace(/%2F/g, '/').replace(/%5C/g, '\\').replace(/%25/g, '%')
+}
+
+export const getOauthGoogleUrl = (clientId: string) => {
+  const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+  const options = {
+    client_id: clientId,
+    redirect_uri: appConfig.restFullApiUrl + '/auth/oauth/google',
+    response_type: 'code',
+    scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'].join(' '),
+    state: 'google',
+    prompt: 'consent',
+    access_type: 'offline',
+  }
+
+  const queryString = new URLSearchParams(options).toString()
+  const url = `${rootUrl}?${queryString}`
+  return url
 }

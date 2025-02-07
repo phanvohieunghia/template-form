@@ -57,7 +57,7 @@ const Ticket = (props: TicketType) => {
         </div>
       </div>
       <div className='h-[100px]'></div>
-      <Button type='primary' block size='large' className='!border-green-600 !bg-green-600 hover:!border-green-500 hover:!bg-green-500'>
+      <Button type='primary' block size='large' className='button-primary'>
         Liên Hệ Chuyên Gia
       </Button>
       <div className='h-[40px]'></div>

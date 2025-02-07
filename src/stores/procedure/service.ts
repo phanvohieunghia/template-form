@@ -22,7 +22,7 @@ export class ProcedureService {
   public async getAll(params?: GetAllProcedureVariables): Promise<ProcedureResponse | void> {
     try {
       const newParams: GetAllProcedureVariables = { limit: 10, page: 1, ...params }
-      const { data } = await ProcedureApiService.instance.getAll(newParams)
+      const {data}  = await ProcedureApiService.instance.getAll(newParams)
       const newData: ProcedureList = {
         total: data.total,
         rows: data.thuTucs.map((item) => ({

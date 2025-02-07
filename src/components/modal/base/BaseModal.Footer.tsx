@@ -1,6 +1,14 @@
-import { FC, PropsWithChildren } from 'react'
+import clsx from 'clsx'
+import { FC, HTMLAttributes, PropsWithChildren } from 'react'
 
-export const BaseModalFooter: FC<PropsWithChildren> = (props) => {
-  const { children } = props
-  return <div className='footer rounded-b-lg bg-white p-4'>{children}</div>
+type Props = PropsWithChildren & HTMLAttributes<HTMLDivElement>
+
+export const BaseModalFooter: FC<Props> = (props) => {
+  const { children, className, ...restProps } = props
+
+  return (
+    <div className={clsx('footer rounded-b-lg bg-white p-4', className)} {...restProps}>
+      {children}
+    </div>
+  )
 }

@@ -7,7 +7,7 @@ import { PositionState } from '../utils/intefaces'
 import { PopoverContentProps, Props, State } from './interfaces'
 
 export const Popover: FC<Props> = (props) => {
-  const { children, trigger = 'click', content } = props
+  const { children, trigger = 'click', content, zIndex, placement = 'bottom' } = props
 
   const [position, setPosition] = useState<PositionState>({ top: 0, left: 0 })
   const [state, setState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false })
@@ -32,7 +32,7 @@ export const Popover: FC<Props> = (props) => {
 
   const handleActive = () => {
     const timeout = setTimeout(() => {
-      const newPosition = getNewPopupPosition(childRef, popupRef, POPOVER.GAP)
+      const newPosition = getNewPopupPosition(childRef, popupRef, POPOVER.GAP, placement)
       if (newPosition) setPosition(newPosition)
       setState((prev) => ({ ...prev, isActive: !prev.isActive }))
       clearTimeout(timeout)
@@ -137,7 +137,7 @@ export const Popover: FC<Props> = (props) => {
             <div
               ref={popupRef}
               className={clsx(
-                'absolute z-10 flex flex-col gap-[2px] overflow-hidden rounded-md bg-white',
+                'absolute flex flex-col gap-[2px] overflow-hidden rounded-md bg-white',
                 state.isActive ? 'animate-fade-in' : 'animate-fade-out',
               )}
               style={{
@@ -147,6 +147,7 @@ export const Popover: FC<Props> = (props) => {
                 visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
                 top: position.top,
                 left: position.left,
+                zIndex: zIndex ? zIndex : 'z-10',
               }}
             >
               {clonedContent}
