@@ -31,6 +31,7 @@ export const RegisterPage = () => {
           onSubmit: () => {
             navigate(result.redirectTo as string)
           },
+          buttonText: 'Đăng nhập ngay',
         })
       }
     }

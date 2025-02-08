@@ -1,7 +1,18 @@
 import { ApiEndpointService } from '@/services/endpoints'
 import { HttpClientService } from '@/services/https'
-import { LoginResponse, LogoutResponse, LogoutVariables, RegisterResponse, RegisterVariables } from '@/stores/auth/interfaces'
-import { LoginVariables } from '@/validations'
+import {
+  ForgotPasswordResponse,
+  LoginResponse,
+  LogoutResponse,
+  LogoutVariables,
+  RegisterResponse,
+  RegisterVariables,
+  ResetPasswordResponse,
+  ResetPasswordVariables,
+  VerifyForgotPasswordResponse,
+  VerifyForgotPasswordVariables,
+} from '@/stores/auth/interfaces'
+import { ForgotPasswordVariables, LoginVariables } from '@/validations'
 
 export class AuthApiService extends ApiEndpointService {
   private static _instance: AuthApiService
@@ -23,13 +34,28 @@ export class AuthApiService extends ApiEndpointService {
     return await HttpClientService.post(endpoint, data)
   }
 
-  public register(data: RegisterVariables): Promise<RegisterResponse> {
+  public async register(data: RegisterVariables): Promise<RegisterResponse> {
     const endpoint = `${this.endpoint}/register`
+    return await HttpClientService.post(endpoint, data)
+  }
+
+  public async logout(data: LogoutVariables): Promise<LogoutResponse> {
+    const endpoint = `${this.endpoint}/logout`
+    return await HttpClientService.post(endpoint, data)
+  }
+
+  public forgotPassword(data: ForgotPasswordVariables): Promise<ForgotPasswordResponse> {
+    const endpoint = `${this.endpoint}/forgot-password`
     return HttpClientService.post(endpoint, data)
   }
 
-  public logout(data: LogoutVariables): Promise<LogoutResponse> {
-    const endpoint = `${this.endpoint}/logout`
+  public verifyForgotPassword(data: VerifyForgotPasswordVariables): Promise<VerifyForgotPasswordResponse> {
+    const endpoint = `${this.endpoint}/verify-forgot-password`
     return HttpClientService.post(endpoint, data)
+  }
+
+  public resetPassword(data: ResetPasswordVariables): Promise<ResetPasswordResponse> {
+    const endpoint = `${this.endpoint}/reset-password`
+    return HttpClientService.patch(endpoint, data)
   }
 }

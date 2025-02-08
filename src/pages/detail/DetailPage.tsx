@@ -101,7 +101,7 @@ export const DetailPage = () => {
                 </>
               ),
               onConfirm: () => {
-                navigate('/chuyen-gia')
+                navigate(ROUTE_NAME.EXPERT_)
               },
             })
           }

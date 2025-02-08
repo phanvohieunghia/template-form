@@ -38,6 +38,11 @@ export const LoginPage = () => {
         message={errorMessage.password}
         onFocus={() => setErrorMessage(defaultFrom)}
         type='password'
+        titleExtra={
+          <Link to={ROUTE_NAME.FORGOT_PASSWORD_} className='text-xs text-green-600'>
+            Quên mật khẩu?
+          </Link>
+        }
       />
       <Button block type='primary' onClick={handleSubmit(onSubmit)} className='button-primary'>
         Đăng nhập

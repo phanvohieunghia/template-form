@@ -1,5 +1,5 @@
 import { MomoRedirectUrlVariables, PaymentService } from '@/stores'
-import { getSearchParams } from '@/utils'
+import { getSearchParams, ROUTE_NAME } from '@/utils'
 import { Navigate } from 'react-router-dom'
 
 export const RedirectToPayment = () => {
@@ -14,5 +14,5 @@ export const RedirectToPayment = () => {
 
   PaymentService.instance.setInformation(convertedParams)
 
-  return <Navigate to='/thanh-toan' />
+  return <Navigate to={ROUTE_NAME.PAYMENT_} />
 }

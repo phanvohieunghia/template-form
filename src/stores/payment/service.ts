@@ -1,4 +1,5 @@
 import { PaymentApiService } from '@/services'
+import { ROUTE_NAME } from '@/utils'
 import { AxiosError } from 'axios'
 import { MessageError } from '../interfaces'
 import { store } from '../store'
@@ -28,7 +29,7 @@ export class PaymentService {
     try {
       if (!paymentId)
         return {
-          navigate: '/',
+          navigate: ROUTE_NAME.HOME,
         }
       const { data } = await PaymentApiService.instance.getOne({ paymentId })
       return {

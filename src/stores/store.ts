@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import auth from './auth/store'
 import expert from './expert/store'
 import payment from './payment/store'
 import procedure from './procedure/store'
@@ -8,6 +9,7 @@ export const store = configureStore({
     procedure,
     expert,
     payment,
+    auth,
   },
 })
 

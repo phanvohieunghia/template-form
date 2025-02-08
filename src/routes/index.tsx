@@ -1,14 +1,18 @@
 import { MainLayout, PublicLayout } from '@/layouts'
 import {
+  ChatPage,
   DetailPage,
   ExpertPage,
+  ForgotPasswordPage,
   InputTestPage,
   LoginPage,
   MainPage,
   PaymentPage,
   RedirectOnGoogleAuthentication,
   RedirectToPayment,
+  RedirectToResetPassword,
   RegisterPage,
+  ResetPasswordPage,
   SearchPage,
   TestPage,
   UploadPage,
@@ -21,7 +25,7 @@ const RouteComponent = () => {
   return (
     <Routes>
       <Route
-        path='/'
+        path={ROUTE_NAME.HOME}
         element={
           <Authenticated type='token' fallback={<Navigate to={ROUTE_NAME.LOGIN_} />}>
             <MainLayout>
@@ -38,17 +42,18 @@ const RouteComponent = () => {
           <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
         </Route>
 
-        <Route path='chuyen-gia' element={<ExpertPage />} />
-        <Route path='tai-len-tap-tin' element={<UploadPage />} />
-        <Route path='thanh-toan' element={<PaymentPage />} />
+        <Route path={ROUTE_NAME.CHAT} element={<ChatPage />} />
+        <Route path={ROUTE_NAME.EXPERT} element={<ExpertPage />} />
+        <Route path={ROUTE_NAME.UPLOAD_FILE} element={<UploadPage />} />
+        <Route path={ROUTE_NAME.PAYMENT} element={<PaymentPage />} />
         <Route path={ROUTE_NAME.REDIRECT.PAYMENT} element={<RedirectToPayment />} />
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path='*' element={<Navigate to={ROUTE_NAME.HOME} />} />
       </Route>
 
       <Route
-        path='/'
+        path={ROUTE_NAME.HOME}
         element={
-          <Authenticated type='public' fallback={<Navigate to='/' />}>
+          <Authenticated type='public' fallback={<Navigate to={ROUTE_NAME.HOME} />}>
             <PublicLayout>
               <Outlet />
             </PublicLayout>
@@ -57,7 +62,11 @@ const RouteComponent = () => {
       >
         <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
         <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
+        <Route path={ROUTE_NAME.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
+        <Route path={ROUTE_NAME.RESET_PASSWORD} element={<ResetPasswordPage />} />
+
         <Route path={ROUTE_NAME.REDIRECT.GOOGLE} element={<RedirectOnGoogleAuthentication />} />
+        <Route path={ROUTE_NAME.REDIRECT.RESET_PASSWORD} element={<RedirectToResetPassword />} />
       </Route>
 
       <Route path='test' element={<TestPage />} />

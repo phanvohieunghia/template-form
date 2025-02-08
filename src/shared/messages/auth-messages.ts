@@ -19,6 +19,8 @@ export const AUTH_MESSAGES = {
   CONFIRM_PASSWORD_LENGTH_MUST_BE_FROM_6_TO_50: 'Confirm password length must be from 6 to 50',
   CONFIRM_PASSWORD_MUST_BE_STRONG: 'Confirm password must be strong',
   REGISTER_SUCCESS: 'Register success',
+  // Oauth
+  GMAIL_NOT_VERIFIED: 'Gmail is not verified',
   // Login
   EMAIL_OR_PASSWORD_INCORRECT: 'Email or password is incorrect',
   LOGIN_SUCCESS: 'Login success',
@@ -27,6 +29,10 @@ export const AUTH_MESSAGES = {
   // Forgot Password
   USER_NOT_FOUND: 'User not found',
   FORGOT_PASSWORD_SUCCESS: 'Forgot password success',
+  // Verify Forgot Password
+  FORGOT_PASSWORD_TOKEN_IS_REQUIRED: 'Forgot password token is required',
+  INVALID_FORGOT_PASSWORD_TOKEN: 'Invalid forgot password token',
+  FORGOT_PASSWORD_TOKEN_VERIFIED_SUCCESS: 'Forgot password token verified success',
   // Reset Password
   RESET_PASSWORD_SUCCESS: 'Reset password success',
   // Change Password

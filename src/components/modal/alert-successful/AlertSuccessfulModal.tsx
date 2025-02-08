@@ -14,6 +14,7 @@ type State = {
 
 export type AlertSuccessfulModalPayload = {
   content: string | React.ReactNode
+  buttonText: string
   onSubmit: () => void
 }
 
@@ -57,7 +58,7 @@ export const AlertSuccessfulModal = () => {
               </div>
             </BaseModal.Body>
             <BaseModal.Footer>
-              <Footer closeModal={closeModal} />
+              <Footer closeModal={closeModal} buttonText={state.data?.buttonText ?? ''} />
             </BaseModal.Footer>
           </BaseModal>,
           document.body,
@@ -66,19 +67,26 @@ export const AlertSuccessfulModal = () => {
   )
 }
 
-const Footer = (props: { closeModal: () => void }) => {
+type FooterType = {
+  closeModal: () => void
+  buttonText: string
+}
+
+const Footer = (props: FooterType) => {
   const navigate = useNavigate()
-  const { closeModal } = props
+  const { closeModal, buttonText } = props
+
   const handleClickButton = () => {
     closeModal()
     setTimeout(() => {
       navigate(ROUTE_NAME.LOGIN_)
     }, 300)
   }
+
   return (
     <div className='flex justify-center'>
       <Button type='primary' onClick={handleClickButton} className='mb-4 rounded-md bg-green-500 px-4 py-2 font-medium text-white hover:bg-green-600'>
-        Đăng nhập ngay
+        {buttonText}
       </Button>
     </div>
   )
