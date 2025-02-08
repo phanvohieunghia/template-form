@@ -5,6 +5,7 @@ import { Button } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { ExpertService } from '@/stores/expert'
 import { ExpertUI } from '@/stores/expert/interfaces'
+import { ROUTE_NAME } from '@/utils'
 import clsx from 'clsx'
 import { HTMLAttributes, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -67,7 +68,7 @@ const ProfileCard = (props: ProfileCardProps) => {
 
   const makeAdvice = () => {
     ExpertService.instance.setSelectExpert(data, imageSrc, index)
-    navigate(`/tai-len-tap-tin`)
+    navigate(ROUTE_NAME.UPLOAD_FILE_)
   }
 
   return (

@@ -25,7 +25,7 @@ const RouteComponent = () => {
   return (
     <Routes>
       <Route
-        path='/'
+        path={ROUTE_NAME.HOME}
         element={
           <Authenticated type='token' fallback={<Navigate to={ROUTE_NAME.LOGIN_} />}>
             <MainLayout>
@@ -43,17 +43,17 @@ const RouteComponent = () => {
         </Route>
 
         <Route path={ROUTE_NAME.CHAT} element={<ChatPage />} />
-        <Route path='chuyen-gia' element={<ExpertPage />} />
-        <Route path='tai-len-tap-tin' element={<UploadPage />} />
-        <Route path='thanh-toan' element={<PaymentPage />} />
+        <Route path={ROUTE_NAME.EXPERT} element={<ExpertPage />} />
+        <Route path={ROUTE_NAME.UPLOAD_FILE} element={<UploadPage />} />
+        <Route path={ROUTE_NAME.PAYMENT} element={<PaymentPage />} />
         <Route path={ROUTE_NAME.REDIRECT.PAYMENT} element={<RedirectToPayment />} />
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path='*' element={<Navigate to={ROUTE_NAME.HOME} />} />
       </Route>
 
       <Route
-        path='/'
+        path={ROUTE_NAME.HOME}
         element={
-          <Authenticated type='public' fallback={<Navigate to='/' />}>
+          <Authenticated type='public' fallback={<Navigate to={ROUTE_NAME.HOME} />}>
             <PublicLayout>
               <Outlet />
             </PublicLayout>

@@ -14,7 +14,7 @@ const registerSchema = z
       },
     ),
     password: z.string().min(1, { message: 'Bạn chưa nhập mật khẩu' }),
-    confirmPassword: z.string().min(1, { message: 'Bạn chưa nhập mật khẩu' }),
+    confirmPassword: z.string().min(1, { message: 'Bạn chưa nhập xác nhận mật khẩu' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Xác nhận mật khẩu không đúng',

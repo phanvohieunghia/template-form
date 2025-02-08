@@ -37,6 +37,17 @@ export const ROUTE_NAME = {
   RESET_PASSWORD: 'lay-lai-mat-khau',
   RESET_PASSWORD_: '/lay-lai-mat-khau',
 
+  EXPERT: 'chuyen-gia',
+  EXPERT_: '/chuyen-gia',
+
+  PAYMENT: 'thanh-toan',
+  PAYMENT_: '/thanh-toan',
+
+  UPLOAD_FILE: 'tai-len-tap-tin',
+  UPLOAD_FILE_: '/tai-len-tap-tin',
+
+  HOME: '/',
+
   REDIRECT: {
     GOOGLE: 'login/oauth/google',
     PAYMENT: 'checkout/notification',

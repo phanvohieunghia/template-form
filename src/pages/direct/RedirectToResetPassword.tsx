@@ -18,6 +18,5 @@ export const RedirectToResetPassword = () => {
     handleVerifyForgotPassword()
   }, [])
   if (isFirstRendering) return null
-  console.log(ROUTE_NAME.RESET_PASSWORD_)
   return <Navigate to={ROUTE_NAME.RESET_PASSWORD_} />
 }

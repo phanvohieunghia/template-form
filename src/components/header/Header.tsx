@@ -17,7 +17,7 @@ export const Header = () => {
 
   const handleLogout = async () => {
     const result = await AuthService.instance.logout()
-    if (result.success) {
+    if (result.success && result.redirectTo) {
       navigate(result.redirectTo)
     } else {
       navigate(ROUTE_NAME.LOGIN_)
@@ -45,7 +45,7 @@ export const Header = () => {
   return (
     <header className='fixed left-0 right-0 top-0 z-50 border-b bg-white'>
       <div className='mx-auto flex w-full max-w-screen-xl justify-between p-3'>
-        <Link to='/' className='flex items-center'>
+        <Link to={ROUTE_NAME.HOME} className='flex items-center'>
           <LogoIcon fontSize={40} />
           <span className='text-xl'>{appConfig.title}</span>
         </Link>

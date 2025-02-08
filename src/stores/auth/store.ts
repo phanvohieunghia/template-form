@@ -1,22 +1,23 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { Example } from './interfaces'
 
-interface ExampleState {
-  exampleProperty?: Example
+interface AuthState {
+  forgotPasswordToken: string
 }
-const initialState: ExampleState = {}
+const initialState: AuthState = {
+  forgotPasswordToken: '',
+}
 
 export const procedureSlice = createSlice({
-  name: 'example',
+  name: 'Auth',
   initialState,
   reducers: {
-    setExample: (state, action: PayloadAction<ExampleState['exampleProperty']>) => {
-      state.exampleProperty = action.payload
+    setForgotPasswordToken: (state, action: PayloadAction<AuthState['forgotPasswordToken']>) => {
+      state.forgotPasswordToken = action.payload
     },
   },
 })
 
-export const { setExample } = procedureSlice.actions
+export const { setForgotPasswordToken } = procedureSlice.actions
 
 export default procedureSlice.reducer
