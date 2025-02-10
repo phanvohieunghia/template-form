@@ -1,16 +1,16 @@
 import LogoutIcon from '@/assets/svgs/log_out.svg'
 import LogoIcon from '@/assets/svgs/logo.svg'
-import { Button, Popover } from '@/components'
+import { Avatar, Button, Popover } from '@/components'
 import { appConfig } from '@/configs'
+import { UserInformationType } from '@/interfaces/localStorage'
 import { LocalStorageService } from '@/services'
 import { AuthService } from '@/stores'
 import { LOCAL_STORAGE, ROUTE_NAME } from '@/utils'
 import { Link, useNavigate } from 'react-router-dom'
-import { Avatar } from '../avatar'
 
 export const Header = () => {
   const navigate = useNavigate()
-
+  const userInformation = (LocalStorageService.instance.get(LOCAL_STORAGE.USER_INFORMATION) as UserInformationType) ?? {}
   const handleLogin = () => {
     navigate(ROUTE_NAME.LOGIN_)
   }
@@ -36,7 +36,7 @@ export const Header = () => {
     if (LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN))
       return (
         <Popover content={content} zIndex={50} placement='bottomRight'>
-          <Avatar icon='T' size={32} />
+          <Avatar className='hover:cursor-pointer' src={userInformation?.avatar} size={32} shape='circle' />
         </Popover>
       )
     return <Button onClick={handleLogin}>Đăng nhập</Button>
@@ -49,7 +49,7 @@ export const Header = () => {
           <LogoIcon fontSize={40} />
           <span className='text-xl'>{appConfig.title}</span>
         </Link>
-        <div className='space-x-1'>
+        <div className='flex items-center space-x-1'>
           <Button type='text' className='text-lg'>
             Về chúng tôi
           </Button>

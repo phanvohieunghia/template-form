@@ -142,3 +142,7 @@ export const getOauthGoogleUrl = (clientId: string) => {
   const url = `${rootUrl}?${queryString}`
   return url
 }
+
+export const decodeAtob = (encoded: string) => {
+  return JSON.parse(decodeURIComponent(atob(encoded)))
+}

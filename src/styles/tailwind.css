@@ -8,7 +8,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
-    @apply rounded-full bg-gray-100;
+    @apply rounded-full;
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {

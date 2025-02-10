@@ -6,7 +6,7 @@ import { MomentInput } from 'moment'
 
 export const ChatPenal = () => {
   return (
-    <div className='scrollbar-thin h-screen w-[300px] overflow-auto bg-stone-200'>
+    <div className='scrollbar-thin max-h-full min-w-[300px] max-w-[300px] overflow-auto bg-stone-200'>
       {data &&
         data.map((item) => (
           <div
