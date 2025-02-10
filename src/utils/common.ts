@@ -132,7 +132,8 @@ export const getOauthGoogleUrl = (clientId: string) => {
     redirect_uri: appConfig.restFullApiUrl + '/auth/oauth/google',
     response_type: 'code',
     scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'].join(' '),
-    state: 'google',
+    // state: 'google',
+    state: JSON.stringify({ provider: 'google', domain: appConfig.baseUrl }),
     prompt: 'consent',
     access_type: 'offline',
   }
