@@ -91,7 +91,6 @@ export class AuthService {
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
         return { success: false, message: data.message }
       }
       throw new Error(e as string)
@@ -105,7 +104,6 @@ export class AuthService {
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
         return { success: false, message: data.message }
       }
       throw new Error(e as string)
@@ -120,7 +118,6 @@ export class AuthService {
     } catch (e) {
       if (e instanceof AxiosError) {
         const data: MessageError = e.response?.data
-        if (data.message === 'Không tìm thấy dữ liệu') LocalStorageService.instance.clear()
         return { success: false, message: data.message }
       }
       throw new Error(e as string)

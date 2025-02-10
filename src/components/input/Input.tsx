@@ -86,7 +86,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
         readonly && styles['readonly'],
       )}
     >
-      <div className='flex justify-between'>
+      <div className='flex items-end justify-between'>
         {title && (
           <div style={titleStyle} className={clsx(styles['title'])}>
             {title}
