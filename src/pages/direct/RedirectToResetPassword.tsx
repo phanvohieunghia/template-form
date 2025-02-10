@@ -12,6 +12,9 @@ export const RedirectToResetPassword = () => {
     const result = await AuthService.instance.verifyForgotPassword({ forgotPasswordToken: token })
     if (result.success) {
       setIsFirstRendering(false)
+    } else {
+      // if (result.message.includes('The token has expired')) {
+      // }
     }
   }
   useEffect(() => {

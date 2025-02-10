@@ -1,5 +1,6 @@
-import { Button, Input } from '@/components'
+import { AlertSuccessfulModalPayload, Button, Input } from '@/components'
 import { AuthService } from '@/stores'
+import { EVENT_NAME, EventManager, ROUTE_NAME } from '@/utils'
 import { ResetPasswordVariables, validateResetPassword } from '@/validations/resetPasswordSchema'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -19,8 +20,14 @@ export const ResetPasswordPage = () => {
       setErrorMessage(errors)
     } else {
       const result = await AuthService.instance.resetPassword({ ...data, forgotPasswordToken: '' })
-      if (result.success && result.redirectTo) {
-        navigate(result.redirectTo)
+      if (result.success) {
+        EventManager.emit<AlertSuccessfulModalPayload>(EVENT_NAME.ALERT_SUCCESSFUL.OPEN, {
+          buttonText: 'Trở về đăng nhập',
+          content: 'Bạn đã thay đổi mật khẩu.',
+          onSubmit: () => {
+            navigate(ROUTE_NAME.LOGIN_)
+          },
+        })
       }
     }
   }
