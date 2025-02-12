@@ -3,7 +3,7 @@ import { ChatViewInput } from './ChatViewInput'
 
 export const ChatView = () => {
   return (
-    <div className='flex flex-grow flex-col bg-gray-100'>
+    <div className='flex flex-grow flex-col'>
       <ChatViewConversation />
       <ChatViewInput />
     </div>

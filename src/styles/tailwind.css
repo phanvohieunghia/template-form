@@ -24,3 +24,13 @@
     @apply hover:!border-green-600 hover:!text-green-600 active:!border-green-700 active:!text-green-700;
   }
 }
+
+@layer components {
+  .background-chat {
+    background:
+      radial-gradient(at 31.75786071113723% 11.097099621689786%, #cffff6 0px, transparent 50%),
+      radial-gradient(at 42.06406112253894% 75.15762925598992%, #d6ffec 0px, transparent 50%),
+      radial-gradient(at 79.82838671760211% 30.138713745271122%, #daffec 0px, transparent 50%),
+      radial-gradient(at 84.64296209227152% 83.48045397225725%, #ddfbf4 0px, transparent 50%) #ffffff;
+  }
+}

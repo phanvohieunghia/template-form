@@ -18,6 +18,6 @@ export class ChatApiService extends N8nApiEndpointService {
 
   public async chatOne(data: ChatOneVariables): Promise<ChatOneResponse> {
     const endpoint = this.endpoint
-    return await HttpClientService.post(endpoint, data)
+    return await HttpClientService.post(endpoint, data, { timeout: 30 * 1000 })
   }
 }

@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 type Message = {
   userType: 'me' | 'bot'
-  text: string
+  text: string | JSX.Element
+  loading?: boolean
 }
 
 type ChatState = {
@@ -20,9 +21,18 @@ export const chatSlice = createSlice({
       newMessages.push(action.payload)
       state.messages = newMessages
     },
+    editLastMessage: (state, action: PayloadAction<Message>) => {
+      const newMessages = [...state.messages]
+      newMessages[newMessages.length - 1].loading = false
+      newMessages[newMessages.length - 1].text = action.payload.text
+      state.messages = newMessages
+    },
+    clearMessages: (state) => {
+      state.messages = []
+    },
   },
 })
 
-export const { addMessage } = chatSlice.actions
+export const { addMessage, editLastMessage, clearMessages } = chatSlice.actions
 
 export default chatSlice.reducer

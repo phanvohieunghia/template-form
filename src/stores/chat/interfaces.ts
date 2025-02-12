@@ -6,7 +6,7 @@ export type ChatResponse = {
 }
 
 export type ChatOneVariables = {
-  chatInput: string
+  message: string
 }
 export type ChatOneResponse = {
   output: string

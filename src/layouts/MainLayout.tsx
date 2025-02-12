@@ -1,5 +1,5 @@
 import { ROUTE_NAME } from '@/utils'
-import { createChat } from '@n8n/chat'
+// import { createChat } from '@n8n/chat'
 import clsx from 'clsx'
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -9,24 +9,21 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
   const { children } = props
 
   const { pathname } = useLocation()
-  console.log(pathname)
   useEffect(() => {
-    createChat({
-      webhookUrl: 'https://n8n.aivos.tech/webhook/11ef8a4c-a48f-40b6-aa3d-4caf419cda50/chat',
-      initialMessages: ['Chào bạn! 👋', 'Tôi là chat bot hỗ trợ thủ tục. Hôm nay tôi có thể giúp ghì cho bạn?'],
-      i18n: {
-        en: {
-          title: '',
-          subtitle: 'Bắt đầu cuộc trò chuyện, chúng tôi sẵn sàng giúp bạn 24/7!',
-          footer: '',
-          getStarted: 'Bắt đầu',
-          inputPlaceholder: 'Nhập tin nhắn...',
-          closeButtonTooltip: 'Đóng',
-        },
-      },
-    })
-
-    return () => {}
+    // createChat({
+    //   webhookUrl: 'https://n8n.aivos.tech/webhook/11ef8a4c-a48f-40b6-aa3d-4caf419cda50/chat',
+    //   initialMessages: ['Chào bạn! 👋', 'Tôi là chat bot hỗ trợ thủ tục. Hôm nay tôi có thể giúp ghì cho bạn?'],
+    //   i18n: {
+    //     en: {
+    //       title: '',
+    //       subtitle: 'Bắt đầu cuộc trò chuyện, chúng tôi sẵn sàng giúp bạn 24/7!',
+    //       footer: '',
+    //       getStarted: 'Bắt đầu',
+    //       inputPlaceholder: 'Nhập tin nhắn...',
+    //       closeButtonTooltip: 'Đóng',
+    //     },
+    //   },
+    // })
   }, [])
 
   return (

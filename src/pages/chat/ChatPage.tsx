@@ -2,7 +2,7 @@ import { ChatPenal, ChatView } from '@/components'
 
 export const ChatPage = () => {
   return (
-    <div className='flex h-full bg-red-400'>
+    <div className='background-chat flex overflow-hidden rounded-xl'>
       <ChatPenal />
       <ChatView />
     </div>
