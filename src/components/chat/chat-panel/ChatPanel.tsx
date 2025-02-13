@@ -1,9 +1,9 @@
-import PlusIcon from '@/assets/svgs/plus.svg';
-import BookIcon from '@/assets/svgs/book.svg';
-import LegalIcon from '@/assets/svgs/legal_icon.svg';
-import VectorDotIcon from '@/assets/svgs/vector_dot.svg';
-import BookQuestionIcon from '@/assets/svgs/book_question.svg';
-import TagNewIcon from '@/assets/svgs/tag_new.svg';
+import BookIcon from '@/assets/svgs/book.svg'
+import BookQuestionIcon from '@/assets/svgs/book_question.svg'
+import LegalIcon from '@/assets/svgs/legal_icon.svg'
+import PlusIcon from '@/assets/svgs/plus.svg'
+import TagNewIcon from '@/assets/svgs/tag_new.svg'
+import VectorDotIcon from '@/assets/svgs/vector_dot.svg'
 import { Button } from '@/components'
 import { ChatService } from '@/stores'
 
@@ -13,24 +13,24 @@ export const ChatPenal = () => {
   }
 
   return (
-    <div className='scrollbar-thin h-full min-w-[250px] max-w-[250px] overflow-auto bg-white'>
+    <div className='scrollbar-thin h-full min-w-[250px] max-w-[300px] overflow-auto rounded-lg bg-white'>
       <div className='py-2 text-center'>
         <Button icon={<PlusIcon fontSize={20} />} onClick={createNewChat} type='primary' className='button-primary-2 mx-auto'>
           Cuộc trò chuyện mới
         </Button>
         <Button icon={<BookIcon fontSize={36} />} type='link' href='' className='chat-panel-button-1'>
           Văn bản Pháp Luật
-          <TagNewIcon fontSize={56}/>
+          <TagNewIcon fontSize={56} />
         </Button>
         <Button icon={<LegalIcon fontSize={26} />} type='link' href='' className='chat-panel-button-1 py-2 ps-4 hover:!bg-white'>
           Tra cứu Văn bản
         </Button>
         <Button icon={<VectorDotIcon fontSize={36} />} type='link' href='' className='chat-panel-button-1'>
           Thủ tục hành chính
-          <TagNewIcon fontSize={56}/>
+          <TagNewIcon fontSize={56} />
         </Button>
         <Button icon={<BookQuestionIcon fontSize={36} />} type='link' href='' className='chat-panel-button-1 hover:!bg-white'>
-          Cuộc trò chuyện mới
+          Hỗ trợ
         </Button>
       </div>
       {/* {data &&

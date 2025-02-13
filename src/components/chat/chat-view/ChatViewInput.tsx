@@ -14,7 +14,7 @@ export const ChatViewInput = () => {
   return (
     <>
       <div className='mx-auto flex w-full max-w-[700px] items-center gap-2 p-2'>
-        <div className='flex w-full flex-col items-end gap-2 rounded-xl bg-white p-2'>
+        <div className='flex w-full flex-col items-end gap-2 rounded-3xl bg-white p-2'>
           <Input
             size='large'
             value={chatInput}

@@ -39,7 +39,6 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
         },
         a: ({ node: _node, href, children, ...props }) => {
           const child = children as string
-
           return (
             <a href={href} target='_blank' className='mb-2 inline-block underline hover:text-green-600 hover:decoration-green-600' {...props}>
               <TypeWriter
@@ -55,28 +54,29 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
         },
         ul: ({ node: _node, ...props }) => <ul className='pl-10' {...props} />,
         ol: ({ node: _node, ...props }) => <ol className='pl-10' {...props} />,
+        span: ({ node: _node, ...props }) => <span className='' {...props} />,
+
         li: ({ node: _node, children, ...props }) => {
           return (
             <li {...props}>
-              {Array.isArray(children) &&
-                children.map((item) => {
-                  if (typeof item === 'string')
-                    return (
-                      <TypeWriter
-                        words={[item]}
-                        cursor={false}
-                        typeSpeed={5}
-                        serialRender
-                        delaySpeed={increase(time, item.length) * 5 + 20}
-                        onLoopDone={onLoopDone}
-                      />
-                    )
-                  else {
-                    if (item.props === 'ul-0') {
-                      return item
-                    } else return item
-                  }
-                })}
+              {Array.isArray(children)
+                ? children.map((item) => {
+                    if (typeof item === 'string')
+                      return (
+                        <TypeWriter
+                          words={[item]}
+                          cursor={false}
+                          typeSpeed={5}
+                          serialRender
+                          delaySpeed={increase(time, item.length) * 5 + 20}
+                          onLoopDone={onLoopDone}
+                        />
+                      )
+                    else {
+                      return <>{item}</>
+                    }
+                  })
+                : children}
             </li>
           )
         },

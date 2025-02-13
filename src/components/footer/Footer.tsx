@@ -1,16 +1,14 @@
 import DMCAProtectedLogo from '@/assets/images/dmca-protected.webp'
 import BoCongThuongLogo from '@/assets/images/logo-da-thong-bao-bo-cong-thuong.webp'
-import LogoIcon from '@/assets/svgs/logo.svg'
-import { appConfig } from '@/configs'
+import logoWithTextSrc from '@/assets/images/logo-with-text.png'
 
 export const Footer = () => {
   return (
-    <footer className='bg-cyan-50'>
+    <footer className='bg-gray-50'>
       <div className='mx-auto flex w-full max-w-screen-xl justify-between gap-10 p-4'>
         <div className='flex-1'>
           <div className='flex items-center'>
-            <LogoIcon fontSize={40} />
-            <span className='text-xl'>{appConfig.title}</span>
+            <img src={logoWithTextSrc} alt='logo error' height={32} />
           </div>
           <p className='mt-4'>
             Chúng tôi hướng tới trở thành nền tảng biểu mẫu văn bản hàng đầu Việt Nam, mang đến giải pháp tìm kiếm và sử dụng biểu mẫu nhanh chóng,

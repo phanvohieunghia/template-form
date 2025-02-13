@@ -9,7 +9,6 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
   const { children } = props
 
   const { pathname } = useLocation()
-  console.log(pathname)
   useEffect(() => {
     // createChat({
     //   webhookUrl: 'https://n8n.aivos.tech/webhook/11ef8a4c-a48f-40b6-aa3d-4caf419cda50/chat',
@@ -32,7 +31,7 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
       <Header />
       <main
         className={clsx(
-          'background-chat mx-auto w-full p-4 pt-[calc(65px+16px)]',
+          'background-chat mx-auto w-full p-4 pt-[calc(81px+16px)]',
           pathname.includes(ROUTE_NAME.HOME) ? 'min-h-screen' : 'h-screen max-w-screen-xl',
         )}
       >

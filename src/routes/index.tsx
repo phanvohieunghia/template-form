@@ -33,6 +33,8 @@ const RouteComponent = () => {
           </Authenticated>
         }
       >
+        <Route index element={<ChatPage />} />
+
         <Route path={ROUTE_NAME.RESEARCH}>
           <Route index element={<SearchPage />} />
           <Route path=':id' element={<DetailPage />} />
@@ -58,6 +60,12 @@ const RouteComponent = () => {
         }
       >
         <Route index element={<ChatPage />} />
+
+        <Route path={ROUTE_NAME.RESEARCH}>
+          <Route index element={<SearchPage />} />
+          <Route path=':id' element={<DetailPage />} />
+          <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
+        </Route>
 
         <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
         <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
