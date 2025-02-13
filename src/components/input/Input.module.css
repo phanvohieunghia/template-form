@@ -29,6 +29,10 @@
   @apply h-[24px];
 }
 
+.input.shape-round .wrapper {
+  @apply rounded-full;
+}
+
 .input.status-info .wrapper {
   @apply border-blue-500;
 }

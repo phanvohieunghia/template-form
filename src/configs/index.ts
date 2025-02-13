@@ -5,6 +5,7 @@ interface AppConfig {
   baseUrl: string
   googleClientId: string
   n8nApiUrl: string
+  logoLink?: string
 }
 
 export const appConfig: AppConfig = {

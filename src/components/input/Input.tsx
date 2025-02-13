@@ -8,6 +8,7 @@ type InputType = 'text' | 'number' | 'email' | 'password'
 export type StatusInput = 'info' | 'error' | 'warning' | 'success' | 'default'
 type SizeInput = 'default' | 'large' | 'small'
 type TitlePosition = 'top' | 'left'
+type InputShape = 'default' | 'circle' | 'round'
 
 interface Props {
   type?: InputType
@@ -29,6 +30,7 @@ interface Props {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   extra?: JSX.Element
   titleExtra?: JSX.Element
+  shape?: InputShape
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
@@ -50,6 +52,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
     onChange = () => {},
     extra,
     titleExtra,
+    shape = 'default',
     ...restProps
   } = props
   const [inputType, setInputType] = useState<InputType>(type)
@@ -82,6 +85,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
         status && styles[`status-${status}`],
         title && styles[`position-${titlePosition}`],
         styles[`size-${size}`],
+        styles[`shape-${shape}`],
         disabled && styles['disabled'],
         readonly && styles['readonly'],
       )}
