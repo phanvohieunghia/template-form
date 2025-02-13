@@ -14,7 +14,7 @@ export const ChatViewInput = () => {
   return (
     <>
       <div className='mx-auto flex w-full max-w-[700px] items-center gap-2 p-2'>
-        <div className='flex w-full flex-col items-end gap-2 rounded-3xl bg-white p-2'>
+        <div className='flex w-full gap-2 rounded-3xl bg-white p-2'>
           <Input
             size='large'
             value={chatInput}
@@ -23,7 +23,14 @@ export const ChatViewInput = () => {
             placeholder='Nhập câu hỏi của bạn tại đây...'
             shape='round'
           />
-          <Button shape='circle' type='primary' disabled={false} icon={<SendIcon />} className='button-primary' onClick={handleChat} />
+          <Button
+            shape='circle'
+            type='primary'
+            disabled={false}
+            icon={<SendIcon fontSize={20} />}
+            className='button-primary !px-[10px] !py-2'
+            onClick={handleChat}
+          />
         </div>
       </div>
       <div className='text-center text-[13px] text-[#A2ACC0]'>
