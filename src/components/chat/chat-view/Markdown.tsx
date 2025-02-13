@@ -53,6 +53,8 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
             </a>
           )
         },
+        ul: ({ node: _node, ...props }) => <ul className='pl-10' {...props} />,
+        ol: ({ node: _node, ...props }) => <ol className='pl-10' {...props} />,
         li: ({ node: _node, children, ...props }) => {
           return (
             <li {...props}>
@@ -69,20 +71,11 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
                         onLoopDone={onLoopDone}
                       />
                     )
-                  else
-                    return (
-                      <>
-                        <TypeWriter
-                          words={['• ']}
-                          cursor={false}
-                          typeSpeed={5}
-                          serialRender
-                          delaySpeed={increase(time, 2) * 5 + 20}
-                          onLoopDone={onLoopDone}
-                        />
-                        {item}
-                      </>
-                    )
+                  else {
+                    if (item.props === 'ul-0') {
+                      return item
+                    } else return item
+                  }
                 })}
             </li>
           )
@@ -138,9 +131,6 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
             </h4>
           )
         },
-        ul: ({ node: _node, ...props }) => <ul className='pl-10' {...props} />,
-        ol: ({ node: _node, ...props }) => <ol className='pl-10' {...props} />,
-        span: ({ node: _node, ...props }) => <span className='bg-red-500' {...props} />,
       }}
     >
       {children}

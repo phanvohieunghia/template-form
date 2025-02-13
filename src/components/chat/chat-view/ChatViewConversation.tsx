@@ -8,7 +8,6 @@ export const ChatViewConversation = forwardRef<HTMLDivElement>((_, ref) => {
 
   const handleLoopDone = useCallback(() => {
     const divRef = ref as unknown as React.MutableRefObject<HTMLDivElement>
-    console.log(ref)
     if (divRef && divRef.current) {
       divRef.current.scrollTop = divRef.current.scrollHeight
     }
@@ -21,7 +20,7 @@ export const ChatViewConversation = forwardRef<HTMLDivElement>((_, ref) => {
           messages.map((item, index) => {
             return (
               <ChatViewMessage me={item.userType === 'me'} key={index} loading={item.loading} onLoopDone={handleLoopDone}>
-                {item.text}
+                {item.text as string}
               </ChatViewMessage>
             )
           })
