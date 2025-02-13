@@ -1,13 +1,20 @@
-import data from '@/assets/mock-data/pages/chat/messages.json'
-import { Avatar } from '@/components'
-import { formatRemainingTime } from '@/utils'
-import clsx from 'clsx'
-import { MomentInput } from 'moment'
+import PlusIcon from '@/assets/svgs/plus.svg'
+import { Button } from '@/components'
+import { ChatService } from '@/stores'
 
 export const ChatPenal = () => {
+  const createNewChat = () => {
+    ChatService.instance.clearAllMessages()
+  }
+
   return (
-    <div className='scrollbar-thin h-screen w-[300px] overflow-auto bg-stone-200'>
-      {data &&
+    <div className='scrollbar-thin h-full min-w-[250px] max-w-[250px] overflow-auto bg-slate-100'>
+      <div className='py-2 text-center'>
+        <Button icon={<PlusIcon fontSize={20} />} onClick={createNewChat} type='primary' className='button-primary'>
+          Cuộc trò chuyện mới
+        </Button>
+      </div>
+      {/* {data &&
         data.map((item) => (
           <div
             key={item.id}
@@ -24,7 +31,7 @@ export const ChatPenal = () => {
               <div className='text-xs text-gray-500'>Last message</div>
             </div>
           </div>
-        ))}
+        ))} */}
     </div>
   )
 }

@@ -1,18 +1,36 @@
-export const ChatViewConversation = () => {
-  // useEffect(() => {
-  //   setMessage(data?.getRoomMessages.data || [])
-  // }, [data])
+import { appConfig } from '@/configs'
+import { useAppSelector } from '@/hooks'
+import React, { forwardRef, useCallback } from 'react'
+import { ChatViewMessage } from './ChatViewMessage'
+
+export const ChatViewConversation = forwardRef<HTMLDivElement>((_, ref) => {
+  const messages = useAppSelector((state) => state.chat.messages)
+
+  const handleLoopDone = useCallback(() => {
+    const divRef = ref as unknown as React.MutableRefObject<HTMLDivElement>
+    console.log(ref)
+    if (divRef && divRef.current) {
+      divRef.current.scrollTop = divRef.current.scrollHeight
+    }
+  }, [])
+
   return (
-    <div className='scrollbar-thin flex h-[calc(100vh-75px-56px)] flex-col-reverse overflow-auto p-2'>
-      {/* {messages &&
-        messages.map((item, i, items) => {
-          const isAvatar = i === items.length - 1 || items[i + 1].authorId !== item.authorId
-          return (
-            <ChatViewMessage isAvatar={isAvatar} me={item.authorId === auth.current._id} time={item.createdAt} key={item._id}>
-              {item.content}
-            </ChatViewMessage>
-          )
-        })} */}
+    <div className='scrollbar-thin flex-1 overflow-auto p-2' ref={ref}>
+      <div className='h-full'>
+        {messages.length !== 0 ? (
+          messages.map((item, index) => {
+            return (
+              <ChatViewMessage me={item.userType === 'me'} key={index} loading={item.loading} onLoopDone={handleLoopDone}>
+                {item.text}
+              </ChatViewMessage>
+            )
+          })
+        ) : (
+          <div className='h-full content-center text-center text-3xl font-bold text-gray-600'>
+            {appConfig.title} có thể hỗ trợ gì <div className='mt-1'>cho bạn?</div>
+          </div>
+        )}
+      </div>
     </div>
   )
-}
+})

@@ -1,4 +1,4 @@
-import { MainLayout, PublicLayout } from '@/layouts'
+import { MainLayout } from '@/layouts'
 import {
   ChatPage,
   DetailPage,
@@ -6,7 +6,6 @@ import {
   ForgotPasswordPage,
   InputTestPage,
   LoginPage,
-  MainPage,
   PaymentPage,
   RedirectOnGoogleAuthentication,
   RedirectToPayment,
@@ -34,14 +33,6 @@ const RouteComponent = () => {
           </Authenticated>
         }
       >
-        <Route index element={<MainPage />} />
-
-        <Route path={ROUTE_NAME.RESEARCH}>
-          <Route index element={<SearchPage />} />
-          <Route path=':id' element={<DetailPage />} />
-          <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
-        </Route>
-
         <Route path={ROUTE_NAME.CHAT} element={<ChatPage />} />
         <Route path={ROUTE_NAME.EXPERT} element={<ExpertPage />} />
         <Route path={ROUTE_NAME.UPLOAD_FILE} element={<UploadPage />} />
@@ -54,16 +45,23 @@ const RouteComponent = () => {
         path={ROUTE_NAME.HOME}
         element={
           <Authenticated type='public' fallback={<Navigate to={ROUTE_NAME.HOME} />}>
-            <PublicLayout>
+            <MainLayout>
               <Outlet />
-            </PublicLayout>
+            </MainLayout>
           </Authenticated>
         }
       >
+        <Route index element={<ChatPage />} />
         <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
         <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
         <Route path={ROUTE_NAME.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
         <Route path={ROUTE_NAME.RESET_PASSWORD} element={<ResetPasswordPage />} />
+
+        <Route path={ROUTE_NAME.RESEARCH}>
+          <Route index element={<SearchPage />} />
+          <Route path=':id' element={<DetailPage />} />
+          <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
+        </Route>
 
         <Route path={ROUTE_NAME.REDIRECT.GOOGLE} element={<RedirectOnGoogleAuthentication />} />
         <Route path={ROUTE_NAME.REDIRECT.RESET_PASSWORD} element={<RedirectToResetPassword />} />

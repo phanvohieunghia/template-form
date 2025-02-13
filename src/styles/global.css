@@ -6,8 +6,15 @@ body {
   font-family: 'Open Sans', serif;
   box-sizing: border-box;
 }
-body div div div div {
-  transition:
-    all 1s,
-    visibility 0s !important;
+
+html::-webkit-scrollbar {
+  @apply w-1;
+}
+
+html::-webkit-scrollbar-track {
+  @apply rounded-full;
+}
+
+html::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-gray-300 transition-colors duration-300 hover:bg-gray-400;
 }

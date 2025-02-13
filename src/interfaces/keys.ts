@@ -1,55 +1,34 @@
-export type Key =
-  | 'ctrl'
-  | 'shift'
-  | 'alt'
-  | 'escape'
+export type Key = NumberKey | CharacterKey | FunctionKey | ControlKey
+
+type NumberKey = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+type FunctionKey = 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7' | 'F8' | 'F9' | 'F10' | 'F11' | 'F12'
+type ControlKey = 'ctrl' | 'shift' | 'alt' | 'escape'
+type CharacterKey =
+  | '['
+  | ']'
   | 'backtick'
-  | 'q'
-  | 'w'
-  | 'e'
-  | 'r'
-  | 't'
-  | 'y'
-  | 'u'
-  | 'i'
-  | 'o'
-  | 'p'
   | 'a'
-  | 's'
+  | 'b'
+  | 'c'
   | 'd'
+  | 'e'
   | 'f'
   | 'g'
   | 'h'
+  | 'i'
   | 'j'
   | 'k'
   | 'l'
-  | 'z'
-  | 'x'
-  | 'c'
-  | 'v'
-  | 'b'
   | 'n'
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | 'F1'
-  | 'F2'
-  | 'F3'
-  | 'F4'
-  | 'F5'
-  | 'F6'
-  | 'F7'
-  | 'F8'
-  | 'F9'
-  | 'F10'
-  | 'F11'
-  | 'F12'
-  | '['
-  | ']'
+  | 'o'
+  | 'p'
+  | 'q'
+  | 'r'
+  | 's'
+  | 't'
+  | 'u'
+  | 'v'
+  | 'w'
+  | 'x'
+  | 'y'
+  | 'z'

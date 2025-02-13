@@ -1,4 +1,5 @@
 export * from './auth'
+export * from './chat'
 export * from './expert'
 export * from './payment'
 export * from './procedure'

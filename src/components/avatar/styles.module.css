@@ -7,6 +7,3 @@
 .avatar.shape-square {
   @apply rounded-md;
 }
-.avatar.src {
-  @apply rounded-none bg-transparent;
-}

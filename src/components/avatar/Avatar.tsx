@@ -1,7 +1,7 @@
 import clsx from 'clsx'
-import { CSSProperties, forwardRef, PropsWithChildren, ReactNode, Ref, useEffect, useRef } from 'react'
+import { CSSProperties, forwardRef, HTMLAttributes, PropsWithChildren, ReactNode, Ref, useEffect, useRef } from 'react'
 import styles from './styles.module.css'
-interface Props extends PropsWithChildren {
+interface Props extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {
   icon?: ReactNode
   size?: number
   src?: string | ReactNode
@@ -11,7 +11,7 @@ interface Props extends PropsWithChildren {
 }
 
 export const Avatar = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { children, icon, size = 16, src, shape = 'circle', style, ...restProps } = props
+  const { children, icon, size = 16, src, shape = 'circle', style, className, ...restProps } = props
   const textRef = useRef<HTMLSpanElement>(null)
 
   const defaultIconSize = src === undefined ? size / 2 : size
@@ -22,10 +22,11 @@ export const Avatar = forwardRef<HTMLDivElement, Props>((props, ref) => {
       textRef.current.style.transform = `scale(${Math.min(scale, 1)})`
     }
   }, [children, size])
+
   return (
     <div
       style={{ width: size, height: size, fontSize: defaultIconSize, ...style }}
-      className={clsx(styles['avatar'], styles[`shape-${shape}`], !!src && styles['src'])}
+      className={clsx(styles['avatar'], styles[`shape-${shape}`], className)}
       {...restProps}
       ref={ref}
     >

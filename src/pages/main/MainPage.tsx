@@ -7,8 +7,8 @@ export const MainPage = () => {
         <div className='font-bold text-gray-600'>
           Hệ thống <span className='text-green-600'>250.000+</span> biểu mẫu
         </div>
-        <div>
-          <TypeWriter words={['Toàn diện', 'Chính xác', 'Nhanh gọn']} />
+        <div className='min-h-[60px]'>
+          <TypeWriter words={['Toàn diện', 'Chính xác', 'Nhanh gọn']} className='text font-bold text-green-600' cursor={false} typeSpeed={100} />
         </div>
       </h1>
       <p className='m-6 text-center'>Được phát hành bởi các Luật sư và chuyên gia pháp luật</p>

@@ -1,12 +1,12 @@
+import { useRef } from 'react'
 import { ChatViewConversation } from './ChatViewConversation'
-import { ChatViewHeader } from './ChatViewHeader'
 import { ChatViewInput } from './ChatViewInput'
 
 export const ChatView = () => {
+  const viewConversationRef = useRef<HTMLDivElement>(null)
   return (
-    <div className='flex flex-grow flex-col bg-gray-100'>
-      <ChatViewHeader />
-      <ChatViewConversation />
+    <div className='flex flex-grow flex-col'>
+      <ChatViewConversation ref={viewConversationRef} />
       <ChatViewInput />
     </div>
   )
