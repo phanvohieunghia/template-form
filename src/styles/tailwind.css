@@ -23,14 +23,23 @@
   .button-default {
     @apply hover:!border-green-600 hover:!text-green-600 active:!border-green-700 active:!text-green-700;
   }
+  .button-primary-2 {
+    @apply mt-3 flex flex-row items-center gap-x-[6px] rounded-[28px] border-none !bg-[#F0F5F7] px-[28px] py-[10px] font-medium !text-[#6F767E] outline-none hover:!bg-[#DEEAF1];
+  }
+
+  .chat-panel-button-1 {
+    @apply mt-[0.875rem] flex !min-h-8 w-full items-center justify-start gap-3 px-3 text-start font-bold !text-[#586379] hover:!bg-[#F0F5F7] hover:!text-[#00000099];
+  }
 }
 
 @layer components {
   .background-chat {
+    background: url(/src/assets/images/main-background.png) no-repeat 50% 50% / 100% 100%;
+  }
+
+  .background-spring {
     background:
-      radial-gradient(at 31.75786071113723% 11.097099621689786%, #cffff6 0px, transparent 50%),
-      radial-gradient(at 42.06406112253894% 75.15762925598992%, #d6ffec 0px, transparent 50%),
-      radial-gradient(at 79.82838671760211% 30.138713745271122%, #daffec 0px, transparent 50%),
-      radial-gradient(at 84.64296209227152% 83.48045397225725%, #ddfbf4 0px, transparent 50%) #ffffff;
+      url(/src/assets/images/spring-background.png) no-repeat 6px 120% / 300px 100px,
+      white;
   }
 }

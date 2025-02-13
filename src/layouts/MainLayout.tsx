@@ -30,7 +30,10 @@ export const MainLayout: FC<PropsWithChildren> = (props) => {
     <>
       <Header />
       <main
-        className={clsx('mx-auto w-full max-w-screen-xl p-4 pt-[calc(65px+16px)]', pathname.includes(ROUTE_NAME.CHAT_) ? 'h-screen' : 'min-h-screen')}
+        className={clsx(
+          'background-chat mx-auto w-full p-4 pt-[calc(81px+16px)]',
+          pathname.includes(ROUTE_NAME.HOME) ? 'min-h-screen' : 'h-screen max-w-screen-xl',
+        )}
       >
         {children}
       </main>

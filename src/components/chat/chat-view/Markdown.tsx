@@ -39,7 +39,6 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
         },
         a: ({ node: _node, href, children, ...props }) => {
           const child = children as string
-
           return (
             <a href={href} target='_blank' className='mb-2 inline-block underline hover:text-green-600 hover:decoration-green-600' {...props}>
               <TypeWriter
@@ -53,37 +52,31 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
             </a>
           )
         },
+        ul: ({ node: _node, ...props }) => <ul className='pl-10' {...props} />,
+        ol: ({ node: _node, ...props }) => <ol className='pl-10' {...props} />,
+        span: ({ node: _node, ...props }) => <span className='' {...props} />,
+
         li: ({ node: _node, children, ...props }) => {
           return (
             <li {...props}>
-              {Array.isArray(children) &&
-                children.map((item) => {
-                  if (typeof item === 'string')
-                    return (
-                      <TypeWriter
-                        words={[item]}
-                        cursor={false}
-                        typeSpeed={5}
-                        serialRender
-                        delaySpeed={increase(time, item.length) * 5 + 20}
-                        onLoopDone={onLoopDone}
-                      />
-                    )
-                  else
-                    return (
-                      <>
+              {Array.isArray(children)
+                ? children.map((item) => {
+                    if (typeof item === 'string')
+                      return (
                         <TypeWriter
-                          words={['• ']}
+                          words={[item]}
                           cursor={false}
                           typeSpeed={5}
                           serialRender
-                          delaySpeed={increase(time, 2) * 5 + 20}
+                          delaySpeed={increase(time, item.length) * 5 + 20}
                           onLoopDone={onLoopDone}
                         />
-                        {item}
-                      </>
-                    )
-                })}
+                      )
+                    else {
+                      return <>{item}</>
+                    }
+                  })
+                : children}
             </li>
           )
         },
@@ -138,9 +131,6 @@ export const Markdown = memo((props: PropsWithChildren & { onLoopDone?: () => vo
             </h4>
           )
         },
-        ul: ({ node: _node, ...props }) => <ul className='pl-10' {...props} />,
-        ol: ({ node: _node, ...props }) => <ol className='pl-10' {...props} />,
-        span: ({ node: _node, ...props }) => <span className='bg-red-500' {...props} />,
       }}
     >
       {children}

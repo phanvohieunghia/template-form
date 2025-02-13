@@ -1,5 +1,4 @@
 import LogoutIcon from '@/assets/svgs/log_out.svg'
-import LogoIcon from '@/assets/svgs/logo.svg'
 import { Avatar, Button, Popover } from '@/components'
 import { appConfig } from '@/configs'
 import { UserInformationType } from '@/interfaces/localStorage'
@@ -39,15 +38,18 @@ export const Header = () => {
           <Avatar className='hover:cursor-pointer' src={userInformation?.avatar} size={32} shape='circle' />
         </Popover>
       )
-    return <Button onClick={handleLogin}>Đăng nhập</Button>
+    return (
+      <Button onClick={handleLogin} shape='circle' className='button-default!p-2'>
+        Đăng nhập
+      </Button>
+    )
   }
 
   return (
-    <header className='fixed left-0 right-0 top-0 z-50 border-b bg-white'>
-      <div className='mx-auto flex w-full max-w-screen-xl justify-between p-3'>
+    <header className='fixed left-0 right-0 top-0 z-50 items-center border-b'>
+      <div className='background-spring mx-auto flex min-h-20 w-full justify-between p-3'>
         <Link to={ROUTE_NAME.HOME} className='flex items-center'>
-          <LogoIcon fontSize={40} />
-          <span className='text-xl'>{appConfig.title}</span>
+          <img src={appConfig.logo.logoWithText} alt='logo error' className='ml-20' />
         </Link>
         <div className='flex items-center space-x-1'>
           <Button type='text' className='text-lg'>

@@ -33,6 +33,14 @@ const RouteComponent = () => {
           </Authenticated>
         }
       >
+        <Route index element={<ChatPage />} />
+
+        <Route path={ROUTE_NAME.RESEARCH}>
+          <Route index element={<SearchPage />} />
+          <Route path=':id' element={<DetailPage />} />
+          <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
+        </Route>
+
         <Route path={ROUTE_NAME.CHAT} element={<ChatPage />} />
         <Route path={ROUTE_NAME.EXPERT} element={<ExpertPage />} />
         <Route path={ROUTE_NAME.UPLOAD_FILE} element={<UploadPage />} />
@@ -52,16 +60,17 @@ const RouteComponent = () => {
         }
       >
         <Route index element={<ChatPage />} />
-        <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
-        <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
-        <Route path={ROUTE_NAME.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
-        <Route path={ROUTE_NAME.RESET_PASSWORD} element={<ResetPasswordPage />} />
 
         <Route path={ROUTE_NAME.RESEARCH}>
           <Route index element={<SearchPage />} />
           <Route path=':id' element={<DetailPage />} />
           <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
         </Route>
+
+        <Route path={ROUTE_NAME.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTE_NAME.REGISTER} element={<RegisterPage />} />
+        <Route path={ROUTE_NAME.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
+        <Route path={ROUTE_NAME.RESET_PASSWORD} element={<ResetPasswordPage />} />
 
         <Route path={ROUTE_NAME.REDIRECT.GOOGLE} element={<RedirectOnGoogleAuthentication />} />
         <Route path={ROUTE_NAME.REDIRECT.RESET_PASSWORD} element={<RedirectToResetPassword />} />

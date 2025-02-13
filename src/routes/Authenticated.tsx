@@ -9,7 +9,6 @@ interface Props extends PropsWithChildren {
 
 export const Authenticated: FC<Props> = (props) => {
   const { children, type, fallback } = props
-
   const accessToken = LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN)
   if (accessToken && type === 'token') return <>{children}</>
   if (!accessToken && type === 'token') return <>{fallback}</>
