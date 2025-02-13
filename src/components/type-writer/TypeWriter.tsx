@@ -1,3 +1,4 @@
+import { throttle } from 'lodash'
 import { FC, HTMLAttributes, PropsWithChildren } from 'react'
 import { Typewriter } from 'react-simple-typewriter'
 
@@ -8,10 +9,11 @@ interface Types extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {
   loop?: boolean | number
   serialRender?: boolean
   delaySpeed?: number
+  onLoopDone?: () => void
 }
 
 export const TypeWriter: FC<Types> = (props) => {
-  const { words, cursor = false, loop = 1, typeSpeed, serialRender = false, delaySpeed = 2000, ...restProps } = props
+  const { words, cursor = false, loop = 1, typeSpeed, serialRender = false, delaySpeed = 2000, onLoopDone, ...restProps } = props
 
   return (
     <span {...restProps}>
@@ -23,6 +25,7 @@ export const TypeWriter: FC<Types> = (props) => {
         typeSpeed={typeSpeed}
         deleteSpeed={30}
         delaySpeed={delaySpeed}
+        onType={onLoopDone ? throttle(onLoopDone, 500) : undefined}
       />
     </span>
   )

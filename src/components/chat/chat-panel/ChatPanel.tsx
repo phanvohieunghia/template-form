@@ -8,7 +8,7 @@ export const ChatPenal = () => {
   }
 
   return (
-    <div className='scrollbar-thin max-h-full min-w-[250px] max-w-[250px] overflow-auto bg-slate-100'>
+    <div className='scrollbar-thin h-full min-w-[250px] max-w-[250px] overflow-auto bg-slate-100'>
       <div className='py-2 text-center'>
         <Button icon={<PlusIcon fontSize={20} />} onClick={createNewChat} type='primary' className='button-primary'>
           Cuộc trò chuyện mới
