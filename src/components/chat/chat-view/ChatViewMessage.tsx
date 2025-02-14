@@ -6,12 +6,12 @@ import { Markdown } from './Markdown'
 interface Props extends PropsWithChildren {
   me: boolean
   loading?: boolean
-  onLoopDone: () => void
+  onLoopDone?: () => void
+  onPopup?: (href: string) => void
 }
 
 export const ChatViewMessage: FC<Props> = (props) => {
-  const { me = false, children, loading, onLoopDone } = props
-
+  const { me = false, children, loading, onLoopDone, onPopup } = props
   const renderMessage = () => {
     if (me) return <p className='mb-3'>{children}</p>
     else {
@@ -21,7 +21,12 @@ export const ChatViewMessage: FC<Props> = (props) => {
             <LoadingDotsIcon fontSize={20} className='mb-3 text-gray-600' />
           </div>
         )
-      else return <Markdown onLoopDone={onLoopDone}>{children}</Markdown>
+      else
+        return (
+          <Markdown onLoopDone={onLoopDone} onPopup={onPopup}>
+            {children}
+          </Markdown>
+        )
     }
   }
 

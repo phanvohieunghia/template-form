@@ -1,14 +1,15 @@
 export const EVENT_NAME = {
-  TEST_MODAL_OPEN: 'test_modal_open',
-  TEST_MODAL_CLOSE: 'test_modal_close',
+  TEST_MODAL_OPEN: 'de285619-f5f4-48d7-b6ac-82e35a4d5954',
+  TEST_MODAL_CLOSE: '26e8a5ac-dcca-4263-8fce-2d58e10e4ed7',
   EXPERT_ADVICE: {
-    OPEN: 'expert_advice_open',
-    CLOSE: 'expert_advice_close',
+    OPEN: 'ad26f5aa-cf22-4ff8-9d43-1b35bf5bf8d3',
+    CLOSE: '8b0c5e5d-e886-4125-9b08-d6fea2375940',
   },
   ALERT_SUCCESSFUL: {
-    OPEN: 'alert_successful_open',
-    CLOSE: 'alert_successful_close',
+    OPEN: '35fc82e4-221a-4ef1-9342-bedc1aaf4a45',
+    CLOSE: '94fa7a0b-9cee-4951-b84d-3216cbc6e973',
   },
+  TYPING: '66b32e46-e7dc-486b-a7ec-9dd58a5d069c',
 }
 
 export const LOCAL_STORAGE = {
