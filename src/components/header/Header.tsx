@@ -39,7 +39,7 @@ export const Header = () => {
         </Popover>
       )
     return (
-      <Button onClick={handleLogin} shape='circle' className='button-default!p-2'>
+      <Button onClick={handleLogin} shape='circle' className='button-default !p-2'>
         Đăng nhập
       </Button>
     )
@@ -55,12 +55,7 @@ export const Header = () => {
           <Button type='text' className='text-lg'>
             Về chúng tôi
           </Button>
-          <Button type='text' className='text-lg'>
-            Câu hỏi thường gặp
-          </Button>
-          <Button type='text' className='text-lg'>
-            Tin tức
-          </Button>
+
           {renderAuthentication()}
         </div>
       </div>
