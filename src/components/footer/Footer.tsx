@@ -1,6 +1,7 @@
 import DMCAProtectedLogo from '@/assets/images/dmca-protected.webp'
 import BoCongThuongLogo from '@/assets/images/logo-da-thong-bao-bo-cong-thuong.webp'
 import logoWithTextSrc from '@/assets/images/logo-with-text.png'
+import { appConfig } from '@/configs'
 
 export const Footer = () => {
   return (
@@ -29,7 +30,7 @@ export const Footer = () => {
         <div className='flex-1'>Thông tin</div>
       </div>
 
-      <div className='mx-auto border-t border-gray-300 py-5 text-center text-gray-700'>© 2024 MauVanBan.VN | Phát triển bởi Luật Thiên Mã</div>
+      <div className='mx-auto border-t border-gray-300 py-5 text-center text-gray-700'>© 2024 {appConfig.title} | Phát triển bởi AIVOS</div>
     </footer>
   )
 }

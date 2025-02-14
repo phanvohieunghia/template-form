@@ -12,7 +12,7 @@ interface AppConfig {
 }
 
 export const appConfig: AppConfig = {
-  title: 'AI BIỂU MẪU' + ((import.meta.env.VITE_ENVIRONMENT ?? '') === 'dev' ? ' - DEV' : ''),
+  title: 'AI Biểu Mẫu' + ((import.meta.env.VITE_ENVIRONMENT ?? '') === 'dev' ? ' - DEV' : ''),
   environment: import.meta.env.VITE_ENVIRONMENT || '',
   baseUrl: import.meta.env.VITE_BASE_URL || '',
   restFullApiUrl: import.meta.env.VITE_API_BASE_URL || '',
