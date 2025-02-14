@@ -14,23 +14,23 @@ export const ChatPenal = () => {
   }
 
   return (
-    <div className='scrollbar-thin h-full min-w-[250px] max-w-[300px] overflow-auto rounded-lg bg-white'>
+    <div className='h-full min-w-[250px] max-w-[300px] overflow-auto rounded-lg bg-white'>
       <div className='py-2 text-center'>
-        <Button icon={<PlusIcon fontSize={20} />} onClick={createNewChat} type='primary' className='button-primary-2 mx-auto'>
+        <Button icon={<PlusIcon fontSize={20} />} onClick={createNewChat} type='primary' className='button-second mx-auto'>
           Cuộc trò chuyện mới
         </Button>
-        <Button icon={<BookIcon fontSize={36} />} type='link' href={ROUTE_NAME.RESEARCH_} className='chat-panel-button-1'>
+        <Button icon={<BookIcon fontSize={36} />} type='link' href={ROUTE_NAME.RESEARCH_} className='button-chat-panel'>
           Tra Cứu Văn Bản
           <TagNewIcon width={56} height={20} />
         </Button>
-        <Button icon={<VectorDotIcon fontSize={36} />} type='link' href='' className='chat-panel-button-1'>
+        <Button icon={<VectorDotIcon fontSize={36} />} type='link' href='' className='button-chat-panel'>
           Thủ tục hành chính
           <TagNewIcon width={56} height={20} />
         </Button>
-        <Button icon={<LegalIcon fontSize={26} />} type='link' href='' className='chat-panel-button-1'>
+        <Button icon={<LegalIcon fontSize={26} />} type='link' href='' className='button-chat-panel'>
           Tin tức
         </Button>
-        <Button icon={<BookQuestionIcon fontSize={36} />} type='link' href='' className='chat-panel-button-1'>
+        <Button icon={<BookQuestionIcon fontSize={36} />} type='link' href='' className='button-chat-panel'>
           Hỗ trợ
         </Button>
       </div>

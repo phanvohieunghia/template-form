@@ -62,7 +62,7 @@ const Content = (props: ContentProps) => {
   }
 
   return (
-    <div className='scroll-thin scrollbar-thin max-h-[300px] w-screen max-w-[625px] overflow-auto p-4'>
+    <div className='scrollbar-thin max-h-[300px] w-screen max-w-[625px] overflow-auto p-4'>
       {searchData.map((item, index) => {
         return (
           <div key={index}>

@@ -1,32 +1,47 @@
-import { throttle } from 'lodash'
-import { FC, HTMLAttributes, PropsWithChildren } from 'react'
-import { Typewriter } from 'react-simple-typewriter'
+import { EVENT_NAME, EventManager } from '@/utils'
+import { useCallback, useEffect, useState } from 'react'
 
-interface Types extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {
-  words: string[]
-  typeSpeed: number
-  cursor?: boolean
-  loop?: boolean | number
-  serialRender?: boolean
-  delaySpeed?: number
-  onLoopDone?: () => void
+type PropsType = {
+  text: string
+  onComplete: () => void
+  speed: number
+  currentKey: number
+  each?: 'word' | 'character'
 }
 
-export const TypeWriter: FC<Types> = (props) => {
-  const { words, cursor = false, loop = 1, typeSpeed, serialRender = false, delaySpeed = 2000, onLoopDone, ...restProps } = props
+export const TypeWriter = (props: PropsType) => {
+  const { text, onComplete, speed = 100, currentKey, each = 'character' } = props
+  const [index, setIndex] = useState(0)
+  const [displayText, setDisplayText] = useState('')
 
-  return (
-    <span {...restProps}>
-      <Typewriter
-        words={serialRender ? ['', ...words] : words}
-        loop={loop}
-        cursor={cursor}
-        cursorStyle='|'
-        typeSpeed={typeSpeed}
-        deleteSpeed={30}
-        delaySpeed={delaySpeed}
-        onType={onLoopDone ? throttle(onLoopDone, 500) : undefined}
-      />
-    </span>
-  )
+  const handleComplete = useCallback(() => {
+    setIndex((prev) => prev + 1)
+  }, [])
+
+  useEffect(() => {
+    if (index !== currentKey) return
+    let currentIndex = 0
+    const textList = text.split(each === 'character' ? '' : ' ')
+    setDisplayText('')
+
+    const timer = setInterval(() => {
+      setDisplayText(textList.slice(0, currentIndex + 1).join(each === 'character' ? '' : ' '))
+      currentIndex++
+
+      if (currentIndex === text.length) {
+        clearInterval(timer)
+        onComplete()
+      }
+    }, speed)
+    return () => clearInterval(timer)
+  }, [text, speed, onComplete, index])
+
+  useEffect(() => {
+    EventManager.on(EVENT_NAME.TYPING, handleComplete)
+    return () => {
+      EventManager.off(EVENT_NAME.TYPING, handleComplete)
+    }
+  }, [])
+
+  return <span>{displayText}</span>
 }

@@ -1,5 +1,5 @@
 import LoadingIcon from '@/assets/svgs/loading.svg'
-import { Button, ExpertAdviceModal, ExpertAdviceModalPayload, Tab, TabProps } from '@/components'
+import { Button, ExpertAdviceModalPayload, Tab, TabProps } from '@/components'
 import { useAppSelector } from '@/hooks'
 import { mauGiayToType } from '@/shared/schemas/mauGiayTo.schema'
 import { ProcedureService } from '@/stores'
@@ -193,7 +193,6 @@ export const DetailPage = () => {
         <Collapse items={collapseData} className='noah' />
       </Card>
       <Card title='Quy trình thực hiện'>{newQuyTrinhThucHien}</Card>
-      <ExpertAdviceModal />
     </div>
   )
 }

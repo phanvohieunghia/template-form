@@ -2,6 +2,7 @@ import { appConfig } from '@/configs'
 import { FC, PropsWithChildren } from 'react'
 import { ErrorProvider } from './ErrorProvider'
 import { GoogleProvider } from './GoogleProvider'
+import { ModalProvider } from './ModalProvider'
 import { StateProvider } from './StateProvider'
 import { TestProvider } from './TestProvider'
 
@@ -22,7 +23,9 @@ export const ConfigProvider: FC<PropsWithChildren> = (props) => {
     <ErrorProvider>
       <TestProvider>
         <GoogleProvider>
-          <StateProvider>{children}</StateProvider>
+          <StateProvider>
+            <ModalProvider>{children}</ModalProvider>
+          </StateProvider>
         </GoogleProvider>
       </TestProvider>
     </ErrorProvider>
