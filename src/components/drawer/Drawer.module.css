@@ -1,0 +1,19 @@
+.drawer-mask {
+  @apply absolute h-screen w-screen bg-[red];
+}
+
+.placement-top {
+  @apply left-0 right-0 top-0 h-full max-h-[500px];
+}
+
+.placement-right {
+  @apply bottom-0 right-0 top-0 w-full max-w-[500px];
+}
+
+.placement-bottom {
+  @apply bottom-0 left-0 right-0 h-full max-h-[500px];
+}
+
+.placement-left {
+  @apply bottom-0 left-0 top-0 w-full max-w-[500px];
+}

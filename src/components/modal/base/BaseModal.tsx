@@ -58,7 +58,7 @@ export const BaseModal: BaseModalComponent = (props) => {
       <div className='fixed inset-0 flex items-start justify-center py-20'>
         <div
           onClick={(e) => e.stopPropagation()}
-          className={clsx('animate- w-full max-w-[500px] shadow-lg', isActive ? 'animate-fadeInUp-zoomIn' : 'animate-fadeOutUp-zoomOut')}
+          className={clsx('w-full max-w-[500px] shadow-lg', isActive ? 'animate-fade-down-zoom-in' : 'animate-fade-down-zoom-out')}
         >
           {children}
         </div>

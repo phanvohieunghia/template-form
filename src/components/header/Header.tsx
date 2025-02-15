@@ -1,15 +1,18 @@
 import LogoutIcon from '@/assets/svgs/log_out.svg'
-import { Avatar, Button, Popover } from '@/components'
+import { Avatar, Button, Drawer, Popover } from '@/components'
 import { appConfig } from '@/configs'
 import { UserInformationType } from '@/interfaces/localStorage'
 import { LocalStorageService } from '@/services'
 import { AuthService } from '@/stores'
 import { LOCAL_STORAGE, ROUTE_NAME } from '@/utils'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export const Header = () => {
   const navigate = useNavigate()
   const userInformation = (LocalStorageService.instance.get(LOCAL_STORAGE.USER_INFORMATION) as UserInformationType) ?? {}
+  const [isDrawer, setToggleDrawer] = useState<boolean>(false)
+
   const handleLogin = () => {
     navigate(ROUTE_NAME.LOGIN_)
   }
@@ -52,11 +55,15 @@ export const Header = () => {
           <img src={appConfig.logo.logoWithText} alt='logo error' className='ml-20' />
         </Link>
         <div className='flex items-center space-x-1'>
-          <Button type='text' className='text-lg'>
+          <Button onClick={() => setToggleDrawer(true)}>Test</Button>
+          <Button type='text' shape='circle' className='!p-2'>
             Về chúng tôi
           </Button>
 
           {renderAuthentication()}
+          <Drawer open={isDrawer} onClose={() => setToggleDrawer(false)} position='left'>
+            Hello
+          </Drawer>
         </div>
       </div>
     </header>
