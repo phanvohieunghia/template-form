@@ -1,3 +1,4 @@
+import BarsIcon from '@/assets/svgs/bars.svg'
 import LogoutIcon from '@/assets/svgs/log_out.svg'
 import { Avatar, Button, Drawer, Popover } from '@/components'
 import { appConfig } from '@/configs'
@@ -54,14 +55,17 @@ export const Header = () => {
         <Link to={ROUTE_NAME.HOME} className='flex items-center'>
           <img src={appConfig.logo.logoWithText} alt='logo error' className='ml-20' />
         </Link>
-        <div className='flex items-center space-x-1'>
-          <Button onClick={() => setToggleDrawer(true)}>Test</Button>
+
+        <div className='flex items-center lg:hidden'>
+          <Button icon={<BarsIcon fontSize={39} />} shape='circle' type='text' onClick={() => setToggleDrawer(true)} />
+        </div>
+        <div className='hidden items-center space-x-1 lg:flex'>
           <Button type='text' shape='circle' className='!p-2'>
             Về chúng tôi
           </Button>
 
           {renderAuthentication()}
-          <Drawer open={isDrawer} onClose={() => setToggleDrawer(false)} position='left'>
+          <Drawer open={isDrawer} onClose={() => setToggleDrawer(false)}>
             Hello
           </Drawer>
         </div>

@@ -15,6 +15,7 @@ interface Props extends PropsWithChildren {
   iconClose?: JSX.Element
   closable?: boolean
   isShowHeader?: boolean
+  width?: number
   onClose: () => void
 }
 
@@ -34,6 +35,7 @@ export const Drawer: FC<Props> = (props) => {
     closable = true,
     isShowHeader = true,
     children,
+    width = 500,
   } = props
 
   const [state, setState] = useState<State>({ firstTime: false, isDisplay: false })
@@ -69,7 +71,8 @@ export const Drawer: FC<Props> = (props) => {
               <div
                 onClick={(e) => e.stopPropagation()}
                 ref={drawerRef}
-                className={clsx('absolute z-20 bg-white', positionAnimate, styles[`placement-${position}`])}
+                style={{ maxWidth: width }}
+                className={clsx('absolute z-20 w-full bg-white', positionAnimate, styles[`placement-${position}`])}
               >
                 {isShowHeader && (
                   <div className='flex items-center gap-x-1 px-6 py-4'>
