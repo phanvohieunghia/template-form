@@ -1,0 +1,12 @@
+.placement-top {
+  @apply left-0 right-0 top-0 h-full;
+}
+.placement-right {
+  @apply bottom-0 right-0 top-0 w-full;
+}
+.placement-bottom {
+  @apply bottom-0 left-0 right-0 h-full;
+}
+.placement-left {
+  @apply bottom-0 left-0 top-0 w-full;
+}

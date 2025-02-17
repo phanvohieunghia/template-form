@@ -50,7 +50,7 @@ export const ChatViewConversation = forwardRef<HTMLDivElement>((_, ref) => {
             )
           })
         ) : (
-          <div className='flex h-full flex-col content-center items-center justify-center text-center text-3xl font-bold text-gray-600'>
+          <div className='flex h-full flex-col content-center items-center justify-center text-center text-lg font-bold text-gray-600 md:text-2xl lg:text-3xl'>
             <img src={logoSrc} alt='logo error' width={100} className='mb-3 inline-block' />
             {appConfig.title} có thể hỗ trợ gì <div className='mt-1'>cho bạn?</div>
           </div>
