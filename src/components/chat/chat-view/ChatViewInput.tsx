@@ -33,7 +33,7 @@ export const ChatViewInput = () => {
           />
         </div>
       </div>
-      <div className='text-center text-[13px] text-[#A2ACC0]'>
+      <div className='hidden text-center text-[13px] text-[#A2ACC0] lg:block'>
         Thông tin được tạo ra bằng AI. Hãy luôn cẩn trọng và sử dụng thông tin AI một cách có trách nhiệm.
       </div>
     </>

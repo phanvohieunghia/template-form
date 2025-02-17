@@ -34,12 +34,17 @@
 
 @layer components {
   .background-chat {
-    background: url(/src/assets/images/main-background.png) no-repeat 50% 50% / 100% 100%;
+    background: url(/src/assets/images/main-background.png) no-repeat 50% 50% / cover;
   }
 
   .background-spring {
     background:
-      url(/src/assets/images/spring-background.png) no-repeat 6px 120% / 300px 100px,
+      url(/src/assets/images/spring-background.png) no-repeat 0px 100% / 300px 100px,
       white;
+    @media (width >= 64rem) {
+      background:
+        url(/src/assets/images/spring-background.png) no-repeat 6px 120% / 300px 100px,
+        white;
+    }
   }
 }

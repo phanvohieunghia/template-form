@@ -1,6 +1,6 @@
 import CloseIcon from '@/assets/svgs/close.svg'
 import clsx from 'clsx'
-import { FC, isValidElement, PropsWithChildren, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { FC, isValidElement, PropsWithChildren, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '../button'
 import styles from './Drawer.module.css'
@@ -20,7 +20,7 @@ interface Props extends PropsWithChildren {
 }
 
 export type State = {
-  firstTime: boolean
+  firstTimeOpen: boolean
   isDisplay: boolean
 }
 
@@ -38,11 +38,11 @@ export const Drawer: FC<Props> = (props) => {
     width = 500,
   } = props
 
-  const [state, setState] = useState<State>({ firstTime: false, isDisplay: false })
+  const [state, setState] = useState<State>({ firstTimeOpen: false, isDisplay: false })
   const drawerRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    if (open && !state.firstTime) setState((prev) => ({ ...prev, firstTime: true }))
+    if (open && !state.firstTimeOpen) setState((prev) => ({ ...prev, firstTimeOpen: true }))
   }, [open])
 
   const positionAnimate = useMemo(() => {
@@ -57,15 +57,20 @@ export const Drawer: FC<Props> = (props) => {
         return open ? 'animate-fade-down-in' : 'animate-fade-down-out'
     }
   }, [position, open])
-
+  const handleAnimationEnd = useCallback(() => {
+    if (!open) {
+      setState((prev) => ({ ...prev, isDisplay: false }))
+    }
+  }, [])
   return (
     <>
-      {state.firstTime &&
+      {state.firstTimeOpen &&
         createPortal(
           <div className='drawer'>
             <div className={clsx('fixed inset-0 z-50', !open && 'pointer-events-none')}>
               <div
                 onClick={onClose}
+                onAnimationEnd={handleAnimationEnd}
                 className={clsx('absolute inset-0 z-10 bg-black/10', open ? 'animate-fade-in' : 'pointer-events-none animate-fade-out')}
               ></div>
               <div
@@ -87,7 +92,7 @@ export const Drawer: FC<Props> = (props) => {
                     {isValidElement(extra) && extra}
                   </div>
                 )}
-                <div>{children}</div>
+                {children}
               </div>
             </div>
           </div>,

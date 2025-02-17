@@ -59,6 +59,10 @@ export default {
           '0%': { transform: 'translateY(0) scale(1)' },
           '100%': { transform: 'translateY(100%) scale(0.3)' },
         },
+        'width-out': {
+          from: { width: '300px' },
+          to: { width: '0' },
+        }
       },
       animation: {
         'fade-in': 'fade-in 0.3s ease-in forwards',
@@ -78,6 +82,9 @@ export default {
 
         'fade-down-in': 'fade-in 0.3s ease-in forwards, down-in 0.3s ease-in forwards',
         'fade-down-out': 'fade-out 0.3s ease-in forwards, down-out 0.3s ease-in forwards',
+
+        'panel-in': 'fade-in 0.3s ease-in forwards, left-in 0.3s ease-in forwards',
+        'panel-out': 'fade-out 0.3s ease-in forwards, left-out 0.3s ease-in forwards, width-out 0.05s 0.25s forwards',
 
       },
     },

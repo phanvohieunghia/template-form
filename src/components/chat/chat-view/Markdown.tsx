@@ -78,7 +78,7 @@ export const Markdown = memo((props: Types) => {
         },
         ul: ({ node: _node, ...props }) => <ul className='pl-10' {...props} />,
         ol: ({ node: _node, ...props }) => <ol className='pl-10' {...props} />,
-        span: ({ node: _node, ...props }) => <span className='bg-red-500' {...props} />,
+        span: ({ node: _node, ...props }) => <span {...props} />,
 
         li: ({ node: _node, children, ...props }) => {
           return <li {...props}>{replaceStringChildren(children)}</li>
