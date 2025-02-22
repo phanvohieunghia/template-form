@@ -2,7 +2,7 @@ import { PanelContent } from '@/components/shared'
 
 export const ChatPenal = () => {
   return (
-    <div className='animate-panel-out lg:animate-panel-in h-full w-[300px] overflow-auto rounded-lg bg-white'>
+    <div className='h-full w-0 -translate-x-full transform overflow-auto rounded-lg bg-white lg:w-[300px] lg:translate-x-0'>
       <div className='py-2 text-center'>
         <PanelContent />
       </div>

@@ -1,3 +1,6 @@
+import logoWithText from '@/assets/images/logo-with-text.png'
+import onlyLogo from '@/assets/images/logo.png'
+
 interface AppConfig {
   title: string
   environment: string
@@ -19,7 +22,7 @@ export const appConfig: AppConfig = {
   googleClientId: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
   n8nApiUrl: import.meta.env.VITE_N8N_API_URL || '',
   logo: {
-    onlyLogo: 'src/assets/images/logo.png',
-    logoWithText: 'src/assets/images/logo-with-text.png',
+    onlyLogo,
+    logoWithText,
   },
 }

@@ -67,7 +67,7 @@ export const Drawer: FC<Props> = (props) => {
       {state.firstTimeOpen &&
         createPortal(
           <div className='drawer'>
-            <div className={clsx('fixed inset-0 z-50', !open && 'pointer-events-none')}>
+            <div className={clsx('fixed left-0 right-0 top-0 z-50 h-dvh', !open && 'pointer-events-none')}>
               <div
                 onClick={onClose}
                 onAnimationEnd={handleAnimationEnd}
@@ -77,7 +77,7 @@ export const Drawer: FC<Props> = (props) => {
                 onClick={(e) => e.stopPropagation()}
                 ref={drawerRef}
                 style={{ maxWidth: width }}
-                className={clsx('absolute z-20 w-full bg-white', positionAnimate, styles[`placement-${position}`])}
+                className={clsx('absolute z-20 bg-white', positionAnimate, styles[`placement-${position}`])}
               >
                 {isShowHeader && (
                   <div className='flex items-center gap-x-1 px-6 py-4'>

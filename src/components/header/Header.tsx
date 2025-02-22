@@ -7,17 +7,20 @@ import { UserInformationType } from '@/interfaces/localStorage'
 import { LocalStorageService } from '@/services'
 import { AuthService } from '@/stores'
 import { LOCAL_STORAGE, ROUTE_NAME } from '@/utils'
+import clsx from 'clsx'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PanelContent } from '../shared'
 
 export const Header = () => {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const userInformation = (LocalStorageService.instance.get(LOCAL_STORAGE.USER_INFORMATION) as UserInformationType) ?? {}
   const [isDrawer, setToggleDrawer] = useState<boolean>(false)
 
   const handleLogin = () => {
     navigate(ROUTE_NAME.LOGIN_)
+    setToggleDrawer(false)
   }
 
   const handleLogout = async () => {
@@ -37,7 +40,7 @@ export const Header = () => {
     </div>
   )
 
-  const renderAuthentication = () => {
+  const renderRightHeader = () => {
     if (LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN))
       return (
         <Popover content={content} zIndex={50} placement='bottomRight'>
@@ -51,9 +54,31 @@ export const Header = () => {
     )
   }
 
+  const renderButtonDrawer = () => {
+    if (LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN)) {
+      return (
+        <Button type='text' icon={<LogoutIcon fontSize={20} />} onClick={handleLogout} className='button-chat-panel py-3'>
+          Đăng xuất
+        </Button>
+      )
+    }
+    return (
+      <div className='mx-auto p-2'>
+        <Button onClick={handleLogin} shape='circle' className='button-second !px-4 !py-2'>
+          Đăng nhập
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <header className='fixed left-0 right-0 top-0 z-50 items-center border-b'>
-      <div className='background-spring mx-auto flex min-h-[60px] w-full justify-between p-2 lg:min-h-20'>
+      <div
+        className={clsx(
+          'background-spring mx-auto flex min-h-[60px] w-full justify-between p-2 lg:min-h-20',
+          pathname !== ROUTE_NAME.HOME && 'max-w-screen-lg',
+        )}
+      >
         <Link to={ROUTE_NAME.HOME} className='flex items-center'>
           <img src={appConfig.logo.logoWithText} alt='logo error' className='ml-20' />
         </Link>
@@ -65,19 +90,20 @@ export const Header = () => {
           <Button type='text' shape='circle' className='!p-2'>
             Về chúng tôi
           </Button>
+          <Button type='text' icon={<LogoutIcon fontSize={20} />} onClick={handleLogout} className='button-chat-panel py-3'>
+            Đăng xuất
+          </Button>
 
-          {renderAuthentication()}
+          {renderRightHeader()}
           <Drawer open={isDrawer} onClose={() => setToggleDrawer(false)} isShowHeader={false}>
-            <div className='flex justify-end border-[1px] p-3'>
+            <div className='flex justify-end border-b-[1px] p-3'>
               <Button shape='circle' type='text' onClick={() => setToggleDrawer(false)}>
                 <CloseIcon fontSize={24} />
               </Button>
             </div>
-            <div className='flex h-[calc(100vh-60px)] flex-col justify-between'>
+            <div className='flex h-[calc(100%-60px)] flex-col justify-between'>
               <PanelContent />
-              <Button type='text' icon={<LogoutIcon fontSize={20} />} onClick={handleLogout} className='button-chat-panel py-3'>
-                Đăng xuất
-              </Button>
+              {renderButtonDrawer()}
             </div>
           </Drawer>
         </div>

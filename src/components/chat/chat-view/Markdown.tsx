@@ -39,7 +39,7 @@ export const Markdown = memo((props: Types) => {
 
   const TypeWriterCommon = (props: { text: string; count: MutableRefObject<number> }) => {
     const { count, text } = props
-    console.log(count)
+
     const handleComplete = () => {
       EventManager.emit(EVENT_NAME.TYPING)
       onLoopDone()

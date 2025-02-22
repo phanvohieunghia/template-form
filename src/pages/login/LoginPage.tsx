@@ -29,7 +29,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className='mx-auto mt-40 w-full max-w-[400px] space-y-5'>
+    <div className='w-full max-w-[400px] space-y-5'>
       <h1 className='mb-3 text-center text-2xl font-bold'>Đăng nhập</h1>
       <Input title='Email' {...register('email')} message={errorMessage.email} onFocus={() => setErrorMessage(defaultFrom)} />
       <Input
