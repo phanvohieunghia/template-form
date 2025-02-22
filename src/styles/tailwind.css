@@ -38,13 +38,9 @@
   }
 
   .background-spring {
-    background:
-      url(/src/assets/images/spring-background.png) no-repeat 0px 100% / 300px 100px,
-      white;
+    background: url(/src/assets/images/spring-background.png) no-repeat 0px 100% / 300px 100px;
     @media (width >= 64rem) {
-      background:
-        url(/src/assets/images/spring-background.png) no-repeat 6px 120% / 300px 100px,
-        white;
+      background: url(/src/assets/images/spring-background.png) no-repeat 6px 120% / 300px 100px;
     }
   }
 }

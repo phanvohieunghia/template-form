@@ -1,7 +1,7 @@
 import { MainLayout } from '@/layouts'
 import {
   ChatPage,
-  DetailPage,
+  SearchDetailPage,
   ExpertPage,
   ForgotPasswordPage,
   InputTestPage,
@@ -19,6 +19,7 @@ import {
 import { ROUTE_NAME } from '@/utils'
 import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { Authenticated } from './Authenticated'
+import { ProfilePage } from '@/pages/profile'
 
 const RouteComponent = () => {
   return (
@@ -37,7 +38,7 @@ const RouteComponent = () => {
 
         <Route path={ROUTE_NAME.RESEARCH}>
           <Route index element={<SearchPage />} />
-          <Route path=':id' element={<DetailPage />} />
+          <Route path=':id' element={<SearchDetailPage />} />
           <Route path='*' element={<Navigate to={ROUTE_NAME.RESEARCH_} />} />
         </Route>
       </Route>
@@ -52,6 +53,7 @@ const RouteComponent = () => {
           </Authenticated>
         }
       >
+        <Route path={ROUTE_NAME.PROFILE} element={<ProfilePage />} />
         <Route path={ROUTE_NAME.EXPERT} element={<ExpertPage />} />
         <Route path={ROUTE_NAME.UPLOAD_FILE} element={<UploadPage />} />
         <Route path={ROUTE_NAME.PAYMENT} element={<PaymentPage />} />

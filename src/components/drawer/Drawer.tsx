@@ -19,7 +19,7 @@ interface Props extends PropsWithChildren {
   onClose: () => void
 }
 
-export type State = {
+type State = {
   firstTimeOpen: boolean
   isDisplay: boolean
 }

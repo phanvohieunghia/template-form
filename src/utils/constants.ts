@@ -50,6 +50,9 @@ export const ROUTE_NAME = {
 
   HOME: '/',
 
+  PROFILE: 'thong-tin',
+  PROFILE_: '/thong-tin',
+
   REDIRECT: {
     GOOGLE: 'login/oauth/google',
     PAYMENT: 'checkout/notification',

@@ -1,3 +1,5 @@
+import { LocalStorageService } from '@/services'
+import { LOCAL_STORAGE } from '@/utils'
 import { FC, PropsWithChildren, ReactNode } from 'react'
 
 interface Props extends PropsWithChildren {
@@ -6,12 +8,25 @@ interface Props extends PropsWithChildren {
 }
 
 export const Authenticated: FC<Props> = (props) => {
-  const { children } = props
-  return <>{children}</>
-  // const accessToken = LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN)
-  // if (accessToken && type === 'token') return <>{children}</>
-  // if (!accessToken && type === 'token') return <>{fallback}</>
+  const { type, children, fallback } = props
+  const accessToken = LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN)
 
-  // if (accessToken && type === 'public') return <>{fallback}</>
-  // if (!accessToken && type === 'public') return <>{children}</>
+  const getConditionalToken = () => {
+    if (accessToken) return children
+    return fallback
+  }
+
+  const getConditionalPublic = () => {
+    if (!accessToken) return children
+    return fallback
+  }
+
+  switch (type) {
+    case 'token':
+      return getConditionalToken()
+    case 'public':
+      return getConditionalPublic()
+    default:
+      return children
+  }
 }
