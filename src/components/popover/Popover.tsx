@@ -7,11 +7,10 @@ import { PositionState } from '../utils/intefaces'
 import { PopoverContentProps, Props, State } from './interfaces'
 
 export const Popover: FC<Props> = (props) => {
-  const { children, trigger = 'click', content, zIndex, placement = 'bottom' } = props
+  const { children, trigger = 'click', content, zIndex, placement = 'bottom', width, onChange, open } = props
 
   const [position, setPosition] = useState<PositionState>({ top: 0, left: 0 })
-  const [state, setState] = useState<State>({ isActive: false, isOpen: false, isDisplay: false })
-
+  const [state, setState] = useState<State>({ isActive: open ?? false, firstTime: false, isDisplay: false })
   const childRef = useRef<HTMLButtonElement | HTMLInputElement | null>(null)
   const popupRef = useRef<HTMLDivElement>(null)
   const blurRef = useRef<boolean>(false)
@@ -24,6 +23,10 @@ export const Popover: FC<Props> = (props) => {
       !popupRef.current.contains(event.target as Node)
     ) {
       const timeout = setTimeout(() => {
+        if (typeof open === 'boolean') {
+          if (onChange) onChange(false)
+          return
+        }
         setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
         clearTimeout(timeout)
       }, 0)
@@ -33,33 +36,54 @@ export const Popover: FC<Props> = (props) => {
   const handleActive = () => {
     const timeout = setTimeout(() => {
       const newPosition = getNewPopupPosition(childRef, popupRef, POPOVER.GAP, placement)
+      console.log(newPosition)
       if (newPosition) setPosition(newPosition)
-      setState((prev) => ({ ...prev, isActive: !prev.isActive }))
+      if (typeof open === 'boolean') {
+        if (onChange) onChange(true)
+        return
+      }
+
+      setState((prev) => {
+        if (onChange) onChange(!prev.isActive)
+        return { ...prev, isActive: !prev.isActive }
+      })
       clearTimeout(timeout)
     }, 0)
   }
 
   const handleClick = () => {
-    setState((prev) => ({ ...prev, isOpen: true }))
+    setState((prev) => ({ ...prev, firstTime: true }))
+
     if (state.isActive) {
+      if (typeof open === 'boolean') {
+        if (onChange) onChange(!open)
+        return
+      }
       setState((prev) => ({ ...prev, isActive: !prev.isActive }))
-    } else {
-      handleActive()
-    }
+    } else handleActive()
   }
 
   const handleFocus = () => {
-    setState((prev) => (!prev.isOpen ? { ...prev, isOpen: true } : prev))
+    setState((prev) => (!prev.firstTime ? { ...prev, firstTime: true } : prev))
     handleActive()
   }
 
   const handleBlur = () => {
+    if (typeof open === 'boolean') {
+      if (onChange) onChange(false)
+      return
+    }
     setState((prev) => ({ ...prev, isActive: false }))
   }
 
   const handleMouseEnter = () => {
+    if (typeof open === 'boolean') {
+      if (onChange) onChange(true)
+      return
+    }
+
     blurRef.current = false
-    setState((prev) => (!prev.isOpen ? { ...prev, isOpen: true } : prev))
+    setState((prev) => (!prev.firstTime ? { ...prev, firstTime: true } : prev))
     handleActive()
   }
 
@@ -69,7 +93,13 @@ export const Popover: FC<Props> = (props) => {
 
   const handleMouseMove = (event: Event) => {
     if (blurRef.current && popupRef.current && !popupRef.current.contains(event.target as Node)) {
-      setState((prev) => (prev.isActive ? { ...prev, isActive: false } : prev))
+      setState((prev) => {
+        if (prev.isActive) {
+          if (onChange) onChange(false)
+          return { ...prev, isActive: false }
+        }
+        return prev
+      })
     }
   }
 
@@ -84,8 +114,9 @@ export const Popover: FC<Props> = (props) => {
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null
-    if (state.isActive) setState((prev) => ({ ...prev, isDisplay: true }))
-    else
+    if (open ?? state.isActive) {
+      setState((prev) => ({ ...prev, isDisplay: true }))
+    } else
       timeout = setTimeout(() => {
         setState((prev) => ({ ...prev, isDisplay: false }))
       }, 300)
@@ -93,7 +124,7 @@ export const Popover: FC<Props> = (props) => {
     return () => {
       if (timeout) clearTimeout(timeout)
     }
-  }, [state.isActive])
+  }, [state.isActive, open])
 
   const clonedChildren = useMemo(() => {
     if (!children) return null
@@ -130,7 +161,7 @@ export const Popover: FC<Props> = (props) => {
   return (
     <>
       {clonedChildren}
-      {state.isOpen &&
+      {state.firstTime &&
         clonedContent &&
         createPortal(
           <div>
@@ -138,7 +169,7 @@ export const Popover: FC<Props> = (props) => {
               ref={popupRef}
               className={clsx(
                 'absolute flex flex-col gap-[2px] overflow-hidden rounded-md bg-white',
-                state.isActive ? 'animate-fade-in' : 'animate-fade-out',
+                (open ?? state.isActive) ? 'animate-fade-in' : 'animate-fade-out',
               )}
               style={{
                 border: '1px solid #ccc',
@@ -147,7 +178,8 @@ export const Popover: FC<Props> = (props) => {
                 visibility: state.isDisplay ? ('visible' as CSSProperties['visibility']) : ('hidden' as CSSProperties['visibility']),
                 top: position.top,
                 left: position.left,
-                zIndex: zIndex ? zIndex : 'z-10',
+                zIndex: zIndex ?? 'z-10',
+                minWidth: width,
               }}
             >
               {clonedContent}

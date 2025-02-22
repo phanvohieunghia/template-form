@@ -31,6 +31,7 @@ interface Props {
   extra?: JSX.Element
   titleExtra?: JSX.Element
   shape?: InputShape
+  titleClassName: string
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
@@ -46,6 +47,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
     type = 'text',
     titlePosition = 'top',
     titleStyle,
+    titleClassName,
     readonly = false,
     onFocus,
     onEnter = () => {},
@@ -92,7 +94,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
     >
       <div className='flex items-end justify-between'>
         {title && (
-          <div style={titleStyle} className={clsx(styles['title'])}>
+          <div style={titleStyle} className={clsx(styles['title'], titleClassName)}>
             {title}
           </div>
         )}

@@ -17,6 +17,7 @@ export const Header = () => {
   const { pathname } = useLocation()
   const userInformation = (LocalStorageService.instance.get(LOCAL_STORAGE.USER_INFORMATION) as UserInformationType) ?? {}
   const [isDrawer, setToggleDrawer] = useState<boolean>(false)
+  const [isPopover, setIsPopover] = useState<boolean>(false)
 
   const handleLogin = () => {
     navigate(ROUTE_NAME.LOGIN_)
@@ -32,9 +33,21 @@ export const Header = () => {
     }
   }
 
+  const closePopover = () => {
+    setIsPopover(false)
+  }
+
   const content = (
-    <div className='p-1'>
-      <Button type='text' icon={<LogoutIcon />} onClick={handleLogout}>
+    <div className='flex flex-col p-1'>
+      <Button type='text' className='justify-start !pl-1' href={ROUTE_NAME.PROFILE_} onClick={closePopover}>
+        <Avatar className='hover:cursor-pointer' src={userInformation?.avatar} size={40} shape='circle' />
+        <div className='text-left'>
+          <div className='font-bold'>{userInformation.name}</div>
+          <div>Thông tin cá nhân</div>
+        </div>
+      </Button>
+      <hr className='my-2' />
+      <Button type='text' icon={<LogoutIcon />} onClick={handleLogout} className='justify-start'>
         Đăng xuất
       </Button>
     </div>
@@ -43,7 +56,7 @@ export const Header = () => {
   const renderRightHeader = () => {
     if (LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN))
       return (
-        <Popover content={content} zIndex={50} placement='bottomRight'>
+        <Popover content={content} zIndex={50} placement='bottomRight' width={220} open={isPopover} onChange={setIsPopover}>
           <Avatar className='hover:cursor-pointer' src={userInformation?.avatar} size={32} shape='circle' />
         </Popover>
       )
@@ -72,7 +85,7 @@ export const Header = () => {
   }
 
   return (
-    <header className='fixed left-0 right-0 top-0 z-50 items-center border-b'>
+    <header className='fixed left-0 right-0 top-0 z-50 items-center border-b bg-white'>
       <div
         className={clsx(
           'background-spring mx-auto flex min-h-[60px] w-full justify-between p-2 lg:min-h-20',
@@ -90,10 +103,6 @@ export const Header = () => {
           <Button type='text' shape='circle' className='!p-2'>
             Về chúng tôi
           </Button>
-          <Button type='text' icon={<LogoutIcon fontSize={20} />} onClick={handleLogout} className='button-chat-panel py-3'>
-            Đăng xuất
-          </Button>
-
           {renderRightHeader()}
           <Drawer open={isDrawer} onClose={() => setToggleDrawer(false)} isShowHeader={false}>
             <div className='flex justify-end border-b-[1px] p-3'>
