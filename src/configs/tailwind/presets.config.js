@@ -83,9 +83,6 @@ export default {
         'fade-down-in': 'fade-in 0.3s ease-in forwards, down-in 0.3s ease-in forwards',
         'fade-down-out': 'fade-out 0.3s ease-in forwards, down-out 0.3s ease-in forwards',
 
-        'panel-in': 'fade-in 0.3s ease-in forwards, left-in 0.3s ease-in forwards',
-        'panel-out': 'fade-out 0.3s ease-in forwards, left-out 0.3s ease-in forwards, width-out 0.05s 0.25s forwards',
-
       },
     },
   },

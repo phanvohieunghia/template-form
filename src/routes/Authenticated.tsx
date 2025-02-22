@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren, ReactNode } from 'react'
 
 interface Props extends PropsWithChildren {
-  type: 'token' | 'public'
-  fallback: ReactNode
+  type: 'token' | 'public' | 'both'
+  fallback?: ReactNode
 }
 
 export const Authenticated: FC<Props> = (props) => {
