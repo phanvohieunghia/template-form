@@ -1,11 +1,12 @@
 import searchData from '@/assets/mock-data/search.json'
 import SearchIcon from '@/assets/svgs/search.svg'
-import { Button, Input, Popover, PopoverContentProps } from '@/components'
+import { Button, Input, Popover } from '@/components'
 import { URLSearchParamsService } from '@/services'
 import { ProcedureService } from '@/stores'
 import { getSearchParams, getUrlDecoding, getUrlEncoding, ROUTE_NAME } from '@/utils'
 import { useForm, UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { PopoverContentProps } from '../popover/interfaces'
 
 type SearchInput = {
   search: string
