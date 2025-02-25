@@ -1,14 +1,27 @@
 import SendIcon from '@/assets/svgs/send.svg'
 import { Button, Input } from '@/components'
 import { ChatService } from '@/stores'
-import { useState } from 'react'
+import { ChatOneVariables } from '@/stores/chat/interfaces'
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export const ChatViewInput = () => {
-  const [chatInput, setChatInput] = useState<string>('')
+  // const [chatInput, setChatInput] = useState<string>('');
+  
+  const [chatInput, setChatInput] = useState<ChatOneVariables>({
+    message: "",
+    sessionId: uuidv4()
+  });
 
   const handleChat = async () => {
-    setChatInput('')
-    await ChatService.instance.chatOne({ message: chatInput })
+    await ChatService.instance.chatOne({
+      message: chatInput.message,
+      sessionId: chatInput.sessionId
+    })
+    setChatInput({
+      ...chatInput,
+      message: "",
+    })
   }
 
   return (
@@ -17,8 +30,11 @@ export const ChatViewInput = () => {
         <div className='flex w-full gap-2 rounded-3xl bg-white p-2'>
           <Input
             size='large'
-            value={chatInput}
-            onChange={(e) => setChatInput(e.target.value)}
+            value={chatInput.message}
+            onChange={(e) => setChatInput({
+              ...chatInput,
+              message: e.target.value
+            })}
             onEnter={handleChat}
             placeholder='Nhập câu hỏi của bạn tại đây...'
             shape='round'

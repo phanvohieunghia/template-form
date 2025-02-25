@@ -6,7 +6,8 @@ export type ChatResponse = {
 }
 
 export type ChatOneVariables = {
-  message: string
+  message: string,
+  sessionId: string,
 }
 export type ChatOneResponse = {
   output: string
