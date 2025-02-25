@@ -31,7 +31,7 @@ interface Props {
   extra?: JSX.Element
   titleExtra?: JSX.Element
   shape?: InputShape
-  titleClassName: string
+  titleClassName?: string
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
