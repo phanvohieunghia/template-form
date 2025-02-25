@@ -1,5 +1,5 @@
 export * from './chat'
-export * from './detail'
+export * from './search-detail'
 export * from './direct'
 export * from './ErrorBoundary'
 export * from './expert'

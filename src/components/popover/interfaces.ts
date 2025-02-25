@@ -8,10 +8,13 @@ export type Props = PropsWithChildren & {
   content?: React.ReactNode | JSX.Element
   zIndex?: number
   placement?: PlacementType
+  width?: number
+  open?: boolean
+  onChange?: (state: boolean) => void
 }
 
 export type State = {
-  isOpen: boolean
+  firstTime: boolean
   isActive: boolean
   isDisplay: boolean
 }

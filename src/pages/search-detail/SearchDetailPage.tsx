@@ -6,12 +6,13 @@ import { ProcedureService } from '@/stores'
 import { EVENT_NAME, EventManager, ROUTE_NAME } from '@/utils'
 import { Collapse, CollapseProps, Table } from 'antd'
 import clsx from 'clsx'
-import { HTMLAttributes, PropsWithChildren, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './styles.css'
 import styles from './styles.module.css'
+import { Card } from '@/components/card'
 
-export const DetailPage = () => {
+export const SearchDetailPage = () => {
   const { pathname } = useLocation()
   const { procedureDetail } = useAppSelector((state) => state.procedure)
   const [loading, setLoading] = useState<boolean>(false)
@@ -168,7 +169,7 @@ export const DetailPage = () => {
       <div className='pb-5 text-3xl font-semibold' style={{ wordSpacing: '2px' }}>
         {procedureDetail?.tenThuTuc}
       </div>
-      <div className='flex space-x-4'>
+      <div className='flex flex-col gap-4 lg:flex-row'>
         <Card title='Cách thức thực hiện' className='flex-1'>
           <Tab defaultActiveKey='1' items={tabData} />
         </Card>
@@ -193,22 +194,6 @@ export const DetailPage = () => {
         <Collapse items={collapseData} className='noah' />
       </Card>
       <Card title='Quy trình thực hiện'>{newQuyTrinhThucHien}</Card>
-    </div>
-  )
-}
-
-type CardProps = {
-  title: string
-  data?: unknown
-} & PropsWithChildren &
-  HTMLAttributes<HTMLDivElement>
-
-const Card = (props: CardProps) => {
-  const { title, children, className, ...restProps } = props
-  return (
-    <div className={clsx('overflow-hidden rounded-lg border-2 border-gray-200', className)} {...restProps}>
-      <div className='bg-green-100 p-2 text-2xl font-semibold text-gray-500'>{title}</div>
-      <div className='p-2'>{children}</div>
     </div>
   )
 }
