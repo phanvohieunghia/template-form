@@ -1,0 +1,47 @@
+[
+  {
+    "id": "news1",
+    "title": "Global Markets Rally as New Economic Policies Unveiled",
+    "date": "2025-02-25T08:00:00Z",
+    "author": "Jane Doe",
+    "content": "A comprehensive look at how new economic policies are affecting global markets, with insights from leading economists.",
+    "url": "https://example.com/news/global-markets-rally",
+    "image": "https://example.com/images/markets.jpg",
+    "category": "Economy",
+    "tags": ["economy", "markets", "policy", "global"],
+    "source": "Reuters",
+    "location": "New York, USA",
+    "readTime": "5 min",
+    "popularity": 87
+  },
+  {
+    "id": "news2",
+    "title": "Tech Giants Announce Groundbreaking AI Innovations",
+    "date": "2025-02-24T14:30:00Z",
+    "author": "John Smith",
+    "content": "Major technology companies unveiled new AI breakthroughs at the annual tech conference, promising to reshape various industries.",
+    "url": "https://example.com/news/tech-giants-ai-innovations",
+    "image": "https://example.com/images/ai.jpg",
+    "category": "Technology",
+    "tags": ["technology", "AI", "innovation", "conference"],
+    "source": "TechCrunch",
+    "location": "San Francisco, USA",
+    "readTime": "4 min",
+    "popularity": 92
+  },
+  {
+    "id": "news3",
+    "title": "Historic Peace Treaty Signed in the Middle East",
+    "date": "2025-02-23T09:15:00Z",
+    "author": "Aisha Al-Hassan",
+    "content": "Diplomats celebrate as a historic peace treaty is signed, marking a new era of cooperation and stability in the region.",
+    "url": "https://example.com/news/historic-peace-treaty",
+    "image": "https://example.com/images/peace-treaty.jpg",
+    "category": "World",
+    "tags": ["peace", "treaty", "diplomacy", "Middle East"],
+    "source": "BBC News",
+    "location": "Abu Dhabi, UAE",
+    "readTime": "6 min",
+    "popularity": 95
+  }
+]

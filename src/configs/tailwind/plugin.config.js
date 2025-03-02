@@ -34,8 +34,14 @@ const clipPathFunc = {
   url: "url",
 };
 
+const baseStyles = {
+  overflow: 'hidden',
+  display: '-webkit-box',
+  '-webkit-box-orient': 'vertical',
+}
+
 /** @type {import('tailwindcss').Config} */
-export default plugin(function ({ matchUtilities, addUtilities, theme, e }) {
+export default plugin(function ({ matchUtilities, addUtilities, theme, e, variants }) {
 
   matchUtilities(
     {
@@ -107,4 +113,29 @@ export default plugin(function ({ matchUtilities, addUtilities, theme, e }) {
     className,
     cssRule
   );
+
+  // @tailwindcss/line-clamp
+  const values = theme('lineClamp')
+  matchUtilities(
+    {
+      'line-clamp': (value) => ({
+        ...baseStyles,
+        '-webkit-line-clamp': `${value}`,
+      }),
+    },
+    { values }
+  )
+
+  addUtilities(
+    [
+      {
+        '.line-clamp-none': {
+          '-webkit-line-clamp': 'unset',
+        },
+      },
+    ],
+    variants('lineClamp')
+  )
+
+
 });
