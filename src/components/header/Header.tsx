@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PanelContent } from '../shared'
+import ChatIcon from '@/assets/svgs/chat.svg'
 
 export const Header = () => {
   const navigate = useNavigate()
@@ -53,7 +54,7 @@ export const Header = () => {
     </div>
   )
 
-  const renderRightHeader = () => {
+  const renderLogin = () => {
     if (LocalStorageService.instance.get(LOCAL_STORAGE.ACCESS_TOKEN))
       return (
         <Popover content={content} zIndex={50} placement='bottomRight' width={220} open={isPopover} onChange={setIsPopover}>
@@ -61,7 +62,7 @@ export const Header = () => {
         </Popover>
       )
     return (
-      <Button onClick={handleLogin} shape='circle' className='button-default !p-2'>
+      <Button onClick={handleLogin} shape='circle' className='button-default bg-green-100 !p-2'>
         Đăng nhập
       </Button>
     )
@@ -86,24 +87,35 @@ export const Header = () => {
 
   return (
     <header className='fixed left-0 right-0 top-0 z-50 items-center border-b bg-white'>
-      <div
-        className={clsx(
-          'background-spring mx-auto flex min-h-[60px] w-full justify-between p-2 lg:min-h-20',
-          pathname !== ROUTE_NAME.HOME && 'max-w-screen-lg',
-        )}
-      >
+      <div className={clsx('mx-auto flex min-h-[60px] w-full justify-between p-2 lg:min-h-20', pathname !== ROUTE_NAME.CHAT_ && 'max-w-screen-lg')}>
         <Link to={ROUTE_NAME.HOME} className='flex items-center'>
-          <img src={appConfig.logo.logoWithText} alt='logo error' className='ml-20' />
+          <img src={appConfig.logo.logoWithText} alt='logo error' />
         </Link>
 
         <div className='flex items-center lg:hidden'>
           <Button icon={<BarsIcon fontSize={30} />} shape='circle' type='text' onClick={() => setToggleDrawer(true)} />
         </div>
-        <div className='hidden items-center space-x-1 lg:flex'>
+
+        <div className='flex items-center gap-2'>
           <Button type='text' shape='circle' className='!p-2'>
-            Về chúng tôi
+            Thủ tục hành chính
           </Button>
-          {renderRightHeader()}
+          <Button type='text' shape='circle' className='!p-2' href={ROUTE_NAME.NEWS_}>
+            Tin tức
+          </Button>
+          <Button type='text' shape='circle' className='!p-2'>
+            Câu hỏi thường gặp
+          </Button>
+        </div>
+
+        <div className='flex items-center gap-3'>
+          <div className='h-10 w-[1px] bg-gray-300'></div>
+          <Button shape='circle' className='!p-2' href={ROUTE_NAME.CHAT_} icon={<ChatIcon />}>
+            Tư vấn cùng AI
+          </Button>
+
+          {renderLogin()}
+
           <Drawer open={isDrawer} onClose={() => setToggleDrawer(false)} isShowHeader={false}>
             <div className='flex justify-end border-b-[1px] p-3'>
               <Button shape='circle' type='text' onClick={() => setToggleDrawer(false)}>

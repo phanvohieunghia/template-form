@@ -5,11 +5,13 @@ import { GoogleProvider } from './GoogleProvider'
 import { ModalProvider } from './ModalProvider'
 import { StateProvider } from './StateProvider'
 import { TestProvider } from './TestProvider'
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+dayjs.extend(localizedFormat)
 
 export const ConfigProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props
   document.title = appConfig.title
-
   const link = document.querySelector("link[rel~='icon']")
   if (!link) {
     const link = document.createElement('link')

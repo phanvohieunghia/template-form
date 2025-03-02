@@ -53,6 +53,12 @@ export const ROUTE_NAME = {
   PROFILE: 'thong-tin',
   PROFILE_: '/thong-tin',
 
+  NEWS: 'tin-tuc',
+  NEWS_: '/tin-tuc',
+
+  CODE_TAX: 'ma-so-thue',
+  CODE_TAX_: '/ma-so-thue',
+
   REDIRECT: {
     GOOGLE: 'login/oauth/google',
     PAYMENT: 'checkout/notification',

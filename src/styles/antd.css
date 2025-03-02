@@ -1,0 +1,3 @@
+.ant-tabs-nav {
+  @apply before:!border-b-[2px];
+}

@@ -15,6 +15,10 @@ import {
   SearchPage,
   TestPage,
   UploadPage,
+  NewsPage,
+  MainPage,
+  NewsDetailPage,
+  TaxCodePage,
 } from '@/pages'
 import { ROUTE_NAME } from '@/utils'
 import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
@@ -34,7 +38,15 @@ const RouteComponent = () => {
           </Authenticated>
         }
       >
-        <Route index element={<ChatPage />} />
+        <Route index element={<MainPage />} />
+        <Route path={ROUTE_NAME.CHAT} element={<ChatPage />} />
+        <Route path={ROUTE_NAME.CODE_TAX} element={<TaxCodePage />} />
+
+        <Route path={ROUTE_NAME.NEWS}>
+          <Route index element={<NewsPage />} />
+          <Route path=':id' element={<NewsDetailPage />} />
+          <Route path='*' element={<Navigate to={ROUTE_NAME.NEWS_} />} />
+        </Route>
 
         <Route path={ROUTE_NAME.RESEARCH}>
           <Route index element={<SearchPage />} />
