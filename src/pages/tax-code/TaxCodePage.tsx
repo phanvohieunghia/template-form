@@ -8,7 +8,13 @@ import { CodeTaxApiService } from '@/services'
 import { TaxInformation } from '@/stores/code-tax/interfaces'
 
 export const TaxCodePage = () => {
-  const [result, setResult] = useState<TaxInformation>()
+  const [result, setResult] = useState<TaxInformation>({
+    address: "",
+    id: "",
+    internationalName: "",
+    name: "",
+    shortName: ""
+  })
 
   const items: TabsProps['items'] = [
     {
