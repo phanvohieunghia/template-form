@@ -18,6 +18,7 @@ export class CodeTaxService {
     this.dispatch = store.dispatch
   }
 
+  // public async getOne(params: Record<string, unknown>): Promise<unknown | void> {
   public async getOne(params: Record<string, unknown>): Promise<unknown | void> {
     try {
       const data = await CodeTaxApiService.instance.getOne(params)

@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { Example } from './interfaces'
+import { Example } from '../example/interfaces'
 
 interface ExampleState {
   exampleProperty?: Example

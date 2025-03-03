@@ -16,7 +16,7 @@ export class CodeTaxApiService extends ApiEndpointService {
     this.endpoint = 'https://api.vietqr.io/v2'
   }
 
-  public async getOne(id: string): Promise<GetOneCodeTaxResponse> {
+  public async getOne(id: string | unknown): Promise<GetOneCodeTaxResponse> {
     const endpoint = this.endpoint + `/business/${id}`
     return await HttpClientService.get(endpoint)
   }

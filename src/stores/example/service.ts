@@ -34,6 +34,7 @@ export class ExampleService {
     }
   }
 
+  // public async getOne(params: Record<string, unknown>): Promise<unknown | void> {
   public async getOne(params: Record<string, unknown>): Promise<unknown | void> {
     try {
       const data = await ExampleApiService.instance.getOne(params)
