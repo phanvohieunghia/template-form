@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const defaultFrom = { password: '', confirmPassword: '' }
 
-export const ResetPasswordPage = () => {
+const ResetPasswordPage = () => {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<ResetPasswordVariables>()
 
@@ -57,3 +57,5 @@ export const ResetPasswordPage = () => {
     </div>
   )
 }
+
+export default ResetPasswordPage

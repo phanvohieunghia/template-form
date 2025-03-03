@@ -12,7 +12,7 @@ import './styles.css'
 import styles from './styles.module.css'
 import { Card } from '@/components/card'
 
-export const SearchDetailPage = () => {
+const SearchDetailPage = () => {
   const { pathname } = useLocation()
   const { procedureDetail } = useAppSelector((state) => state.procedure)
   const [loading, setLoading] = useState<boolean>(false)
@@ -197,3 +197,5 @@ export const SearchDetailPage = () => {
     </div>
   )
 }
+
+export default SearchDetailPage

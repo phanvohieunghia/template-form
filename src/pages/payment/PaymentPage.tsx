@@ -9,7 +9,7 @@ import styles from './style.module.css'
 
 type StatusBillType = PaymentResponse['status'] | undefined
 
-export const PaymentPage = () => {
+const PaymentPage = () => {
   const navigate = useNavigate()
   const [statusBill, setStatusBill] = useState<StatusBillType>('SUCCESS')
 
@@ -96,3 +96,5 @@ const Icons = (props: { type: StatusBillType }) => {
     </div>
   )
 }
+
+export default PaymentPage

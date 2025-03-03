@@ -4,7 +4,7 @@ import newsData from '@/assets/mock-data/pages/news/list.json'
 import { LocalCard } from './Card'
 import { News } from '../types'
 
-export const NewsPage = () => {
+const NewsPage = () => {
   const [data, setData] = useState<News[]>()
 
   const fetchData = () => {
@@ -23,3 +23,4 @@ export const NewsPage = () => {
     </div>
   )
 }
+export default NewsPage

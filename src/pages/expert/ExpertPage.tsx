@@ -11,7 +11,7 @@ import { HTMLAttributes, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './styles.module.css'
 
-export const ExpertPage = () => {
+const ExpertPage = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const { expertList } = useAppSelector((state) => state.expert)
 
@@ -111,3 +111,5 @@ const ProfileCard = (props: ProfileCardProps) => {
     </div>
   )
 }
+
+export default ExpertPage

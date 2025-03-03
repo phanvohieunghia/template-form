@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 const defaultFrom = { password: '', email: '', name: '', phone: '', confirmPassword: '' }
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<RegisterForm>()
   const [errorMessage, setErrorMessage] = useState<RegisterForm>(defaultFrom)
@@ -69,3 +69,5 @@ export const RegisterPage = () => {
     </div>
   )
 }
+
+export default RegisterPage

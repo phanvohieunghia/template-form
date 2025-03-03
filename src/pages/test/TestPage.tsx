@@ -2,7 +2,7 @@ import { Button, Collapse, Pagination, Popover, Select, TestModal, TestModalPayl
 import { EVENT_NAME, EventManager } from '@/utils'
 
 const content = <div>Hover</div>
-export const TestPage = () => {
+const TestPage = () => {
   const handleClick = () => {
     EventManager.emit<TestModalPayload>(EVENT_NAME.TEST_MODAL_OPEN, { content: 'body', title: 'Header' })
   }
@@ -140,3 +140,4 @@ export const TestPage = () => {
     </>
   )
 }
+export default TestPage

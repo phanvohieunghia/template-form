@@ -7,13 +7,13 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { CodeTaxApiService } from '@/services'
 import { TaxInformation } from '@/stores/code-tax/interfaces'
 
-export const TaxCodePage = () => {
+const TaxCodePage = () => {
   const [result, setResult] = useState<TaxInformation>({
-    address: "",
-    id: "",
-    internationalName: "",
-    name: "",
-    shortName: ""
+    address: '',
+    id: '',
+    internationalName: '',
+    name: '',
+    shortName: '',
   })
 
   const items: TabsProps['items'] = [
@@ -132,3 +132,5 @@ const LocalTab = (props: LocalTabProps) => {
     </div>
   )
 }
+
+export default TaxCodePage

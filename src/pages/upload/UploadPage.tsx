@@ -16,7 +16,7 @@ type FileState = {
   isUploading: boolean
 }
 
-export const UploadPage = () => {
+const UploadPage = () => {
   const [files, setFiles] = useState<FileState[]>([])
   const [isUploading, setIsUploading] = useState(false)
   const { selectedExpert, index: selectedExpertIndex } = useAppSelector((state) => state.expert)
@@ -171,3 +171,5 @@ const ProfileCard = (props: ProfileCardProps) => {
     </div>
   )
 }
+
+export default UploadPage

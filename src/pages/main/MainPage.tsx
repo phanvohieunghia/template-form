@@ -1,6 +1,6 @@
 import { Search, TypeWriterLib } from '@/components'
 
-export const MainPage = () => {
+const MainPage = () => {
   return (
     <>
       <h1 className='space-y-4 p-4 text-center text-6xl'>
@@ -19,3 +19,4 @@ export const MainPage = () => {
     </>
   )
 }
+export default MainPage

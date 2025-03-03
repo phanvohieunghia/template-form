@@ -1,29 +1,26 @@
 import { MainLayout } from '@/layouts'
-import {
-  ChatPage,
-  SearchDetailPage,
-  ExpertPage,
-  ForgotPasswordPage,
-  InputTestPage,
-  LoginPage,
-  PaymentPage,
-  RedirectOnGoogleAuthentication,
-  RedirectToPayment,
-  RedirectToResetPassword,
-  RegisterPage,
-  ResetPasswordPage,
-  SearchPage,
-  TestPage,
-  UploadPage,
-  NewsPage,
-  MainPage,
-  NewsDetailPage,
-  TaxCodePage,
-} from '@/pages'
+import { RedirectOnGoogleAuthentication, RedirectToPayment, RedirectToResetPassword } from '@/pages'
 import { ROUTE_NAME } from '@/utils'
 import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { Authenticated } from './Authenticated'
 import { ProfilePage } from '@/pages/profile'
+import { lazy } from 'react'
+
+const ChatPage = lazy(() => import('../pages/chat/ChatPage'))
+const TaxCodePage = lazy(() => import('../pages/tax-code/TaxCodePage'))
+const NewsPage = lazy(() => import('../pages/news/NewsPage'))
+const MainPage = lazy(() => import('../pages/main/MainPage'))
+const NewsDetailPage = lazy(() => import('../pages/news-detail/NewsDetailPage'))
+const SearchPage = lazy(() => import('../pages/search/SearchPage'))
+const UploadPage = lazy(() => import('../pages/upload/UploadPage'))
+const RegisterPage = lazy(() => import('../pages/register/RegisterPage'))
+const ResetPasswordPage = lazy(() => import('../pages/reset-password/ResetPasswordPage'))
+const TestPage = lazy(() => import('../pages/test/TestPage.tsx'))
+const SearchDetailPage = lazy(() => import('../pages/search-detail/SearchDetailPage.tsx'))
+const ExpertPage = lazy(() => import('../pages/expert/ExpertPage.tsx'))
+const LoginPage = lazy(() => import('../pages/test/TestPage.tsx'))
+const ForgotPasswordPage = lazy(() => import('../pages/forgot-password/ForgotPasswordPage.tsx'))
+const PaymentPage = lazy(() => import('../pages/payment/PaymentPage.tsx'))
 
 const RouteComponent = () => {
   return (
@@ -93,7 +90,6 @@ const RouteComponent = () => {
       </Route>
 
       <Route path='test' element={<TestPage />} />
-      <Route path='test-input' element={<InputTestPage />} />
     </Routes>
   )
 }

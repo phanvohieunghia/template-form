@@ -10,4 +10,4 @@ export default {
   ],
   darkMode: ['selector'],
   plugins: [require('./src/configs/tailwind/plugin.config')],
-}
+} 

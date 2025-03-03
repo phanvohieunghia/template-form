@@ -4,7 +4,7 @@ import { Search, Select } from '@/components'
 import { Result } from './SearchPage.Result'
 import styles from './style.module.css'
 
-export const SearchPage = () => {
+const SearchPage = () => {
   return (
     <>
       <div className='mx-auto max-w-[700px] pt-10 text-center'>
@@ -36,3 +36,4 @@ const Filter = () => {
     </>
   )
 }
+export default SearchPage

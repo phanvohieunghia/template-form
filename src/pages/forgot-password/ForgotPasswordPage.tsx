@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const defaultFrom = { email: '' }
 
-export const ForgotPasswordPage = () => {
+const ForgotPasswordPage = () => {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<ForgotPasswordVariables>()
   const [errorMessage, setErrorMessage] = useState<ForgotPasswordVariables>(defaultFrom)
@@ -47,3 +47,5 @@ export const ForgotPasswordPage = () => {
     </div>
   )
 }
+
+export default ForgotPasswordPage

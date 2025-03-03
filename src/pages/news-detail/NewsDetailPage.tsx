@@ -21,7 +21,7 @@ const descriptionData = [
   },
 ]
 
-export const NewsDetailPage = () => {
+const NewsDetailPage = () => {
   const [news, setNews] = useState<News & { description: typeof descriptionData }>()
 
   const fetchData = async () => {
@@ -81,3 +81,5 @@ const Section = (props: SectionProps) => {
     </div>
   )
 }
+
+export default NewsDetailPage
